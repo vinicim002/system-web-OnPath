@@ -1,8 +1,10 @@
 # Agentes de IA e Spec Kit (somente local)
+# docs/, specs/ e a constituição são versionados.
 .claude/
-.specify/
-docs/
-specs/
+.specify/*
+!.specify/memory/
+.specify/memory/*
+!.specify/memory/constitution.md
 CLAUDE.md
 AGENTS.md
 .cursor/
