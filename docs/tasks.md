@@ -61,11 +61,11 @@
 
 ### Etapa 5 — Projetos
 
-- [ ] **T015: Implementar as regras de projetos.** Cubra RN01, RN05, RN06, RN07, RN08 e RN26.
+- [x] **T015: Implementar as regras de projetos.** Cubra RN01, RN05, RN06, RN07, RN08 e RN26.
   - Pronto quando: ativar em um grupo cheio ou sem próxima ação for recusado.
-- [ ] **T016: Construir a tela Projetos.** Mostre grupos, vagas e fila.
+- [x] **T016: Construir a tela Projetos.** Mostre grupos, vagas e fila.
   - Pronto quando: os critérios da seção 6.6 forem cumpridos.
-- [ ] **T017: Construir o Detalhe do projeto.** Mostre dados e tarefas.
+- [x] **T017: Construir o Detalhe do projeto.** Mostre dados e tarefas.
   - Pronto quando: abrir um projeto mostrar suas tarefas.
 
 ### Etapa 6 — Kanban

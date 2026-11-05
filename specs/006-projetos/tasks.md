@@ -66,9 +66,9 @@ description: "Lista de tarefas da Etapa 5 (Projetos)"
 
 ## Fase 5: Acabamento
 
-- [ ] T015 Rodar `npm test`, `npm run typecheck`, `npm run lint`, `npm run build` e os greps do `quickstart.md`.
-- [ ] T016 Rodar os cenários do `quickstart.md` no build de produção (porta 4173).
-- [ ] T017 Marcar T015 a T017 em `docs/tasks.md` e, em `docs/spec.md`, os critérios da seção 6.6 e o primeiro da 6.7 ("Mostra dados, tarefas e Kanban" fica aberto até o Kanban).
+- [X] T015 Rodar `npm test`, `npm run typecheck`, `npm run lint`, `npm run build` e os greps do `quickstart.md`.
+- [X] T016 Rodar os cenários do `quickstart.md` no build de produção (porta 4173).
+- [X] T017 Marcar T015 a T017 em `docs/tasks.md` e, em `docs/spec.md`, os critérios da seção 6.6 e o primeiro da 6.7 ("Mostra dados, tarefas e Kanban" fica aberto até o Kanban).
 
 ---
 

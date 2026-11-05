@@ -198,12 +198,12 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.6 Projetos
 
-- [ ] Mostra os projetos por área, grupo e status, com vagas usadas e limite (RN01, RN05 e RN06).
-- [ ] A ordem da fila é definida arrastando os projetos (RN26).
-- [ ] Ativar um projeto em grupo cheio é recusado, com opção de pausar ou concluir outro (RN07).
-- [ ] Ativar um projeto sem tarefa aberta é recusado, com pedido de definir a próxima ação (RN08).
-- [ ] Concluir a última tarefa aberta de um projeto ativo avisa que falta uma próxima ação.
-- [ ] O usuário edita grupos e limites nesta tela.
+- [x] Mostra os projetos por área, grupo e status, com vagas usadas e limite (RN01, RN05 e RN06).
+- [x] A ordem da fila é definida arrastando os projetos (RN26).
+- [x] Ativar um projeto em grupo cheio é recusado, com opção de pausar ou concluir outro (RN07).
+- [x] Ativar um projeto sem tarefa aberta é recusado, com pedido de definir a próxima ação (RN08).
+- [x] Concluir a última tarefa aberta de um projeto ativo avisa que falta uma próxima ação.
+- [x] O usuário edita grupos e limites nesta tela.
 
 ### 6.7 Detalhe do projeto
 
