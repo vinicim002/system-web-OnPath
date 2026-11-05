@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useAreasComResumo, useCriarArea } from "@/dados/consultas";
 import { ehErroOnPath, type ErroOnPath } from "@/dados/erros";
 import { FormularioArea, type ValoresArea } from "@/features/areas/FormularioArea";
+import { GruposDaArea } from "@/features/areas/GruposDaArea";
 import { ListaAreas } from "@/features/areas/ListaAreas";
 import { MetasDaArea } from "@/features/areas/MetasDaArea";
 import { PainelArea } from "@/features/areas/PainelArea";
@@ -78,6 +79,7 @@ export function Areas() {
           ) : area ? (
             <PainelArea key={area.id} area={area} aoArquivar={() => abrir(null)}>
               <MetasDaArea areaId={area.id} />
+              <GruposDaArea areaId={area.id} />
             </PainelArea>
           ) : (
             <p className="text-cinza-600">{t("areas.vazia")}</p>

@@ -173,3 +173,75 @@ describe("metas (T013)", () => {
     ]);
   });
 });
+
+describe("grupos (T014)", () => {
+  async function comArea() {
+    const s = criarServicosLocais();
+    const trabalho = await s.areas.criar({ nome: "Trabalho", cor: TOM });
+    const pessoal = await s.areas.criar({ nome: "Pessoal", cor: TOM });
+    return { s, trabalho: trabalho.id, pessoal: pessoal.id };
+  }
+
+  it("recusa nome vazio, limite inválido e área arquivada", async () => {
+    const { s, trabalho, pessoal } = await comArea();
+    expect((await capturarErro(s.grupos.criar({ areaId: trabalho, nome: " ", limiteAtivos: 1 }))).detalhes.campos).toEqual(["nome"]);
+    for (const limiteAtivos of [-1, 1.5]) {
+      const erro = await capturarErro(s.grupos.criar({ areaId: trabalho, nome: "X", limiteAtivos }));
+      expect(erro.detalhes.campos).toEqual(["limiteAtivos"]);
+    }
+    await s.areas.excluir(pessoal);
+    expect((await capturarErro(s.grupos.criar({ areaId: pessoal, nome: "X", limiteAtivos: 1 }))).detalhes.campos).toEqual([
+      "areaId",
+    ]);
+  });
+
+  it("nome único na área, mas pode repetir em outra", async () => {
+    const { s, trabalho, pessoal } = await comArea();
+    const clientes = await s.grupos.criar({ areaId: trabalho, nome: " Clientes ", limiteAtivos: 1 });
+    expect(clientes.nome).toBe("Clientes");
+    expect((await capturarErro(s.grupos.criar({ areaId: trabalho, nome: "clientes", limiteAtivos: 1 }))).codigo).toBe(
+      "nome_repetido",
+    );
+    expect((await s.grupos.criar({ areaId: pessoal, nome: "Clientes", limiteAtivos: 1 })).areaId).toBe(pessoal);
+    const outro = await s.grupos.criar({ areaId: trabalho, nome: "Outro", limiteAtivos: 1 });
+    expect((await capturarErro(s.grupos.alterar(outro.id, { nome: "CLIENTES" }))).codigo).toBe("nome_repetido");
+  });
+
+  it("mostra as vagas e aceita limite abaixo dos ativos sem mexer nos projetos", async () => {
+    const { s, trabalho } = await comArea();
+    const grupo = await s.grupos.criar({ areaId: trabalho, nome: "Clientes", limiteAtivos: 2 });
+    await s.grupos.criar({ areaId: trabalho, nome: "Agência", limiteAtivos: 1 });
+    const projeto = (nome: string, status: "ativo" | "fila" | "pausado") =>
+      s.projetos.criar({ grupoId: grupo.id, nome, prioridade: "media", status, posicaoFila: 0 });
+    await projeto("A", "ativo");
+    await projeto("B", "ativo");
+    await projeto("C", "fila");
+    const arquivado = await projeto("D", "ativo");
+    await s.projetos.excluir(arquivado.id);
+
+    let grupos = await s.grupos.listarDaArea(trabalho);
+    expect(grupos.map((g) => [g.nome, g.ativos, g.limiteAtivos, g.acimaDoLimite])).toEqual([
+      ["Agência", 0, 1, false],
+      ["Clientes", 2, 2, false],
+    ]);
+
+    await s.grupos.alterar(grupo.id, { limiteAtivos: 1 });
+    grupos = await s.grupos.listarDaArea(trabalho);
+    expect(grupos[1]).toMatchObject({ ativos: 2, limiteAtivos: 1, acimaDoLimite: true });
+    expect((await s.projetos.listar()).filter((p) => p.status === "ativo")).toHaveLength(2);
+  });
+
+  it("arquivar só sem projetos", async () => {
+    const { s, trabalho } = await comArea();
+    const cheio = await s.grupos.criar({ areaId: trabalho, nome: "Cheio", limiteAtivos: 1 });
+    const vazio = await s.grupos.criar({ areaId: trabalho, nome: "Vazio", limiteAtivos: 1 });
+    await s.projetos.criar({ grupoId: cheio.id, nome: "P", prioridade: "media", status: "fila", posicaoFila: 0 });
+
+    const erro = await capturarErro(s.grupos.excluir(cheio.id));
+    expect(erro.codigo).toBe("grupo_com_projetos");
+    expect(erro.detalhes.projetos).toBe(1);
+
+    await s.grupos.excluir(vazio.id);
+    expect((await s.grupos.listarDaArea(trabalho)).map((g) => g.nome)).toEqual(["Cheio"]);
+  });
+});
