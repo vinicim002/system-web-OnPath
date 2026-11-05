@@ -1,5 +1,7 @@
 import { Outlet } from "react-router";
 
+import { Toaster } from "@/components/ui/sonner";
+
 import { MenuLateral } from "./MenuLateral";
 import { PreparoPrimeiroUso } from "./PreparoPrimeiroUso";
 
@@ -13,6 +15,7 @@ export function Moldura() {
           <Outlet />
         </PreparoPrimeiroUso>
       </main>
+      <Toaster position="bottom-right" />
     </div>
   );
 }

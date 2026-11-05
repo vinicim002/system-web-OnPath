@@ -33,11 +33,20 @@ function validar<R>(esquema: z.ZodType, registro: Objeto): R {
   throw criarErro("dados_invalidos", { campos });
 }
 
+export interface ColecaoLocal<Registro, Novo, Alteracao>
+  extends ServicoColecao<Registro, Novo, Alteracao> {
+  /**
+   * Grava, em uma única escrita, campos que `alterar` não aceita, como `arquivadoEm`. Uso interno
+   * da camada local, para serviços com regras próprias (como a caixa).
+   */
+  gravarCampos(id: string, campos: Objeto): Promise<Registro>;
+}
+
 export function criarServicoColecao<N extends NomeColecao, Novo extends object, Alteracao extends object>(
   nome: N,
   esquema: z.ZodType,
   opcoes: OpcoesColecao = {},
-): ServicoColecao<Registros[N], Novo, Alteracao> {
+): ColecaoLocal<Registros[N], Novo, Alteracao> {
   type Registro = Registros[N];
   const completar = opcoes.completar ?? ((registro: Objeto) => registro);
 
@@ -99,6 +108,12 @@ export function criarServicoColecao<N extends NomeColecao, Novo extends object, 
 
     async recuperar(id) {
       return substituir(id, (atual, agora) => ({ ...atual, arquivadoEm: null, atualizadoEm: agora }));
+    },
+
+    async gravarCampos(id, campos) {
+      return substituir(id, (atual, agora) =>
+        completar({ ...atual, ...campos, id: atual.id, criadoEm: atual.criadoEm, atualizadoEm: agora }),
+      );
     },
   };
 }

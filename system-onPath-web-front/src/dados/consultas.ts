@@ -45,3 +45,55 @@ export function useExistemDados() {
     return listas.some((registros) => registros.length > 0);
   }, [servicos]);
 }
+
+// ---------------------------------------------------------------------------
+// Caixa de entrada (specs/002-caixa-entrada/contracts/servico-itens-caixa.md)
+// ---------------------------------------------------------------------------
+
+const CHAVE_CAIXA = ["itensCaixa"] as const;
+
+/** Itens novos da caixa, do mais novo para o mais antigo. Também alimenta o contador do menu. */
+export function useItensNovos() {
+  const { itensCaixa } = useServicos();
+  return useQuery({ queryKey: [...CHAVE_CAIXA, "novos"], queryFn: () => itensCaixa.listarNovos() });
+}
+
+/** Itens descartados, do descarte mais recente para o mais antigo. */
+export function useItensDescartados() {
+  const { itensCaixa } = useServicos();
+  return useQuery({
+    queryKey: [...CHAVE_CAIXA, "descartados"],
+    queryFn: () => itensCaixa.listarDescartados(),
+  });
+}
+
+/** Escrita na caixa que, ao terminar, recarrega as listas e o contador. */
+function useEscritaCaixa<Entrada, Saida>(escrever: (entrada: Entrada) => Promise<Saida>) {
+  const clienteConsultas = useQueryClient();
+  return useMutation({
+    mutationFn: escrever,
+    onSettled: () => clienteConsultas.invalidateQueries({ queryKey: CHAVE_CAIXA }),
+  });
+}
+
+export function useCapturarItem() {
+  const { itensCaixa } = useServicos();
+  return useEscritaCaixa((conteudo: string) => itensCaixa.capturar(conteudo));
+}
+
+export function useDescartarItem() {
+  const { itensCaixa } = useServicos();
+  return useEscritaCaixa((id: string) => itensCaixa.descartar(id));
+}
+
+export function useRecuperarItem() {
+  const { itensCaixa } = useServicos();
+  return useEscritaCaixa((id: string) => itensCaixa.recuperar(id));
+}
+
+export function useEditarItem() {
+  const { itensCaixa } = useServicos();
+  return useEscritaCaixa(({ id, conteudo }: { id: string; conteudo: string }) =>
+    itensCaixa.alterar(id, { conteudo }),
+  );
+}

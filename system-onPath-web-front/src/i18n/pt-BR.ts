@@ -12,6 +12,33 @@ export const ptBR = {
     rotinas: "Rotinas",
     estudos: "Estudos",
     ajustes: "Ajustes",
+    anotar: "Anotar",
+    itensNovos: "{quantidade} itens novos",
+  },
+  caixa: {
+    campo: "Anote uma ideia…",
+    dicaCampo: "Enter para salvar · Shift+Enter para nova linha",
+    abas: {
+      caixa: "Caixa",
+      descartados: "Descartados",
+    },
+    vazia: "Nada por aqui. Anote qualquer ideia que surgir, sem se preocupar com data, área ou prioridade. Você organiza depois.",
+    descartadosVazia: "Nenhum item descartado.",
+    descartadoEm: "Descartado em {data}",
+    editar: "Editar",
+    descartar: "Descartar",
+    recuperar: "Recuperar",
+    dicaEdicao: "Enter para salvar · Esc para cancelar",
+    avisos: {
+      descartado: "Item descartado",
+      desfazer: "Desfazer",
+      recuperado: "Item recuperado",
+      anotado: "Anotado na caixa",
+    },
+    rapida: {
+      titulo: "Anotar na caixa",
+      dica: "Enter para salvar · Esc para fechar",
+    },
   },
   telas: {
     hoje: { titulo: "Hoje" },

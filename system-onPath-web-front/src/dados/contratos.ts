@@ -16,6 +16,21 @@ export interface ServicoColecao<Registro, Novo, Alteracao> {
   recuperar(id: string): Promise<Registro>;
 }
 
+/** Serviço da caixa de entrada (specs/002-caixa-entrada/contracts/servico-itens-caixa.md). */
+export interface ServicoItensCaixa
+  extends ServicoColecao<T.ItemCaixa, T.NovoItemCaixa, T.AlteracaoItemCaixa> {
+  /** Itens novos e não arquivados, do mais novo para o mais antigo. */
+  listarNovos(): Promise<T.ItemCaixa[]>;
+  /** Itens descartados, do descarte mais recente para o mais antigo. */
+  listarDescartados(): Promise<T.ItemCaixa[]>;
+  /** Cria um item novo só com o texto (RN03). Erro `dados_invalidos` se o texto for vazio. */
+  capturar(conteudo: string): Promise<T.ItemCaixa>;
+  /** Situação `descartado` e `arquivadoEm` com a data atual, na mesma escrita (RN31). */
+  descartar(id: string): Promise<T.ItemCaixa>;
+  /** Situação `novo` e `arquivadoEm` vazio, na mesma escrita. */
+  recuperar(id: string): Promise<T.ItemCaixa>;
+}
+
 export interface CopiaDados {
   formato: "onpath-copia";
   versao: number;
@@ -40,7 +55,7 @@ export interface Servicos {
   projetos: ServicoColecao<T.Projeto, T.NovoProjeto, T.AlteracaoProjeto>;
   colunas: ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna>;
   tarefas: ServicoColecao<T.Tarefa, T.NovaTarefa, T.AlteracaoTarefa>;
-  itensCaixa: ServicoColecao<T.ItemCaixa, T.NovoItemCaixa, T.AlteracaoItemCaixa>;
+  itensCaixa: ServicoItensCaixa;
   itensDia: ServicoColecao<T.ItemDia, T.NovoItemDia, T.AlteracaoItemDia>;
   rotinas: ServicoColecao<T.Rotina, T.NovaRotina, T.AlteracaoRotina>;
   compromissos: ServicoColecao<T.Compromisso, T.NovoCompromisso, T.AlteracaoCompromisso>;
