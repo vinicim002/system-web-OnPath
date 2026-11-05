@@ -1,5 +1,4 @@
 import { t } from "@/i18n";
-import { cores } from "@/theme";
 
 // Desenho de docs/onpath-logo/onpath-logo/svg/onpath-logo-cor.svg, com as cores do tema.
 const SIMBOLO =
@@ -26,9 +25,9 @@ export function Logo({ variante = "completo", altura = 28 }: Props) {
       height={altura}
       viewBox={`${caixa.x} ${caixa.y} ${caixa.largura} ${caixa.altura}`}
     >
-      <path fill={cores.preto} d={SIMBOLO} />
-      <circle cx={45} cy={63} r={8.5} fill={cores.roxo} />
-      {completo && <path fill={cores.preto} transform="translate(100 76) scale(.72)" d={NOME} />}
+      <path className="fill-preto" d={SIMBOLO} />
+      <circle cx={45} cy={63} r={8.5} className="fill-roxo" />
+      {completo && <path className="fill-preto" transform="translate(100 76) scale(.72)" d={NOME} />}
     </svg>
   );
 }

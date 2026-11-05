@@ -161,11 +161,11 @@ item 13), mantendo a camada de dados, os textos, o tema e os testes.
 **Objetivo**: trocar os CSS Modules por Tailwind CSS e usar os componentes do shadcn/ui
 (constituição 1.2.0, `research.md`, item 14), sem mudar o comportamento.
 
-- [ ] T046 Instalar `tailwindcss` e `@tailwindcss/vite`, ligar o plugin em `vite.config.ts` e criar `src/theme/tema.css` com o `@theme` do OnPath: paleta padrão desligada, cores, fonte Inter, tamanhos de texto e espaçamento de 4 px, além dos nomes do shadcn/ui apontando para essas cores.
-- [ ] T047 Configurar o shadcn/ui (`components.json`, `src/lib/utils.ts` com `cn()`) e adicionar os componentes `button` e `alert-dialog`. Instalar `lucide-react`.
-- [ ] T048 Em `src/theme/index.ts`, deixar só as cores e remover `variaveisCss()` e `aplicarTema()`. Criar `__tests__/tema.test.ts`, que confere que as cores de `index.ts` e de `tema.css` são as mesmas.
-- [ ] T049 Passar `Moldura`, `MenuLateral` (com ícones), `TelaBase`, `Logo`, `PreparoPrimeiroUso`, `NaoEncontrada` e `CopiaDados` para classes do Tailwind. Trocar `Botao` pelo `Button` do shadcn/ui e a confirmação da importação pelo `AlertDialog`. Apagar os arquivos `.module.css` e o `global.css`.
-- [ ] T050 Rodar `npm test`, `npm run typecheck`, `npm run build` e os cenários do `quickstart.md` no navegador.
+- [X] T046 Instalar `tailwindcss` e `@tailwindcss/vite`, ligar o plugin em `vite.config.ts` e criar `src/theme/tema.css` com o `@theme` do OnPath: paleta padrão desligada, cores, fonte Inter, tamanhos de texto e espaçamento de 4 px, além dos nomes do shadcn/ui apontando para essas cores.
+- [X] T047 Configurar o shadcn/ui (`components.json`, `src/lib/utils.ts` com `cn()`) e adicionar os componentes `button` e `alert-dialog`. Instalar `lucide-react`.
+- [X] T048 Em `src/theme/index.ts`, deixar só as cores e remover `variaveisCss()` e `aplicarTema()`. Criar `__tests__/tema.test.ts`, que confere que as cores de `index.ts` e de `tema.css` são as mesmas.
+- [X] T049 Passar `Moldura`, `MenuLateral` (com ícones), `TelaBase`, `Logo`, `PreparoPrimeiroUso`, `NaoEncontrada` e `CopiaDados` para classes do Tailwind. Trocar `Botao` pelo `Button` do shadcn/ui e a confirmação da importação pelo `AlertDialog`. Apagar os arquivos `.module.css` e o `global.css`.
+- [X] T050 Rodar `npm test`, `npm run typecheck`, `npm run build` e os cenários do `quickstart.md` no navegador.
 
 **Ponto de controle**: todos os cenários do `quickstart.md` passam, e não sobra nenhum CSS
 Module.

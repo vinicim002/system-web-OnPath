@@ -4,8 +4,6 @@ import { ehErroOnPath } from "@/dados/erros";
 import { useServicos } from "@/dados/ServicosProvider";
 import { t } from "@/i18n";
 
-import estilos from "./PreparoPrimeiroUso.module.css";
-
 type Estado = { fase: "carregando" } | { fase: "pronto" } | { fase: "erro"; mensagem: string };
 
 /** Garante os dados iniciais antes de mostrar as telas. */
@@ -31,15 +29,15 @@ export function PreparoPrimeiroUso({ children }: { children: ReactNode }) {
   if (estado.fase === "pronto") return children;
 
   return (
-    <div className={estilos.centro}>
+    <div className="flex h-full items-center justify-center p-8">
       {estado.fase === "carregando" ? (
-        <p className={estilos.texto} role="status">
+        <p className="text-cinza-600" role="status">
           {t("carregando")}
         </p>
       ) : (
-        <div className={estilos.erro} role="alert">
-          <p className={estilos.titulo}>{estado.mensagem}</p>
-          <p className={estilos.texto}>{t("erros.acao.liberarArmazenamento")}</p>
+        <div className="flex max-w-120 flex-col gap-2" role="alert">
+          <p className="font-medium">{estado.mensagem}</p>
+          <p className="text-cinza-600">{t("erros.acao.liberarArmazenamento")}</p>
         </div>
       )}
     </div>

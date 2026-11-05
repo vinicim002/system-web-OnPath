@@ -1,12 +1,21 @@
 import { useState } from "react";
 
-import { Botao } from "@/components/Botao";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { useExistemDados, useExportarDados, useImportarDados } from "@/dados/consultas";
 import { ehErroOnPath } from "@/dados/erros";
 import { t } from "@/i18n";
+import { cn } from "@/lib/utils";
 import { baixarJson, escolherArquivoJson } from "@/plataforma/arquivos";
-
-import estilos from "./CopiaDados.module.css";
 
 type Aviso = { tipo: "sucesso" | "erro"; mensagem: string; acao?: string } | null;
 
@@ -72,47 +81,49 @@ export function CopiaDados() {
   }
 
   return (
-    <section className={estilos.secao}>
-      <h2 className={estilos.titulo}>{t("ajustes.copia.titulo")}</h2>
-      <p className={estilos.descricao}>{t("ajustes.copia.descricao")}</p>
+    <section className="flex max-w-140 flex-col gap-3">
+      <h2 className="text-subtitulo font-semibold">{t("ajustes.copia.titulo")}</h2>
+      <p className="text-cinza-600">{t("ajustes.copia.descricao")}</p>
 
-      <div className={estilos.acoes}>
-        <Botao
-          rotulo={exportar.isPending ? t("ajustes.copia.exportando") : t("ajustes.copia.exportar")}
-          aoClicar={aoExportar}
-          desativado={bloqueado}
-        />
-        <Botao
-          rotulo={importar.isPending ? t("ajustes.copia.importando") : t("ajustes.copia.importar")}
-          aoClicar={aoImportar}
-          desativado={bloqueado}
-        />
+      <div className="flex gap-2">
+        <Button variant="outline" onClick={aoExportar} disabled={bloqueado}>
+          {exportar.isPending ? t("ajustes.copia.exportando") : t("ajustes.copia.exportar")}
+        </Button>
+        <Button variant="outline" onClick={aoImportar} disabled={bloqueado}>
+          {importar.isPending ? t("ajustes.copia.importando") : t("ajustes.copia.importar")}
+        </Button>
       </div>
 
-      {aguardandoConfirmacao !== null && (
-        <div role="alertdialog" aria-label={t("ajustes.copia.titulo")} className={estilos.confirmacao}>
-          <p className={estilos.destaque}>{t("ajustes.copia.confirmarSubstituir")}</p>
-          <div className={estilos.acoes}>
-            <Botao
-              variante="principal"
-              rotulo={t("ajustes.copia.confirmar")}
-              aoClicar={() => substituir(aguardandoConfirmacao)}
-            />
-            <Botao
-              rotulo={t("ajustes.copia.cancelar")}
-              aoClicar={() => setAguardandoConfirmacao(null)}
-            />
-          </div>
-        </div>
-      )}
+      <AlertDialog
+        open={aguardandoConfirmacao !== null}
+        onOpenChange={(aberto) => !aberto && setAguardandoConfirmacao(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("ajustes.copia.tituloSubstituir")}</AlertDialogTitle>
+            <AlertDialogDescription>{t("ajustes.copia.confirmarSubstituir")}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t("ajustes.copia.cancelar")}</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => aguardandoConfirmacao !== null && substituir(aguardandoConfirmacao)}
+            >
+              {t("ajustes.copia.confirmar")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {aviso && (
         <div
           role={aviso.tipo === "erro" ? "alert" : "status"}
-          className={`${estilos.aviso} ${aviso.tipo === "erro" ? estilos.avisoErro : ""}`}
+          className={cn(
+            "flex flex-col gap-1 rounded-md bg-cinza-100 p-3",
+            aviso.tipo === "erro" && "border-l-3 border-preto",
+          )}
         >
-          <p className={estilos.destaque}>{aviso.mensagem}</p>
-          {aviso.acao && <p className={estilos.descricao}>{aviso.acao}</p>}
+          <p className="font-medium">{aviso.mensagem}</p>
+          {aviso.acao && <p className="text-cinza-600">{aviso.acao}</p>}
         </div>
       )}
     </section>

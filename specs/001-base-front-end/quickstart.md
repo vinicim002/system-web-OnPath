@@ -56,7 +56,7 @@ grep -rn "dados/local" src/telas src/components src/features   # sem resultado
 # Nenhuma cor literal fora do tema:
 grep -rnE "#[0-9a-fA-F]{3,6}" src/telas src/components src/features   # sem resultado
 # Nenhuma classe com valor solto de cor no Tailwind:
-grep -rnE "(bg|text|border|fill|stroke|ring)-\[" src   # sem resultado
+grep -rnE "\-\[(#|rgb|hsl|oklch)" src   # sem resultado
 ```
 
 Os textos visíveis vêm de `src/i18n/pt-BR.ts`. Isso é conferido na revisão do código.

@@ -40,6 +40,7 @@ export const ptBR = {
       exportando: "Exportando…",
       importando: "Importando…",
       exportado: "Cópia exportada.",
+      tituloSubstituir: "Substituir os dados atuais?",
       confirmarSubstituir:
         "A importação substitui todos os dados atuais pelos da cópia. Deseja continuar?",
       confirmar: "Substituir dados",

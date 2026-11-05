@@ -1,0 +1,80 @@
+/*
+ * Tema do OnPath para o Tailwind CSS (constituição, princípio V).
+ * A paleta padrão do Tailwind fica desligada: só existem as cores abaixo.
+ * As cores precisam ser as mesmas de src/theme/index.ts (conferido em __tests__/tema.test.ts).
+ */
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-preto: #0A0A0A;
+  --color-branco: #FFFFFF;
+  --color-cinza-50: #FAFAFA;
+  --color-cinza-100: #F5F5F5;
+  --color-cinza-200: #E5E5E5;
+  --color-cinza-300: #D4D4D4;
+  --color-cinza-400: #A3A3A3;
+  --color-cinza-500: #737373;
+  --color-cinza-600: #525252;
+  --color-cinza-700: #404040;
+  --color-cinza-800: #262626;
+  --color-cinza-900: #171717;
+  /* Reservado ao logo e a pequenos detalhes. */
+  --color-roxo: #7357F0;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --text-pequeno: 13px;
+  --text-normal: 15px;
+  --text-subtitulo: 18px;
+  --text-titulo: 24px;
+
+  --spacing: 4px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+}
+
+/* Nomes usados pelos componentes do shadcn/ui, apontando para as cores do tema. */
+@theme inline {
+  --color-background: var(--color-branco);
+  --color-foreground: var(--color-preto);
+  --color-card: var(--color-branco);
+  --color-card-foreground: var(--color-preto);
+  --color-popover: var(--color-branco);
+  --color-popover-foreground: var(--color-preto);
+  --color-primary: var(--color-preto);
+  --color-primary-foreground: var(--color-branco);
+  --color-secondary: var(--color-cinza-100);
+  --color-secondary-foreground: var(--color-preto);
+  --color-muted: var(--color-cinza-100);
+  --color-muted-foreground: var(--color-cinza-600);
+  --color-accent: var(--color-cinza-100);
+  --color-accent-foreground: var(--color-preto);
+  --color-destructive: var(--color-preto);
+  --color-border: var(--color-cinza-200);
+  --color-input: var(--color-cinza-300);
+  --color-ring: var(--color-cinza-400);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #raiz {
+    @apply h-full;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans text-normal antialiased;
+  }
+}

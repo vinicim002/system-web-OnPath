@@ -1,9 +1,0 @@
-.mensagem {
-  color: var(--cor-cinza-700);
-}
-
-.link {
-  align-self: flex-start;
-  color: var(--cor-preto);
-  font-weight: var(--peso-media);
-}
