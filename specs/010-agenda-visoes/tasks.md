@@ -24,5 +24,5 @@ description: "Lista de tarefas das visões e do painel de tarefas da Agenda"
 
 ## Fase 4: Acabamento
 
-- [ ] T007 `npm test`, `typecheck`, `lint`, `build`, greps; cenários no build de produção (porta 4173).
-- [ ] T008 Marcar T026a e T026b em `docs/tasks.md` e os critérios da seção 6.9.
+- [X] T007 `npm test`, `typecheck`, `lint`, `build`, greps; cenários no build de produção (porta 4173).
+- [X] T008 Marcar T026a e T026b em `docs/tasks.md` e os critérios da seção 6.9.

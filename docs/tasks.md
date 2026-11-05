@@ -91,9 +91,9 @@
   - Pronto quando: o aviso aparecer sem bloquear.
 - [X] **T026: Criar os lembretes.** Use as notificações do navegador.
   - Pronto quando: um lembrete aparecer com o app aberto.
-- [ ] **T026a: Criar as visões da Agenda.** Board, Timeline, Lista e Tabela, com filtro.
+- [X] **T026a: Criar as visões da Agenda.** Board, Timeline, Lista e Tabela, com filtro.
   - Pronto quando: as cinco visões mostrarem a mesma semana filtrada.
-- [ ] **T026b: Criar o painel de tarefas da Agenda.** Tarefas por prazo e eventos do dia.
+- [X] **T026b: Criar o painel de tarefas da Agenda.** Tarefas por prazo e eventos do dia.
   - Pronto quando: arrastar uma tarefa para a grade criar um bloco para ela.
 
 ### Etapa 8 — Estudos
