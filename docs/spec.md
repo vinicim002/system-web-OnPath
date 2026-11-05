@@ -230,6 +230,8 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 - [X] O usuário cria, edita e arquiva compromissos.
 - [X] Um bloco de rotina não realizado no horário gera uma proposta de novo horário (RN18).
 - [X] Lembretes são exibidos antes de compromissos, rotinas e blocos.
+- [ ] A Agenda oferece as visões Semana, Board, Timeline, Lista e Tabela, com filtro por tipo, área e status.
+- [ ] Um painel ao lado mostra as tarefas abertas por prazo e os eventos do dia; arrastar uma tarefa para a grade reserva um bloco para ela.
 
 ### 6.10 Estudos
 

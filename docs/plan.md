@@ -233,6 +233,12 @@ Na V0.1.0, os lembretes usam as notificações do navegador e dependem de o app 
 
 O aviso vem 10 minutos antes de compromissos e blocos planejados, uma vez por item. Sem permissão de notificação, aparece só dentro do app.
 
+### Visões e painel da Agenda
+
+A Agenda mostra a mesma semana em cinco visões: Semana (grade de horários), Board (uma coluna por dia), Timeline (um dia por linha, com as horas na horizontal), Lista (por dia, em ordem de horário) e Tabela (colunas ordenáveis). A visão, a semana e o filtro (tipo, área e status) ficam no endereço. No Board, arrastar um item para outro dia mantém o horário e passa pela confirmação de conflito (RN09).
+
+Ao lado, um painel com duas abas: Tarefas (abertas, em "Atrasadas", "Esta semana", "Este mês", "Depois" e "Sem prazo") e Eventos (os itens de hoje). Arrastar uma tarefa para a grade cria um bloco planejado com o tempo estimado (ou 1 hora), arredondado para 15 minutos e sem passar da meia-noite. Pelo teclado, o botão "Agendar" abre a criação de bloco com a tarefa já escolhida.
+
 ### Kanban e fila
 
 Na web, o arrastar usa o `dnd-kit` (com suporte a teclado), isolado em `src/features/kanban/`, porque o celular precisará de outra implementação. Os cartões seguem a ordem da lista de tarefas; não há ordem manual dentro da coluna.
