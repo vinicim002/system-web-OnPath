@@ -50,7 +50,7 @@ O adaptador usa uma chave por coleção e uma chave de controle.
 **Testes**: Vitest com o ambiente `jsdom`, para os serviços locais, os dados iniciais e a cópia
 de dados. As telas são validadas pelos cenários de aceite e pelo `quickstart.md`.
 
-**Plataforma-alvo**: navegadores atuais de computador, rodando em `http://localhost:8081`.
+**Plataforma-alvo**: navegadores atuais de computador, rodando em `http://localhost:5173`.
 
 **Tipo de projeto**: app web de página única, com front-end apenas. O sistema web fica
 preparado para a pasta `system-onPath-web-back/` da Parte 2.

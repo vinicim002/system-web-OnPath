@@ -13,7 +13,7 @@ Roteiro para provar que a Etapa 0 funciona de ponta a ponta. Os detalhes estão 
 ```bash
 cd system-onPath-web-front
 npm install
-npm run web        # abre http://localhost:8081
+npm run web        # abre http://localhost:5173
 npm test           # testes dos serviços locais
 npm run typecheck  # TypeScript sem erros
 ```
@@ -22,10 +22,10 @@ npm run typecheck  # TypeScript sem erros
 
 ### 1. Navegação (história 1, SC-001)
 
-1. Abra `http://localhost:8081`. A tela Hoje aparece, marcada no menu.
+1. Abra `http://localhost:5173`. A tela Hoje aparece, marcada no menu.
 2. Clique em cada um dos 9 itens. A tela certa abre, sem recarregar a página.
-3. Digite `http://localhost:8081/rotinas`. A tela Rotinas abre direto.
-4. Digite `http://localhost:8081/nao-existe`. A página de não encontrada aparece, com link para
+3. Digite `http://localhost:5173/rotinas`. A tela Rotinas abre direto.
+4. Digite `http://localhost:5173/nao-existe`. A página de não encontrada aparece, com link para
    Hoje.
 5. Confira o visual: só preto, branco e cinza, com a fonte Inter.
 

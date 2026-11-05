@@ -49,7 +49,7 @@ A construção é **front-end primeiro**. As telas são feitas com dados locais 
 
 Tudo roda no computador do usuário, sem custo de servidor. Primeiro, roda só a interface (Vite) no navegador. Depois, entram a API em Python e o PostgreSQL em um contêiner.
 
-- Interface: `http://localhost:8081`
+- Interface: `http://localhost:5173`
 - API: `http://localhost:8000`
 - PostgreSQL: `localhost:5432`
 

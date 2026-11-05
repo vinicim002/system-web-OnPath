@@ -9,8 +9,8 @@ export default defineConfig({
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },
-  server: { port: 8081, strictPort: true },
-  preview: { port: 8081, strictPort: true },
+  server: { port: 5173, strictPort: true },
+  preview: { port: 4173, strictPort: true },
   test: {
     environment: "jsdom",
     include: ["__tests__/**/*.test.ts"],
