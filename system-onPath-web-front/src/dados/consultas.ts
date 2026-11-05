@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 
-import type { FiltrosTarefas } from "./contratos";
+import type { Destino, FiltrosTarefas } from "./contratos";
 import { NOMES_COLECOES, type NomeColecao, type NovaTarefa, type Registros } from "./tipos";
 import { useServicos } from "./ServicosProvider";
 
@@ -148,6 +148,7 @@ function useEscritaTarefas<Entrada, Saida>(
     mutationFn: escrever,
     onSettled: () => {
       void clienteConsultas.invalidateQueries({ queryKey: CHAVE_TAREFAS });
+      void clienteConsultas.invalidateQueries({ queryKey: ["itensDia"] });
       for (const chave of outrasChaves) void clienteConsultas.invalidateQueries({ queryKey: [chave] });
     },
   });
@@ -213,4 +214,69 @@ export function useCriarTarefaDeItem() {
     ({ itemId, dados }: { itemId: string; dados: NovaTarefa }) => tarefas.criarDeItemCaixa(itemId, dados),
     ["itensCaixa"],
   );
+}
+
+// ---------------------------------------------------------------------------
+// Hoje (specs/004-hoje/contracts/servico-itens-dia.md)
+// ---------------------------------------------------------------------------
+
+const CHAVE_DIA = ["itensDia"] as const;
+
+/** Plano de uma data: itens com as tarefas, a próxima e os tempos. */
+export function usePlanoDoDia(data: string) {
+  const { itensDia } = useServicos();
+  return useQuery({ queryKey: [...CHAVE_DIA, "plano", data], queryFn: () => itensDia.planoDoDia(data) });
+}
+
+/** Pendências de dias anteriores a hoje (RN25). */
+export function usePendencias(hoje: string) {
+  const { itensDia } = useServicos();
+  return useQuery({
+    queryKey: [...CHAVE_DIA, "pendencias", hoje],
+    queryFn: () => itensDia.listarPendencias(hoje),
+  });
+}
+
+function useEscritaDia<Entrada, Saida>(escrever: (entrada: Entrada) => Promise<Saida>, mudaTarefas = false) {
+  const clienteConsultas = useQueryClient();
+  return useMutation({
+    mutationFn: escrever,
+    onSettled: () => {
+      void clienteConsultas.invalidateQueries({ queryKey: CHAVE_DIA });
+      if (mudaTarefas) void clienteConsultas.invalidateQueries({ queryKey: CHAVE_TAREFAS });
+    },
+  });
+}
+
+export function useAdicionarAoDia() {
+  const { itensDia } = useServicos();
+  return useEscritaDia(({ data, tarefaIds }: { data: string; tarefaIds: string[] }) =>
+    itensDia.adicionar(data, tarefaIds),
+  );
+}
+
+export function useTirarDoDia() {
+  const { itensDia } = useServicos();
+  return useEscritaDia((itemId: string) => itensDia.excluir(itemId));
+}
+
+export function useReordenarDia() {
+  const { itensDia } = useServicos();
+  return useEscritaDia(({ data, itemIds }: { data: string; itemIds: string[] }) =>
+    itensDia.reordenar(data, itemIds),
+  );
+}
+
+export function useDecidirPendencia() {
+  const { itensDia } = useServicos();
+  return useEscritaDia(
+    ({ tarefaId, destino, hoje }: { tarefaId: string; destino: Destino; hoje: string }) =>
+      itensDia.decidirPendencia(tarefaId, destino, hoje),
+    true,
+  );
+}
+
+export function useRemarcarTodas() {
+  const { itensDia } = useServicos();
+  return useEscritaDia((hoje: string) => itensDia.remarcarTodasPara(hoje));
 }

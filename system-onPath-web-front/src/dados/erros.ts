@@ -9,7 +9,9 @@ export type CodigoErro =
   | "armazenamento_indisponivel"
   | "ciclo_subtarefa"
   | "subtarefas_abertas"
-  | "item_indisponivel";
+  | "item_indisponivel"
+  | "data_passada"
+  | "nao_e_pendencia";
 
 export class ErroOnPath extends Error {
   readonly codigo: CodigoErro;

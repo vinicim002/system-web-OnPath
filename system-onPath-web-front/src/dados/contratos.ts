@@ -69,6 +69,48 @@ export interface ServicoTarefas extends ServicoColecao<T.Tarefa, T.NovaTarefa, T
   criarDeItemCaixa(itemId: string, dados: T.NovaTarefa): Promise<T.Tarefa>;
 }
 
+/** Item do plano do dia, com a tarefa (specs/004-hoje/contracts/servico-itens-dia.md). */
+export interface ItemDoPlano {
+  item: T.ItemDia;
+  tarefa: T.Tarefa;
+  /** Título da tarefa principal, quando a tarefa é subtarefa. */
+  tituloPrincipal: string | null;
+}
+
+export interface PlanoDoDia {
+  /** AAAA-MM-DD */
+  data: string;
+  /** Na ordem do dia. */
+  itens: ItemDoPlano[];
+  /** Id do item em destaque (RN20). */
+  proximaId: string | null;
+  planejadoMin: number;
+  feitoMin: number;
+}
+
+export interface Pendencia {
+  tarefa: T.Tarefa;
+  tituloPrincipal: string | null;
+  /** Data mais recente em que a tarefa estava planejada. */
+  data: string;
+}
+
+export type Destino = { tipo: "remarcar"; data: string } | { tipo: "devolver" } | { tipo: "cancelar" };
+
+export interface ServicoItensDia extends ServicoColecao<T.ItemDia, T.NovoItemDia, T.AlteracaoItemDia> {
+  planoDoDia(data: string): Promise<PlanoDoDia>;
+  /** Adiciona no fim do dia, ignorando as que já estão nele. */
+  adicionar(data: string, tarefaIds: string[]): Promise<T.ItemDia[]>;
+  /** Tira do dia (arquiva o item). A tarefa não muda. */
+  excluir(id: string): Promise<void>;
+  /** Grava a nova ordem completa do dia. */
+  reordenar(data: string, itemIds: string[]): Promise<void>;
+  /** Pendências de dias anteriores a `hoje`, na ordem de data e do dia (RN25). */
+  listarPendencias(hoje: string): Promise<Pendencia[]>;
+  decidirPendencia(tarefaId: string, destino: Destino, hoje: string): Promise<void>;
+  remarcarTodasPara(hoje: string): Promise<void>;
+}
+
 export interface CopiaDados {
   formato: "onpath-copia";
   versao: number;
@@ -94,7 +136,7 @@ export interface Servicos {
   colunas: ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna>;
   tarefas: ServicoTarefas;
   itensCaixa: ServicoItensCaixa;
-  itensDia: ServicoColecao<T.ItemDia, T.NovoItemDia, T.AlteracaoItemDia>;
+  itensDia: ServicoItensDia;
   rotinas: ServicoColecao<T.Rotina, T.NovaRotina, T.AlteracaoRotina>;
   compromissos: ServicoColecao<T.Compromisso, T.NovoCompromisso, T.AlteracaoCompromisso>;
   blocosTempo: ServicoColecao<T.BlocoTempo, T.NovoBlocoTempo, T.AlteracaoBlocoTempo>;

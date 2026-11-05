@@ -43,6 +43,38 @@ const diaLocal = new Intl.DateTimeFormat("en-CA", {
 
 const prazo = new Intl.DateTimeFormat("pt-BR", { timeZone: "UTC", day: "numeric", month: "short" });
 
+const extenso = new Intl.DateTimeFormat("pt-BR", {
+  timeZone: "UTC",
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+});
+
+/** "quinta-feira, 5 de novembro" para uma data AAAA-MM-DD. */
+export function dataPorExtenso(data: string): string {
+  return extenso.format(new Date(`${data}T00:00:00Z`));
+}
+
+/** Soma dias a uma data AAAA-MM-DD. */
+export function somarDias(data: string, dias: number): string {
+  const base = new Date(`${data}T00:00:00Z`);
+  base.setUTCDate(base.getUTCDate() + dias);
+  return base.toISOString().slice(0, 10);
+}
+
+/** Quanto falta para a próxima meia-noite no fuso do usuário. */
+export function milissegundosAteAmanha(agora: Date = new Date()): number {
+  // Procura, minuto a minuto a partir de agora, o primeiro instante em que a data local muda.
+  const hojeLocal = hoje(agora);
+  let passo = 60 * 60 * 1000;
+  let tempo = agora.getTime();
+  while (passo >= 1000) {
+    while (hoje(new Date(tempo + passo)) === hojeLocal) tempo += passo;
+    passo = Math.floor(passo / 60);
+  }
+  return Math.max(1000, tempo + 1000 - agora.getTime());
+}
+
 /** Data de hoje no fuso do usuário, no formato AAAA-MM-DD. */
 export function hoje(agora: Date = new Date()): string {
   return diaLocal.format(agora);

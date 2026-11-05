@@ -3,6 +3,7 @@ import { criarErro } from "../erros";
 import { esquemas, type NomeColecao } from "../tipos";
 import { lerColecao } from "./armazenamento";
 import { criarServicoItensCaixa } from "./caixa";
+import { criarServicoItensDia } from "./itensDia";
 import { prepararPrimeiroUso } from "./carga";
 import { exportarCopia, importarCopia } from "./copia";
 import { criarServicoColecao, type OpcoesColecao } from "./colecao";
@@ -31,7 +32,7 @@ export function criarServicosLocais(): Servicos {
     colunas: colecao("colunas"),
     tarefas: criarServicoTarefas(),
     itensCaixa: criarServicoItensCaixa(),
-    itensDia: colecao("itensDia"),
+    itensDia: criarServicoItensDia(),
     rotinas: colecao("rotinas"),
     compromissos: colecao("compromissos"),
     blocosTempo: colecao("blocosTempo"),
