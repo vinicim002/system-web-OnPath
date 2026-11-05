@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { MenuLateral } from "@/components/MenuLateral";
+import { PreparoPrimeiroUso } from "@/components/PreparoPrimeiroUso";
 import { ServicosProvider } from "@/dados/ServicosProvider";
 import { cores } from "@/theme";
 
@@ -34,7 +35,9 @@ export default function LayoutRaiz() {
       <View style={estilos.moldura}>
         <MenuLateral />
         <View style={estilos.conteudo}>
-          <Slot />
+          <PreparoPrimeiroUso>
+            <Slot />
+          </PreparoPrimeiroUso>
         </View>
       </View>
     </ServicosProvider>

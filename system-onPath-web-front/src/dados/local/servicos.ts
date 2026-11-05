@@ -2,6 +2,7 @@ import type { Servicos } from "../contratos";
 import { criarErro } from "../erros";
 import { esquemas, type NomeColecao } from "../tipos";
 import { lerColecao } from "./armazenamento";
+import { prepararPrimeiroUso } from "./carga";
 import { criarServicoColecao, type OpcoesColecao } from "./colecao";
 
 /** RN01: o projeto fica sempre na área do seu grupo. */
@@ -18,7 +19,7 @@ function colecao<N extends NomeColecao, Novo extends object, Alteracao extends o
   return criarServicoColecao<N, Novo, Alteracao>(nome, esquemas[nome].completo, opcoes);
 }
 
-/** Só existe durante o desenvolvimento, até as etapas de carga e cópia. */
+/** Só existe durante o desenvolvimento, até a etapa da cópia. */
 function naoImplementado(): never {
   throw new Error("não implementado");
 }
@@ -41,7 +42,7 @@ export function criarServicosLocais(): Servicos {
     materiais: colecao("materiais"),
     sessoesEstudo: colecao("sessoesEstudo"),
     dados: {
-      prepararPrimeiroUso: async () => naoImplementado(),
+      prepararPrimeiroUso,
       exportar: async () => naoImplementado(),
       importar: async () => naoImplementado(),
     },
