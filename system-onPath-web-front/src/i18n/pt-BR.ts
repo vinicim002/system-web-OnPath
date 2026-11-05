@@ -398,6 +398,21 @@ export const ptBR = {
       cancelada: "Tarefa cancelada",
       todasRemarcadas: "Pendências remarcadas para hoje",
     },
+    livre: "Livre {tempo}",
+    diaCheio: "O plano passa {tempo} do tempo livre de hoje. Dá para seguir, mas talvez algo não caiba.",
+    perdidas: {
+      titulo: "Rotinas que passaram",
+      era: "era {horario}",
+      proposta: "Remarcar para {horario}",
+      propostaAmanha: "Remarcar para amanhã, {horario}",
+      semProposta: "Sem horário livre hoje nem amanhã.",
+      aceitar: "Remarcar",
+      recusar: "Recusar",
+      fiz: "Fiz",
+      remarcada: "Rotina remarcada",
+      recusada: "Rotina marcada como perdida",
+      feita: "Rotina marcada como realizada",
+    },
     revisao: {
       titulo: "Antes de começar o dia",
       descricao: "{quantidade} tarefas ficaram de dias anteriores. Escolha o destino de cada uma.",
@@ -573,6 +588,11 @@ export const ptBR = {
       escolha: "Escolha um documento.",
     },
   },
+  lembretes: {
+    titulo: "{titulo} às {horario}",
+    corpo: "Começa em {minutos} min",
+    corpoAgora: "Começa agora",
+  },
   telas: {
     hoje: { titulo: "Hoje" },
     caixa: { titulo: "Caixa de entrada" },
@@ -592,6 +612,24 @@ export const ptBR = {
     voltar: "Voltar para Hoje",
   },
   ajustes: {
+    dia: {
+      titulo: "Janela do dia",
+      descricao: "Usada para calcular o tempo livre e propor novos horários para as rotinas.",
+      inicio: "Começa às",
+      fim: "Termina às",
+      salvar: "Salvar janela",
+      salva: "Janela do dia salva.",
+      fimAntes: "O fim precisa ser depois do início.",
+    },
+    lembretes: {
+      titulo: "Lembretes",
+      descricao:
+        "Avisa 10 minutos antes de compromissos e blocos. Os lembretes só aparecem com o OnPath aberto.",
+      ativar: "Ativar lembretes",
+      ativos: "Lembretes ativos",
+      negada: "O navegador bloqueou as notificações. Os lembretes aparecem só dentro do app.",
+      semSuporte: "Este navegador não tem notificações. Os lembretes aparecem só dentro do app.",
+    },
     copia: {
       titulo: "Cópia dos dados",
       descricao:

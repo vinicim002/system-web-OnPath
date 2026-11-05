@@ -10,10 +10,10 @@ description: "Lista de tarefas da Etapa 7, parte 2 (rotina perdida, tempo livre 
 ## Fase 1: Serviços
 
 - [X] T001 Em `docs/plan.md`, registrar a janela padrão, a proposta da RN18 e a antecedência de 10 minutos.
-- [ ] T002 [P] Em `src/dados/contratos.ts`, criar `Preferencias`, `ServicoPreferencias`, `Intervalo`, `RotinaPerdida`, `TempoLivre` e os métodos novos de `ServicoAgenda`, com `preferencias` em `Servicos`.
-- [ ] T003 Escrever `__tests__/rotinaPerdida.test.ts` com os casos de `research.md`, item 5.
-- [ ] T004 Criar `src/dados/local/preferencias.ts` e os métodos em `src/dados/local/agenda.ts` até a T003 passar; ligar em `src/dados/local/servicos.ts`.
-- [ ] T005 [P] Em `src/dados/consultas.ts`, criar os hooks; em `src/i18n/pt-BR.ts`, os textos.
+- [X] T002 [P] Em `src/dados/contratos.ts`, criar `Preferencias`, `ServicoPreferencias`, `Intervalo`, `RotinaPerdida`, `TempoLivre` e os métodos novos de `ServicoAgenda`, com `preferencias` em `Servicos`.
+- [X] T003 Escrever `__tests__/rotinaPerdida.test.ts` com os casos de `research.md`, item 5.
+- [X] T004 Criar `src/dados/local/preferencias.ts` e os métodos em `src/dados/local/agenda.ts` até a T003 passar; ligar em `src/dados/local/servicos.ts`.
+- [X] T005 [P] Em `src/dados/consultas.ts`, criar os hooks; em `src/i18n/pt-BR.ts`, os textos.
 
 ## Fase 2: Hoje (T024 e T025)
 

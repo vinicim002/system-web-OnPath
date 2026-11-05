@@ -1,7 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 
-import type { Destino, FiltrosProjetos, FiltrosTarefas, OpcoesConflito } from "./contratos";
+import {
+  ANTECEDENCIA_LEMBRETE_MIN,
+  type Destino,
+  type FiltrosProjetos,
+  type FiltrosTarefas,
+  type Intervalo,
+  type OpcoesConflito,
+  type Preferencias,
+} from "./contratos";
 import {
   NOMES_COLECOES,
   type NomeColecao,
@@ -538,7 +546,7 @@ export function useMoverParaColuna() {
 // Agenda e rotinas (specs/008-agenda/contracts/servicos.md)
 // ---------------------------------------------------------------------------
 
-const CHAVES_AGENDA = ["agenda", "rotinas", "itensDia"];
+const CHAVES_AGENDA = ["agenda", "rotinas", "itensDia", "perdidas", "tempoLivre"];
 
 /** Itens da agenda entre dois instantes (a semana da tela). */
 export function useAgenda(inicio: string, fim: string) {
@@ -645,4 +653,58 @@ export function useRenovarBlocos(hoje: string, ativo: boolean) {
       })
       .catch(() => undefined);
   }, [rotinas, hoje, ativo, clienteConsultas]);
+}
+
+// ---------------------------------------------------------------------------
+// Rotina perdida, tempo livre, lembretes e preferências (specs/009-rotina-perdida-lembretes)
+// ---------------------------------------------------------------------------
+
+const MEIO_MINUTO = 30_000;
+
+/** Rotinas de hoje que passaram sem ser feitas, com a proposta de novo horário (RN18). */
+export function useRotinasPerdidas(hoje: string) {
+  const { agenda } = useServicos();
+  return useQuery({
+    queryKey: ["perdidas", hoje],
+    queryFn: () => agenda.rotinasPerdidas(new Date().toISOString()),
+    refetchInterval: 5 * 60_000,
+  });
+}
+
+export function useAceitarProposta() {
+  const { agenda } = useServicos();
+  return useEscrita(({ id, proposta }: { id: string; proposta: Intervalo }) => agenda.aceitarProposta(id, proposta), CHAVES_AGENDA);
+}
+
+export function useRecusarProposta() {
+  const { agenda } = useServicos();
+  return useEscrita((id: string) => agenda.recusarProposta(id), CHAVES_AGENDA);
+}
+
+/** Janela do dia menos rotinas e compromissos (RN10). */
+export function useTempoLivre(data: string) {
+  const { agenda } = useServicos();
+  return useQuery({ queryKey: ["tempoLivre", data], queryFn: () => agenda.tempoLivre(data) });
+}
+
+/** Itens que começam em até 10 minutos, conferidos a cada 30 segundos com os lembretes ativos. */
+export function useLembretesDevidos(ativo: boolean) {
+  const { agenda } = useServicos();
+  return useQuery({
+    queryKey: ["agenda", "lembretes"],
+    queryFn: () => agenda.lembretesDevidos(new Date().toISOString(), ANTECEDENCIA_LEMBRETE_MIN),
+    enabled: ativo,
+    refetchInterval: MEIO_MINUTO,
+    refetchIntervalInBackground: true,
+  });
+}
+
+export function usePreferencias() {
+  const { preferencias } = useServicos();
+  return useQuery({ queryKey: ["preferencias"], queryFn: () => preferencias.obter() });
+}
+
+export function useAlterarPreferencias() {
+  const { preferencias } = useServicos();
+  return useEscrita((dados: Partial<Preferencias>) => preferencias.alterar(dados), ["preferencias", "tempoLivre", "perdidas"]);
 }

@@ -6,6 +6,7 @@ import { criarServicoItensCaixa } from "./caixa";
 import { criarServicoColunas } from "./colunas";
 import { criarServicoGrupos } from "./grupos";
 import { criarServicoMetas } from "./metas";
+import { criarServicoPreferencias } from "./preferencias";
 import { criarServicoItensDia } from "./itensDia";
 import { prepararPrimeiroUso } from "./carga";
 import { exportarCopia, importarCopia } from "./copia";
@@ -39,6 +40,7 @@ export function criarServicosLocais(): Servicos {
     materiais: colecao("materiais"),
     sessoesEstudo: colecao("sessoesEstudo"),
     agenda: criarServicoAgenda(),
+    preferencias: criarServicoPreferencias(),
     dados: {
       prepararPrimeiroUso,
       exportar: exportarCopia,

@@ -263,6 +263,48 @@ export interface ServicoAgenda {
   alterarCompromisso(id: string, dados: T.AlteracaoCompromisso, opcoes?: OpcoesConflito): Promise<T.Compromisso>;
   arquivarCompromisso(id: string): Promise<void>;
   recuperarCompromisso(id: string): Promise<T.Compromisso>;
+  /** Blocos de rotina de hoje, planejados e já terminados, com a proposta de novo horário (RN18). */
+  rotinasPerdidas(agora: string): Promise<RotinaPerdida[]>;
+  /** Marca o bloco como remarcado e cria o novo no horário proposto, numa escrita. */
+  aceitarProposta(id: string, proposta: Intervalo): Promise<T.BlocoTempo>;
+  /** Marca o bloco como perdido. */
+  recusarProposta(id: string): Promise<T.BlocoTempo>;
+  /** Janela do dia menos blocos de rotina e compromissos (RN10). */
+  tempoLivre(data: string): Promise<TempoLivre>;
+  /** Compromissos e blocos planejados que começam em até `antecedenciaMin` minutos. */
+  lembretesDevidos(agora: string, antecedenciaMin: number): Promise<ItemAgenda[]>;
+}
+
+export interface Intervalo {
+  inicio: string;
+  fim: string;
+}
+
+export interface RotinaPerdida {
+  bloco: T.BlocoTempo;
+  titulo: string;
+  proposta: Intervalo | null;
+}
+
+export interface TempoLivre {
+  janelaMin: number;
+  ocupadoMin: number;
+  livreMin: number;
+}
+
+/** Antecedência dos lembretes, fixa nesta etapa (docs/plan.md, "Lembretes"). */
+export const ANTECEDENCIA_LEMBRETE_MIN = 10;
+
+/** Janela do dia e lembretes. No servidor, são campos do usuário (docs/plan.md). */
+export interface Preferencias {
+  horaInicioDia: string;
+  horaFimDia: string;
+  lembretesAtivos: boolean;
+}
+
+export interface ServicoPreferencias {
+  obter(): Promise<Preferencias>;
+  alterar(dados: Partial<Preferencias>): Promise<Preferencias>;
 }
 
 export interface ServicoRotinas extends ServicoColecao<T.Rotina, T.NovaRotina, T.AlteracaoRotina> {
@@ -308,5 +350,6 @@ export interface Servicos {
   materiais: ServicoColecao<T.Material, T.NovoMaterial, T.AlteracaoMaterial>;
   sessoesEstudo: ServicoColecao<T.SessaoEstudo, T.NovaSessaoEstudo, T.AlteracaoSessaoEstudo>;
   agenda: ServicoAgenda;
+  preferencias: ServicoPreferencias;
   dados: ServicoDados;
 }
