@@ -44,7 +44,7 @@ O usuário tem muitos projetos, TCC, matérias atrasadas, estudos, trabalho, aca
 |---|---|
 | Área | Parte da vida, como Faculdade, Trabalho, Estudos, Saúde, Pessoal e Finanças |
 | Meta | Objetivo de uma área |
-| Grupo | Conjunto de projetos com limite próprio de ativos |
+| Grupo | Conjunto de projetos de uma área, com limite próprio de ativos |
 | Projeto | Trabalho com prazo, prioridade, status e tarefas |
 | Fila | Ordem dos projetos que aguardam uma vaga |
 | Coluna | Etapa do Kanban de um projeto |
@@ -65,7 +65,7 @@ As regras marcadas como **Fase 2** ficam registradas, mas não são implementada
 
 | Código | Regra |
 |---|---|
-| RN01 | Todo projeto, meta e matéria pertence a uma única área da vida. |
+| RN01 | Todo projeto, meta e matéria pertence a uma única área da vida. Todo grupo pertence a uma área, e seus projetos ficam na área do grupo. |
 | RN02 | Toda tarefa pertence a um projeto, a uma matéria ou à lista de avulsas. |
 | RN03 | Um item na caixa de entrada não precisa de data, área ou prioridade. |
 | RN04 | Agenda, checklist e Kanban exibem a mesma tarefa, nunca uma cópia. |
@@ -109,20 +109,20 @@ Faculdade, Trabalho, Estudos, Saúde, Pessoal e Finanças.
 
 ### Grupos
 
-| Grupo | Limite de ativos |
-|---|---|
-| Servioeste | 1 |
-| Faculdade | 1 |
-| Trabalho à parte | 1 |
-| Coronel | 1 |
-| Pessoal | 2 |
+| Grupo | Área | Limite de ativos |
+|---|---|---|
+| Servioeste | Trabalho | 1 |
+| Faculdade | Faculdade | 1 |
+| Zona Sul | Trabalho | 1 |
+| Coronel | Trabalho | 1 |
+| Pessoal | Pessoal | 2 |
 
 ### Projetos
 
 | Projeto | Grupo | Status |
 |---|---|---|
 | TCC / RookHub | Faculdade | Ativo |
-| Zona Sul | Trabalho à parte | Ativo, urgente |
+| Zona Sul | Zona Sul | Ativo, urgente |
 | RookMTR | Servioeste | Ativo |
 | OnPath | Pessoal | Ativo |
 | Portfólio | Pessoal | Ativo |
@@ -136,17 +136,17 @@ Faculdade, Trabalho, Estudos, Saúde, Pessoal e Finanças.
 
 | Atividade | Quando |
 |---|---|
-| Acordar | 7h30 ou 8h |
+| Acordar | 7h30 |
 | Trabalho, segunda e quarta | 8h–12h, 13h–15h e 16h30–19h |
 | Trabalho, terça e quinta | 9h–12h, 13h–15h e 16h30–20h |
 | Trabalho, sexta | 13h–15h e 16h30–20h30 |
 | Aula | Sexta, das 8h às 12h |
-| Estudo por conta própria | Segunda a quinta, horário a definir |
+| Estudo por conta própria | Segunda a quinta, com meta de horas por dia, sem horário fixo |
 | Almoço | 12h |
 | Academia | 15h |
 | Sono | 23h |
 
-O trabalho soma 40 horas por semana. A grade pode mudar com o uso, e o fim de semana ainda não foi definido.
+O trabalho soma 40 horas por semana, mas a carga vai cair para 6 horas por dia, em horários ainda não definidos. A grade pode mudar com o uso, e o fim de semana ainda não foi definido.
 
 ## 6. Telas e critérios de aceite
 
@@ -194,7 +194,7 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.6 Projetos
 
-- [ ] Mostra os projetos por grupo e status, com vagas usadas e limite (RN05 e RN06).
+- [ ] Mostra os projetos por área, grupo e status, com vagas usadas e limite (RN01, RN05 e RN06).
 - [ ] A ordem da fila é definida arrastando os projetos (RN26).
 - [ ] Ativar um projeto em grupo cheio é recusado, com opção de pausar ou concluir outro (RN07).
 - [ ] Ativar um projeto sem tarefa aberta é recusado, com pedido de definir a próxima ação (RN08).
@@ -257,7 +257,7 @@ A V0.1.0 está pronta quando todos os módulos da fase 1 estiverem construídos 
 
 ## 9. Pontos em aberto
 
-- Horário de estudo por conta própria.
+- Meta de horas por dia do estudo por conta própria.
+- Novos horários de trabalho, com carga de 6 horas por dia.
 - Uso do fim de semana.
-- Área dos projetos do grupo Coronel.
 - Antecedência dos lembretes. Proposta: 10 minutos.
