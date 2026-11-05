@@ -70,9 +70,9 @@
 
 ### Etapa 6 — Kanban
 
-- [ ] **T018: Implementar colunas e conclusão.** Cubra RN22 e RN32, com uma coluna final por projeto.
+- [x] **T018: Implementar colunas e conclusão.** Cubra RN22 e RN32, com uma coluna final por projeto.
   - Pronto quando: concluir por qualquer caminho atualizar todas as telas (RN04).
-- [ ] **T019: Construir o Kanban.** Arraste tarefas entre colunas e mantenha avulsas fora dele (RN29).
+- [x] **T019: Construir o Kanban.** Arraste tarefas entre colunas e mantenha avulsas fora dele (RN29).
   - Pronto quando: os critérios da seção 6.7 forem cumpridos.
 
 ### Etapa 7 — Agenda e rotinas

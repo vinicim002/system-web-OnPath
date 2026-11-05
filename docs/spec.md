@@ -207,12 +207,12 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.7 Detalhe do projeto
 
-- [ ] Mostra dados, tarefas e Kanban.
-- [ ] Um projeto novo começa sem colunas (RN22).
-- [ ] O usuário cria, renomeia, ordena e arquiva colunas, e marca uma como final.
-- [ ] Mover uma tarefa para a coluna final a conclui (RN32).
-- [ ] Marcar uma tarefa como feita a move para a coluna final, se existir.
-- [ ] Tarefas avulsas ou de matérias não aparecem no Kanban (RN29).
+- [x] Mostra dados, tarefas e Kanban.
+- [x] Um projeto novo começa sem colunas (RN22).
+- [x] O usuário cria, renomeia, ordena e arquiva colunas, e marca uma como final.
+- [x] Mover uma tarefa para a coluna final a conclui (RN32).
+- [x] Marcar uma tarefa como feita a move para a coluna final, se existir.
+- [x] Tarefas avulsas ou de matérias não aparecem no Kanban (RN29).
 
 ### 6.8 Rotinas
 

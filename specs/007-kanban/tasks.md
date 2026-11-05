@@ -23,6 +23,6 @@ description: "Lista de tarefas da Etapa 6 (Kanban)"
 
 ## Fase 3: Acabamento
 
-- [ ] T009 `npm test`, `typecheck`, `lint`, `build` e os greps.
-- [ ] T010 Cenários do `quickstart.md` no build de produção (porta 4173).
-- [ ] T011 Registrar o `dnd-kit` em `docs/plan.md` ("Kanban e fila"); marcar T018, T019 e os critérios da seção 6.7.
+- [X] T009 `npm test`, `typecheck`, `lint`, `build` e os greps.
+- [X] T010 Cenários do `quickstart.md` no build de produção (porta 4173).
+- [X] T011 Registrar o `dnd-kit` em `docs/plan.md` ("Kanban e fila"); marcar T018, T019 e os critérios da seção 6.7.
