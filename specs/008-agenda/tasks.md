@@ -21,9 +21,9 @@ description: "Lista de tarefas da Etapa 7, parte 1 (Agenda, blocos e rotinas)"
 
 ## Fase 3: Agenda (T023)
 
-- [ ] T007 Criar `src/features/agenda/GradeSemana.tsx` (7 dias × 6h–24h, itens posicionados e divididos quando sobrepostos, hoje e linha da hora atual) e `src/telas/Agenda.tsx` (semana no endereço, anterior, próxima e Hoje).
-- [ ] T008 Criar `src/features/agenda/CriarNaAgenda.tsx` (diálogo com abas Compromisso e Bloco, dia e hora preenchidos), `FormularioCompromisso.tsx`, `FormularioBloco.tsx` (tarefa aberta ou rotina com meta) e `ConfirmarConflito.tsx` (lista os ocupantes e grava com confirmação).
-- [ ] T009 Criar `src/features/agenda/DetalheItem.tsx`: editar e arquivar compromisso (com Desfazer), marcar bloco como realizado e excluir bloco.
+- [X] T007 Criar `src/features/agenda/GradeSemana.tsx` (7 dias × 6h–24h, itens posicionados e divididos quando sobrepostos, hoje e linha da hora atual) e `src/telas/Agenda.tsx` (semana no endereço, anterior, próxima e Hoje).
+- [X] T008 Criar `src/features/agenda/CriarNaAgenda.tsx` (diálogo com abas Compromisso e Bloco, dia e hora preenchidos), `FormularioCompromisso.tsx`, `FormularioBloco.tsx` (tarefa aberta ou rotina com meta) e `ConfirmarConflito.tsx` (lista os ocupantes e grava com confirmação).
+- [X] T009 Criar `src/features/agenda/DetalheItem.tsx`: editar e arquivar compromisso (com Desfazer), marcar bloco como realizado e excluir bloco.
 
 ## Fase 4: Acabamento
 

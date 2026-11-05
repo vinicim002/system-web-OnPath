@@ -629,16 +629,20 @@ export function useRecuperarRotina() {
   return useEscrita((id: string) => rotinas.recuperar(id), CHAVES_AGENDA);
 }
 
-/** Renova os blocos das rotinas ao abrir o app e na virada do dia (research.md, item 3). */
-export function useRenovarBlocos(hoje: string) {
+/**
+ * Renova os blocos das rotinas ao abrir o app e na virada do dia (research.md, item 3). Só roda
+ * depois do primeiro uso (`ativo`), quando as rotinas iniciais já existem.
+ */
+export function useRenovarBlocos(hoje: string, ativo: boolean) {
   const { rotinas } = useServicos();
   const clienteConsultas = useQueryClient();
   useEffect(() => {
+    if (!ativo) return;
     rotinas
       .renovarBlocos(hoje)
       .then(({ criados }) => {
         if (criados > 0) void clienteConsultas.invalidateQueries({ queryKey: ["agenda"] });
       })
       .catch(() => undefined);
-  }, [rotinas, hoje, clienteConsultas]);
+  }, [rotinas, hoje, ativo, clienteConsultas]);
 }
