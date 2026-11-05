@@ -27,5 +27,5 @@ description: "Lista de tarefas da Etapa 7, parte 1 (Agenda, blocos e rotinas)"
 
 ## Fase 4: Acabamento
 
-- [ ] T010 `npm test`, `typecheck`, `lint`, `build`, greps; cenários no build de produção (porta 4173).
-- [ ] T011 Marcar T020 a T023 em `docs/tasks.md` e os critérios atendidos das seções 6.8 e 6.9.
+- [X] T010 `npm test`, `typecheck`, `lint`, `build`, greps; cenários no build de produção (porta 4173).
+- [X] T011 Marcar T020 a T023 em `docs/tasks.md` e os critérios atendidos das seções 6.8 e 6.9.

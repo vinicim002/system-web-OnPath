@@ -77,13 +77,13 @@
 
 ### Etapa 7 — Agenda e rotinas
 
-- [ ] **T020: Implementar blocos e conflitos.** Cubra RN09 na camada de dados.
+- [X] **T020: Implementar blocos e conflitos.** Cubra RN09 na camada de dados.
   - Pronto quando: criar um bloco em horário ocupado exigir confirmação.
-- [ ] **T021: Implementar rotinas.** Inclua horário, meta e geração de blocos (RN28).
+- [X] **T021: Implementar rotinas.** Inclua horário, meta e geração de blocos (RN28).
   - Pronto quando: as rotinas gerarem blocos sem duplicar.
-- [ ] **T022: Construir a tela Rotinas.** Cubra a seção 6.8.
+- [X] **T022: Construir a tela Rotinas.** Cubra a seção 6.8.
   - Pronto quando: os critérios de aceite forem cumpridos.
-- [ ] **T023: Construir a tela Agenda.** Crie a visão semanal, os compromissos e os blocos.
+- [X] **T023: Construir a tela Agenda.** Crie a visão semanal, os compromissos e os blocos.
   - Pronto quando: os critérios da seção 6.9 forem cumpridos.
 - [ ] **T024: Remarcar rotina perdida.** Proponha um novo horário (RN18).
   - Pronto quando: o usuário puder aceitar ou recusar a proposta.

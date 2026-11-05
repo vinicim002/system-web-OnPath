@@ -218,16 +218,16 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.8 Rotinas
 
-- [ ] Uma rotina pode ter dias e horário, ou meta de horas.
-- [ ] Uma rotina com meta aceita vários blocos, e o app soma o total do dia (RN28).
-- [ ] Alterar uma rotina muda apenas os blocos futuros.
+- [X] Uma rotina pode ter dias e horário, ou meta de horas.
+- [X] Uma rotina com meta aceita vários blocos, e o app soma o total do dia (RN28).
+- [X] Alterar uma rotina muda apenas os blocos futuros.
 
 ### 6.9 Agenda
 
-- [ ] A visão principal é semanal e mostra compromissos e blocos de tempo.
+- [X] A visão principal é semanal e mostra compromissos e blocos de tempo.
 - [ ] O usuário cria blocos para tarefas, rotinas e sessões de estudo.
-- [ ] Criar um bloco em horário ocupado exige confirmação (RN09).
-- [ ] O usuário cria, edita e arquiva compromissos.
+- [X] Criar um bloco em horário ocupado exige confirmação (RN09).
+- [X] O usuário cria, edita e arquiva compromissos.
 - [ ] Um bloco de rotina não realizado no horário gera uma proposta de novo horário (RN18).
 - [ ] Lembretes são exibidos antes de compromissos, rotinas e blocos.
 
