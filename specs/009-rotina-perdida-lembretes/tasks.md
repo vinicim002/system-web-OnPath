@@ -17,7 +17,7 @@ description: "Lista de tarefas da Etapa 7, parte 2 (rotina perdida, tempo livre 
 
 ## Fase 2: Hoje (T024 e T025)
 
-- [ ] T006 Criar `src/features/hoje/RotinasPerdidas.tsx` (proposta, Aceitar, Recusar e Fiz) e `src/features/hoje/TempoLivre.tsx` (livre e aviso de dia cheio); ligar em `PlanoDoDia.tsx`.
+- [X] T006 Criar `src/features/hoje/RotinasPerdidas.tsx` (proposta, Aceitar, Recusar e Fiz) e `src/features/hoje/TempoLivre.tsx` (livre e aviso de dia cheio); ligar em `PlanoDoDia.tsx`.
 
 ## Fase 3: Ajustes e lembretes (T026)
 

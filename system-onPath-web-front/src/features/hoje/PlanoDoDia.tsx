@@ -21,6 +21,8 @@ import type { AcoesTarefas } from "@/features/tarefas/acoes";
 
 import { AdicionarAoDia } from "./AdicionarAoDia";
 import { ItemDoDia } from "./ItemDoDia";
+import { RotinasPerdidas } from "./RotinasPerdidas";
+import { AvisoDiaCheio, TextoLivre } from "./TempoLivre";
 
 /** Plano do dia: tarefas na ordem escolhida, com a próxima em destaque (RN20). */
 export function PlanoDoDia({ data, acoes }: { data: string; acoes: AcoesTarefas }) {
@@ -80,13 +82,19 @@ export function PlanoDoDia({ data, acoes }: { data: string; acoes: AcoesTarefas 
     <div className="flex max-w-180 flex-col gap-5">
       <div className="-mt-4 flex flex-wrap items-center justify-between gap-3">
         <p className="text-cinza-600 first-letter:uppercase">{dataPorExtenso(data)}</p>
-        {plano && plano.itens.length > 0 && (
-          <p className="text-pequeno text-cinza-600">
-            {t("hoje.planejado", { tempo: duracao(plano.planejadoMin) })} ·{" "}
-            {t("hoje.feito", { tempo: duracao(plano.feitoMin) })}
-          </p>
-        )}
+        <p className="text-pequeno text-cinza-600">
+          {plano && plano.itens.length > 0 && (
+            <>
+              {t("hoje.planejado", { tempo: duracao(plano.planejadoMin) })} ·{" "}
+              {t("hoje.feito", { tempo: duracao(plano.feitoMin) })} ·{" "}
+            </>
+          )}
+          <TextoLivre data={data} />
+        </p>
       </div>
+
+      {plano && <AvisoDiaCheio data={data} planejadoMin={plano.planejadoMin} />}
+      <RotinasPerdidas hoje={data} />
 
       <div>
         <Button variant="outline" onClick={() => setAdicionando(true)}>
