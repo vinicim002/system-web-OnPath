@@ -182,12 +182,12 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.4 Hoje
 
-- [ ] É a tela inicial depois do login.
-- [ ] Lista as tarefas do dia na ordem escolhida, com a próxima em destaque (RN20).
-- [ ] O usuário adiciona, remove e reordena tarefas.
+- [x] É a tela inicial depois do login.
+- [x] Lista as tarefas do dia na ordem escolhida, com a próxima em destaque (RN20).
+- [x] O usuário adiciona, remove e reordena tarefas.
 - [ ] Mostra rotinas, compromissos e blocos do dia em ordem de horário.
 - [ ] Avisa quando o tempo planejado passa do tempo livre, sem bloquear (RN10).
-- [ ] Ao abrir no dia seguinte, pergunta o destino de cada tarefa pendente: remarcar, devolver à lista ou cancelar (RN25).
+- [x] Ao abrir no dia seguinte, pergunta o destino de cada tarefa pendente: remarcar, devolver à lista ou cancelar (RN25).
 - [ ] Sem conexão, exibe a última versão salva do dia em modo leitura e informa isso.
 
 ### 6.5 Áreas e metas

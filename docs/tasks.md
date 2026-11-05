@@ -45,9 +45,9 @@
 
 ### Etapa 3 — Hoje
 
-- [ ] **T011: Construir a tela Hoje.** Adicione, reordene e destaque a próxima tarefa (RN20).
+- [x] **T011: Construir a tela Hoje.** Adicione, reordene e destaque a próxima tarefa (RN20).
   - Pronto quando: a tela abrir como inicial e destacar a próxima tarefa.
-- [ ] **T012: Tratar as pendências.** Pergunte o destino ao abrir o app no dia seguinte (RN11 e RN25).
+- [x] **T012: Tratar as pendências.** Pergunte o destino ao abrir o app no dia seguinte (RN11 e RN25).
   - Pronto quando: nenhuma pendência de dia anterior ficar sem destino.
 
 > **Marco:** nesta etapa, o OnPath já pode organizar o seu dia. Comece a usar, exporte os dados com frequência e anote o que incomoda.

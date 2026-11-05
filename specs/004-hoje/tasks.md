@@ -83,9 +83,9 @@ o "Pronto quando".
 
 ## Fase 6: Acabamento
 
-- [ ] T019 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build`, e os greps do cenário 4 do `quickstart.md`.
-- [ ] T020 Rodar no navegador os cenários 1 a 3 do `quickstart.md` no build de produção (porta 4173), sem tocar nos dados da porta 5173.
-- [ ] T021 Marcar T011 e T012 em `docs/tasks.md` (a partir de `system-web-onPath/`) e, na seção 6.4 de `docs/spec.md`, os critérios "É a tela inicial depois do login", "Lista as tarefas do dia na ordem escolhida, com a próxima em destaque (RN20)", "O usuário adiciona, remove e reordena tarefas" e "Ao abrir no dia seguinte, pergunta o destino de cada tarefa pendente…". Os demais ficam para as T025 e T048.
+- [X] T019 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build`, e os greps do cenário 4 do `quickstart.md`.
+- [X] T020 Rodar no navegador os cenários 1 a 3 do `quickstart.md` no build de produção (porta 4173), sem tocar nos dados da porta 5173.
+- [X] T021 Marcar T011 e T012 em `docs/tasks.md` (a partir de `system-web-onPath/`) e, na seção 6.4 de `docs/spec.md`, os critérios "É a tela inicial depois do login", "Lista as tarefas do dia na ordem escolhida, com a próxima em destaque (RN20)", "O usuário adiciona, remove e reordena tarefas" e "Ao abrir no dia seguinte, pergunta o destino de cada tarefa pendente…". Os demais ficam para as T025 e T048.
 
 ---
 
