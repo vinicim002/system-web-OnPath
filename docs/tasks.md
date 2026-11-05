@@ -34,13 +34,13 @@
 
 ### Etapa 2 — Tarefas
 
-- [ ] **T007: Implementar as regras de tarefas.** Cubra RN02, RN21 e RN24 na camada de dados.
+- [x] **T007: Implementar as regras de tarefas.** Cubra RN02, RN21 e RN24 na camada de dados.
   - Pronto quando: uma tarefa inválida for recusada com erro claro.
-- [ ] **T008: Implementar subtarefas.** Permita vários níveis, herança e bloqueio de ciclos (RN30 e RN33).
+- [x] **T008: Implementar subtarefas.** Permita vários níveis, herança e bloqueio de ciclos (RN30 e RN33).
   - Pronto quando: uma subtarefa herdar área e prioridade.
-- [ ] **T009: Construir a tela de Tarefas.** Inclua lista, filtros e painel lateral de detalhes.
+- [x] **T009: Construir a tela de Tarefas.** Inclua lista, filtros e painel lateral de detalhes.
   - Pronto quando: os critérios da seção 6.3 forem cumpridos.
-- [ ] **T010: Converter item da caixa em tarefa.** Abra o formulário da tarefa com o texto do item.
+- [x] **T010: Converter item da caixa em tarefa.** Abra o formulário da tarefa com o texto do item.
   - Pronto quando: o item convertido sair da caixa e virar tarefa.
 
 ### Etapa 3 — Hoje

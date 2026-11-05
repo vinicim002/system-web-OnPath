@@ -55,8 +55,7 @@ Em qualquer erro, nada é gravado.
 | Hook | Uso |
 |---|---|
 | `useTarefas(filtros)` | Lista da tela. Chave `["tarefas", "lista", filtros]` |
-| `useTarefa(id)` | Painel. Chave `["tarefas", "uma", id]` |
-| `useSubtarefas(id)` | Árvore no painel. Chave `["tarefas", "subtarefas", id]` |
+| `useTodasTarefas()` | Painel, árvore de subtarefas e mover: todas as tarefas ativas, em qualquer status (`useTarefas({ status: "todas" })`) |
 | `useOpcoesTarefa()` | Áreas, projetos e matérias ativos para formulários e filtros |
 | `useCriarTarefa`, `useCriarSubtarefa`, `useAlterarTarefa`, `useMoverTarefa`, `useConcluirTarefa`, `useReabrirTarefa`, `useCancelarTarefa`, `useExcluirTarefa`, `useRecuperarTarefa`, `useCriarTarefaDeItem` | Escritas |
 

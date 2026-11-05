@@ -169,16 +169,16 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 - [x] A captura funciona com poucos cliques, sem abrir outra tela.
 - [ ] Um item pode virar tarefa, projeto, compromisso ou material.
 - [x] Um item pode ser descartado e recuperado (RN31).
-- [ ] Ao virar tarefa, os campos da RN24 são exigidos.
+- [x] Ao virar tarefa, os campos da RN24 são exigidos.
 
 ### 6.3 Tarefas
 
-- [ ] A lista filtra por área, projeto, matéria, prioridade e status.
-- [ ] Criar uma tarefa sem título, área, prioridade ou tempo estimado é recusado com erro claro (RN24).
-- [ ] Prioridade aceita somente alta, média ou baixa (RN21).
-- [ ] Uma tarefa pode ser projeto, matéria ou avulsa (RN02).
-- [ ] Subtarefas aceitam vários níveis e exigem só título (RN30 e RN33).
-- [ ] Concluir uma tarefa atualiza todas as telas (RN04 e RN32).
+- [x] A lista filtra por área, projeto, matéria, prioridade e status.
+- [x] Criar uma tarefa sem título, área, prioridade ou tempo estimado é recusado com erro claro (RN24).
+- [x] Prioridade aceita somente alta, média ou baixa (RN21).
+- [x] Uma tarefa pode ser projeto, matéria ou avulsa (RN02).
+- [x] Subtarefas aceitam vários níveis e exigem só título (RN30 e RN33).
+- [x] Concluir uma tarefa atualiza todas as telas (RN04 e RN32).
 
 ### 6.4 Hoje
 

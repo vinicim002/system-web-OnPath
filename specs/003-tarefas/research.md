@@ -99,6 +99,8 @@ Decisões da Fase 0. A base técnica vem das features 001 e 002 e não muda aqui
 
 - **Decisão**: as ações da lista são criadas uma vez e as linhas são memorizadas, como na Caixa
   (feature 002, item 10). Meta: 500 tarefas com filtro e conclusão em menos de 100 ms (SC-006).
+- **Medição (T026)**: com 507 tarefas no build de produção, concluir levou de 36 a 50 ms, e
+  trocar o filtro, de 14 a 37 ms.
 
 ## 13. Testes
 

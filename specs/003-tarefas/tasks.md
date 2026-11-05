@@ -110,9 +110,9 @@ cumpre o "Pronto quando".
 
 ## Fase 7: Acabamento
 
-- [ ] T025 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build`, e os greps do cenário 6 do `quickstart.md`.
-- [ ] T026 Rodar no navegador os cenários 1 a 4 do `quickstart.md` e o cenário 5 (500 tarefas no build de produção, porta 4173), sem tocar nos dados da porta 5173 sem cópia e restauração.
-- [ ] T027 Marcar T007 a T010 em `docs/tasks.md` (a partir de `system-web-onPath/`) e marcar como atendidos na `docs/spec.md` os critérios da seção 6.3 e, na seção 6.2, "Ao virar tarefa, os campos da RN24 são exigidos". O critério "Um item pode virar tarefa, projeto, compromisso ou material" continua aberto até a T029.
+- [X] T025 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build`, e os greps do cenário 6 do `quickstart.md`.
+- [X] T026 Rodar no navegador os cenários 1 a 4 do `quickstart.md` e o cenário 5 (500 tarefas no build de produção, porta 4173), sem tocar nos dados da porta 5173 sem cópia e restauração.
+- [X] T027 Marcar T007 a T010 em `docs/tasks.md` (a partir de `system-web-onPath/`) e marcar como atendidos na `docs/spec.md` os critérios da seção 6.3 e, na seção 6.2, "Ao virar tarefa, os campos da RN24 são exigidos". O critério "Um item pode virar tarefa, projeto, compromisso ou material" continua aberto até a T029.
 
 ---
 
