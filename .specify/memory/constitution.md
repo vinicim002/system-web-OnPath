@@ -56,7 +56,7 @@ Motivo: manter a interface minimalista e consistente em todas as telas.
 
 ## Restrições do projeto
 
-- Stack decidida: React Native/Expo, começando pela web no computador; API em Python e
+- Stack decidida: React com Vite, como app web para computador; API em Python e
   FastAPI; banco PostgreSQL; servidor futuro na VPS Hostinger KVM 1. Itens marcados como
   **Proposta** em `docs/plan.md` ainda podem mudar.
 - A V0.1.0 roda localmente, sem custo de servidor. A VPS só é contratada depois da
@@ -83,4 +83,11 @@ Motivo: manter a interface minimalista e consistente em todas as telas.
 - Todo plano e toda revisão de código DEVEM verificar a conformidade com estes
   princípios.
 
-**Versão**: 1.0.0 | **Ratificada**: 2026-11-05 | **Última emenda**: 2026-11-05
+**Versão**: 1.1.0 | **Ratificada**: 2026-11-05 | **Última emenda**: 2026-11-05
+
+### Emendas
+
+- **1.1.0 (2026-11-05):** a interface troca React Native/Expo por React com Vite. Motivo: o
+  produto principal é o app no computador, e as telas de computador não seriam
+  reaproveitadas no celular. O código reaproveitável (tipos, serviços, textos e tema) é
+  TypeScript puro e pode servir a um app de celular futuro.

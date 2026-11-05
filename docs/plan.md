@@ -7,14 +7,16 @@ Itens marcados com **Proposta** ainda não foram debatidos e podem mudar. Os dem
 
 ## 1. Stack
 
+> 2026-11-05: a interface trocou React Native/Expo por React com Vite (constituição 1.1.0). O app é para computador, e um app de celular futuro reaproveita só a camada de dados, os textos e o tema.
+
 | Camada | Escolha | Situação |
 |---|---|---|
-| Interface | React Native/Expo, começando pela web no computador | Decidido |
+| Interface | React com Vite, como app web de página única para computador | Decidido |
 | Linguagem da interface | TypeScript | Decidido |
-| Rotas da interface | Expo Router | Decidido |
+| Rotas da interface | React Router | Decidido |
 | Dados na interface | TanStack Query | Decidido |
 | Validação na interface | Zod | Decidido |
-| Testes da interface | Jest com `jest-expo` | Decidido |
+| Testes da interface | Vitest | Decidido |
 | API | Python e FastAPI | Decidido |
 | Validação | Pydantic | Proposta |
 | Banco | PostgreSQL | Decidido |
@@ -26,7 +28,7 @@ Itens marcados com **Proposta** ainda não foram debatidos e podem mudar. Os dem
 
 Use versões estáveis atuais no momento de instalar.
 
-Versões instaladas na Etapa 0 (interface): Expo SDK 58, React Native 0.88, TypeScript 6, Expo Router 58, TanStack Query 5, Zod 4 e Jest 30.
+Versões instaladas na Etapa 0 (interface): React 19, Vite 8, TypeScript 7, React Router 8, TanStack Query 5, Zod 4 e Vitest 5.
 
 ## 2. Ordem de construção
 
@@ -41,7 +43,7 @@ A construção é **front-end primeiro**. As telas são feitas com dados locais 
 
 ### Local, na V0.1.0
 
-Tudo roda no computador do usuário, sem custo de servidor. Primeiro, roda só o Expo no navegador. Depois, entram a API em Python e o PostgreSQL em um contêiner.
+Tudo roda no computador do usuário, sem custo de servidor. Primeiro, roda só a interface (Vite) no navegador. Depois, entram a API em Python e o PostgreSQL em um contêiner.
 
 - Interface: `http://localhost:8081`
 - API: `http://localhost:8000`
@@ -66,15 +68,15 @@ onPath/                           # Repositório
     │   ├── plan.md
     │   └── tasks.md
     ├── specs/                    # Especificações por etapa
-    ├── system-onPath-web-front/  # Expo
-    │   ├── app/                  # Rotas
+    ├── system-onPath-web-front/  # React com Vite
     │   └── src/
     │       ├── api/              # Implementação dos serviços pela API (Parte 2)
     │       ├── components/
     │       ├── dados/            # Tipos, contratos dos serviços e implementação local
     │       ├── features/         # Um módulo por área do produto
     │       ├── i18n/             # Textos em português
-    │       ├── plataforma/       # Código só da web: arquivos, travas e notificações
+    │       ├── telas/            # Uma tela por rota
+    │       ├── plataforma/       # APIs do navegador: arquivos, travas e notificações
     │       └── theme/            # Cores, fontes e espaçamentos
     ├── system-onPath-web-back/   # FastAPI
     │   ├── app/
@@ -93,7 +95,7 @@ Cada módulo da API separa rotas, esquemas, serviço e modelos. As regras de neg
 ## 5. Arquitetura
 
 ```text
-Expo web  -->  API FastAPI  -->  PostgreSQL
+React (Vite)  -->  API FastAPI  -->  PostgreSQL
    |
    +--> Cópia local do plano do dia
 ```
@@ -303,5 +305,5 @@ Enquanto estiver local, os dados dependem do computador do usuário. Um script u
 | Dados locais apagados no navegador | Exportar o JSON com frequência |
 | Perda de dados no computador local | Rodar o backup com frequência |
 | Lembretes dependem do app aberto | Deixar a limitação clara na tela de Ajustes |
-| Código de web diferente no celular | Isolar arrastar, armazenamento local e notificações |
+| Um app de celular no futuro | Manter tipos, serviços, textos e tema em TypeScript puro, sem depender da interface |
 | VPS KVM 1 ter pouca capacidade futura | Medir o uso antes de contratar |

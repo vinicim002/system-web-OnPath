@@ -14,7 +14,7 @@ O usuário tem muitos projetos, TCC, matérias atrasadas, estudos, trabalho, aca
 ### Entra
 
 - Fase 1 completa: Hoje, Caixa de entrada, Áreas e metas, Projetos, Tarefas, Kanban, Agenda, Rotinas e Estudos.
-- Interface para computador, com a versão web do Expo no navegador.
+- Interface para computador, como app web no navegador.
 - Construção front-end primeiro: as telas funcionam com dados locais, e o back-end começa depois da revisão.
 - Execução local, sem gastos com servidor.
 - Login com conta Google.

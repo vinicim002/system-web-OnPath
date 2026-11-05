@@ -52,9 +52,9 @@ npm run typecheck  # TypeScript sem erros
 ```bash
 cd system-onPath-web-front
 # Nenhuma tela importa a implementação local diretamente:
-grep -rn "dados/local" app/ src/components src/features   # sem resultado
+grep -rn "dados/local" src/telas src/components src/features   # sem resultado
 # Nenhuma cor literal fora do tema:
-grep -rnE "#[0-9a-fA-F]{3,6}" app/ src/components src/features   # sem resultado
+grep -rnE "#[0-9a-fA-F]{3,6}" src/telas src/components src/features   # sem resultado
 ```
 
 Os textos visíveis vêm de `src/i18n/pt-BR.ts`. Isso é conferido na revisão do código.

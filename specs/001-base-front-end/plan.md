@@ -6,7 +6,7 @@
 
 ## Resumo
 
-A Etapa 0 cria o app Expo para a web, com:
+A Etapa 0 cria o app web para computador (React com Vite), com:
 
 - um menu lateral fixo e 9 telas vazias, com rotas próprias;
 - um tema em preto e branco e um arquivo central de textos em português;
@@ -23,24 +23,28 @@ dados.
 
 ## Contexto técnico
 
-**Linguagem/versão**: TypeScript em modo estrito, na versão que acompanha o Expo SDK estável atual.
+**Linguagem/versão**: TypeScript em modo estrito, na versão estável atual.
+
+> 2026-11-05: a primeira versão usou Expo. A interface foi refeita em React com Vite
+> (constituição 1.1.0, `research.md`, item 13). A camada de dados, os textos, o tema e os testes
+> foram mantidos.
 
 **Dependências principais**:
 
 | Dependência | Uso |
 |---|---|
-| Expo (SDK estável atual) e React Native Web | O app |
-| Expo Router | Rotas por arquivo, com endereço próprio na web |
+| React e Vite | O app e o servidor de desenvolvimento |
+| React Router | Rotas, com endereço próprio para cada tela |
 | TanStack Query | Cache e atualização das telas a partir dos serviços |
 | Zod | Esquemas das entidades e validação da cópia de dados |
-| `@expo-google-fonts/inter` | Fonte Inter |
+| `@fontsource/inter` | Fonte Inter, servida pelo próprio app |
 
 As versões são as estáveis no momento da instalação (`docs/plan.md`, seção 1).
 
 **Armazenamento**: `localStorage` do navegador, por meio de um adaptador de armazenamento isolado.
 O adaptador usa uma chave por coleção e uma chave de controle.
 
-**Testes**: Jest com o preset `jest-expo`, para os serviços locais, os dados iniciais e a cópia
+**Testes**: Vitest com o ambiente `jsdom`, para os serviços locais, os dados iniciais e a cópia
 de dados. As telas são validadas pelos cenários de aceite e pelo `quickstart.md`.
 
 **Plataforma-alvo**: navegadores atuais de computador, rodando em `http://localhost:8081`.
@@ -57,7 +61,7 @@ página). Exportar e importar centenas de registros leva menos de 1 s.
 - Toda leitura e escrita passa pelos serviços (princípio IV).
 - Nenhum texto fica escrito nos componentes (princípio I).
 - Nenhuma cor fica fora do tema (princípio V).
-- O código só da web fica isolado em `src/plataforma/`.
+- O acesso direto às APIs do navegador (arquivos e travas) fica isolado em `src/plataforma/`.
 
 **Escala/escopo**: 1 usuário, 9 telas e 16 entidades. O volume esperado é de milhares de
 registros, abaixo do limite de cerca de 5 MB do armazenamento do navegador.
@@ -81,8 +85,9 @@ complexidade foi removida.
 
 Aplicadas no `docs/plan.md` antes de qualquer código:
 
-- **Seção 1:** TypeScript, Expo Router e TanStack Query passam de "Proposta" para "Decidido".
-  Entram Zod para a validação na interface e Jest para os testes da interface.
+- **Seção 1:** TypeScript e TanStack Query passam de "Proposta" para "Decidido". Entram Zod para
+  a validação na interface. Depois, com a troca de stack, entram React com Vite, React Router e
+  Vitest no lugar de Expo, Expo Router e Jest.
 - **Seção 4:** entram as pastas `src/dados/` e `src/plataforma/`. A pasta `src/api/` passa a ser a
   implementação dos contratos que chama a API, a partir da Parte 2.
 
@@ -106,21 +111,14 @@ specs/001-base-front-end/
 ### Código (`system-web-onPath/`)
 
 ```text
-system-onPath-web-front/      # Projeto Expo
-├── app/                      # Rotas (Expo Router)
-│   ├── _layout.tsx           # Fonte, provedores e moldura com o menu lateral
-│   ├── index.tsx             # Hoje
-│   ├── caixa.tsx
-│   ├── tarefas.tsx
-│   ├── projetos.tsx
-│   ├── areas.tsx
-│   ├── agenda.tsx
-│   ├── rotinas.tsx
-│   ├── estudos.tsx
-│   ├── ajustes.tsx
-│   └── +not-found.tsx
+system-onPath-web-front/      # React com Vite
+├── index.html
+├── public/                   # Favicon
 ├── src/
-│   ├── components/           # MenuLateral, TelaBase, Botao, Aviso
+│   ├── main.tsx              # Fonte, tema, provedores e rotas
+│   ├── rotas.tsx             # Endereços das telas (React Router)
+│   ├── telas/                # Hoje, Caixa, Tarefas, ..., Ajustes e NaoEncontrada
+│   ├── components/           # Moldura, MenuLateral, TelaBase, Botao, Logo e PreparoPrimeiroUso
 │   ├── features/
 │   │   └── ajustes/          # Exportar e importar (T005)
 │   ├── dados/
@@ -136,13 +134,13 @@ system-onPath-web-front/      # Projeto Expo
 │   │       ├── servicos.ts       # Implementação local dos contratos
 │   │       ├── carga.ts          # Criação única dos dados iniciais
 │   │       └── copia.ts          # Exportação e importação
-│   ├── plataforma/           # Só web: baixar e escolher arquivo, trava entre abas
+│   ├── plataforma/           # APIs do navegador: arquivos, trava entre abas e id
 │   ├── i18n/
 │   │   └── pt-BR.ts
 │   └── theme/
-│       └── index.ts          # Cores, fontes e espaçamentos
-├── __tests__/                # Testes Jest dos serviços locais
-├── app.json
+│       └── index.ts          # Cores, fontes e espaçamentos, publicados como variáveis CSS
+├── __tests__/                # Testes Vitest dos serviços locais
+├── vite.config.ts            # Vite e Vitest
 ├── package.json
 └── tsconfig.json
 ```

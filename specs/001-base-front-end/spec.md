@@ -6,7 +6,7 @@
 
 **Status**: Rascunho
 
-**Entrada**: Etapa 0 do `docs/tasks.md` (T001 a T005): base do front-end com Expo web, rotas,
+**Entrada**: Etapa 0 do `docs/tasks.md` (T001 a T005): base do front-end como app web, rotas,
 tema preto e branco, textos separados do código, menu lateral, camada de dados local tipada que
 poderá ser trocada pela API sem mudar as telas, dados iniciais da seção 5 do `docs/spec.md`
 carregados uma única vez, e exportação/importação dos dados locais em JSON.

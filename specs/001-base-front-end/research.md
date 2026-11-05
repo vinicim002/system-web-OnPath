@@ -13,14 +13,13 @@ foram resolvidos aqui.
 
 ## 2. Rotas
 
-- **Decisão**: Expo Router, com um arquivo por tela em `system-onPath-web-front/app/` e um layout raiz que desenha
-  o menu lateral e a tela atual ao lado.
-- **Motivo**: dá a cada tela um endereço próprio na web (FR-004 e cenário 3 da história 1) e
-  tem uma tela de "não encontrada" pronta (`+not-found`). Também segue a estrutura do
-  `docs/plan.md`.
-- **Alternativas**: React Navigation configurado à mão, que exige mais código para ter os mesmos
-  endereços. O navegador de gaveta (drawer) foi descartado porque o menu é fixo no computador e
-  não abre nem fecha.
+- **Decisão**: React Router, com as rotas em `src/rotas.tsx`, uma tela por arquivo em
+  `src/telas/` e uma moldura que desenha o menu lateral e a tela atual ao lado. A rota `*` mostra
+  a página de não encontrada.
+- **Motivo**: dá a cada tela um endereço próprio (FR-004 e cenário 3 da história 1), e o
+  `NavLink` já marca o item atual do menu (FR-006).
+- **Alternativas**: TanStack Router, com rotas mais tipadas, mas pouco ganho com 10 rotas
+  simples. Expo Router foi usado na primeira versão e saiu com a troca de stack (item 13).
 
 ## 3. Dados nas telas
 
@@ -92,14 +91,14 @@ foram resolvidos aqui.
 
 ## 10. Exportar e importar na web
 
-- **Decisão**: em `src/plataforma/arquivos.web.ts`, exportar usa `Blob` e um link de download, e
+- **Decisão**: em `src/plataforma/arquivos.ts`, exportar usa `Blob` e um link de download, e
   importar usa um `<input type="file">` escondido. O nome do arquivo segue o padrão
   `onpath-copia-AAAA-MM-DD.json`.
 - **Motivo**: dispensa dependências e fica isolado da plataforma, como pede o `docs/plan.md`.
 
 ## 11. Testes
 
-- **Decisão**: Jest com `jest-expo`, para os serviços locais (CRUD e arquivamento), a criação
+- **Decisão**: Vitest com o ambiente `jsdom`, para os serviços locais (CRUD e arquivamento), a criação
   única dos dados iniciais e a cópia (ida e volta, e recusa de arquivos inválidos). O
   `localStorage` é simulado pelo ambiente `jsdom`.
 - **Motivo**: são as partes com regra e risco de perder dados. As telas desta etapa são vazias e
@@ -112,3 +111,16 @@ foram resolvidos aqui.
   pequenos detalhes), a fonte Inter (400, 500 e 600) e os espaçamentos em múltiplos de 4.
 - **Motivo**: cumpre a seção 7 de `docs/spec.md` e o princípio V. Nenhum componente usa cor
   literal.
+
+## 13. Troca de Expo por React com Vite
+
+- **Decisão**: a interface é um app React de página única, criado com Vite. O estilo usa CSS
+  Modules, e as cores, fontes e espaçamentos chegam aos componentes como variáveis CSS geradas a
+  partir de `src/theme/index.ts`.
+- **Motivo**: o produto principal é o app no computador. Com HTML e CSS, ficam disponíveis
+  estados de foco e de mouse, atalhos e as bibliotecas web de arrastar e soltar e de calendário,
+  úteis no Kanban e na Agenda. As telas de computador não seriam reaproveitadas no celular, e o
+  que seria reaproveitado (tipos, serviços, textos e tema) é TypeScript puro.
+- **Alternativas**: manter Expo, que reaproveitaria as telas no celular, mas limita o app no
+  computador. Next.js foi descartado porque o app não precisa de renderização no servidor nem
+  de SEO, e a API da Parte 2 é em FastAPI.
