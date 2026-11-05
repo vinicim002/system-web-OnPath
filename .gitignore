@@ -1,0 +1,21 @@
+# Agentes de IA e Spec Kit (somente local)
+.claude/
+.specify/
+docs/
+specs/
+CLAUDE.md
+AGENTS.md
+.cursor/
+.codex/
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Sistema / editor
+.DS_Store
+.vscode/
+.idea/
