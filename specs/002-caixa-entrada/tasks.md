@@ -27,7 +27,7 @@ marcada na fase final.
 
 **Objetivo**: instalar os componentes do shadcn/ui que a caixa usa.
 
-- [ ] T001 Adicionar os componentes `dialog`, `textarea`, `tabs` e `sonner` do shadcn/ui com `npx shadcn@latest add dialog textarea tabs sonner`. Conferir em `src/components/ui/` que todos importam `cn` de `@/lib/utils` (e não de um pacote `cn`), remover o pacote `cn` se ele aparecer em `package.json`, e trocar cores fora do tema (`black`, `white` e similares) por `preto` e `branco`. No `src/components/ui/sonner.tsx`, remover o uso de `next-themes`, se houver, e fixar o tema claro.
+- [X] T001 Adicionar os componentes `dialog`, `textarea`, `tabs` e `sonner` do shadcn/ui com `npx shadcn@latest add dialog textarea tabs sonner`. Conferir em `src/components/ui/` que todos importam `cn` de `@/lib/utils` (e não de um pacote `cn`), remover o pacote `cn` se ele aparecer em `package.json`, e trocar cores fora do tema (`black`, `white` e similares) por `preto` e `branco`. No `src/components/ui/sonner.tsx`, remover o uso de `next-themes`, se houver, e fixar o tema claro.
 
 ---
 
