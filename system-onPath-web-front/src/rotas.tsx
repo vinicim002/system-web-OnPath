@@ -33,6 +33,7 @@ export const roteador = createBrowserRouter([
       { path: "caixa", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Caixa")).Caixa })) },
       { path: "tarefas", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Tarefas")).Tarefas })) },
       { path: "projetos", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Projetos")).Projetos })) },
+      { path: "projetos/:id", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Projeto")).Projeto })) },
       { path: "areas", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Areas")).Areas })) },
       { path: "agenda", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Agenda")).Agenda })) },
       { path: "rotinas", lazy: sobDemanda(async () => ({ Component: (await import("@/telas/Rotinas")).Rotinas })) },

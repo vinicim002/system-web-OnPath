@@ -57,8 +57,8 @@ description: "Lista de tarefas da Etapa 5 (Projetos)"
 
 ## Fase 4: História 3, detalhe do projeto (P2)
 
-- [ ] T013 [US3] Criar `src/telas/Projeto.tsx` na rota lazy `/projetos/:id` (em `src/rotas.tsx`): cabeçalho com nome, status e `AcoesStatus`; `FormularioProjeto` para editar; Excluir com Desfazer; projeto inexistente mostra a página de não encontrada.
-- [ ] T014 [US3] No detalhe, listar as tarefas do projeto com `ListaTarefas` e `useAcoesTarefas` (filtro de status) e "Nova tarefa" num `Dialog` com o `FormularioTarefa` já no projeto; abrir uma tarefa leva a `/tarefas?tarefa={id}`.
+- [X] T013 [US3] Criar `src/telas/Projeto.tsx` na rota lazy `/projetos/:id` (em `src/rotas.tsx`): cabeçalho com nome, status e `AcoesStatus`; `FormularioProjeto` para editar; Excluir com Desfazer; projeto inexistente mostra a página de não encontrada.
+- [X] T014 [US3] No detalhe, listar as tarefas do projeto com `ListaTarefas` e `useAcoesTarefas` (filtro de status) e "Nova tarefa" num `Dialog` com o `FormularioTarefa` já no projeto; abrir uma tarefa leva a `/tarefas?tarefa={id}`.
 
 **Ponto de controle**: cenários 1 a 3 passam. A T017 cumpre o "Pronto quando".
 

@@ -90,7 +90,7 @@ export function MenuLateral({ abrirCaptura }: Props) {
         <NavLink
           key={rota}
           to={rota}
-          end
+          end={rota === "/"}
           className={classeItem}
         >
           <Icone aria-hidden className="size-4 shrink-0" />
