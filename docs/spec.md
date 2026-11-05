@@ -207,6 +207,8 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.7 Detalhe do projeto
 
+> 2026-11-05: o Kanban também abre pelo item **Kanban** do menu lateral, com um seletor de projeto no topo. É o mesmo quadro do detalhe do projeto.
+
 - [x] Mostra dados, tarefas e Kanban.
 - [x] Um projeto novo começa sem colunas (RN22).
 - [x] O usuário cria, renomeia, ordena e arquiva colunas, e marca uma como final.
