@@ -92,8 +92,6 @@ describe("serviço de coleção local", () => {
       grupoId: grupoTrabalho.id,
       nome: "App",
       prioridade: "media",
-      status: "ativo",
-      posicaoFila: 0,
     });
     expect(projeto.areaId).toBe(trabalho.id);
     expect(projeto.metaId).toBeNull();

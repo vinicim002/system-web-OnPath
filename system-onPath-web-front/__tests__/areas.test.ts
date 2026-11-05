@@ -67,7 +67,7 @@ describe("áreas (T013)", () => {
     await s.metas.criar({ areaId: trabalho.id, titulo: "Meta", status: "ativa" });
     await s.metas.criar({ areaId: trabalho.id, titulo: "Feita", status: "concluida" });
     const grupo = await s.grupos.criar({ areaId: trabalho.id, nome: "Clientes", limiteAtivos: 1 });
-    await s.projetos.criar({ grupoId: grupo.id, nome: "Site", prioridade: "alta", status: "ativo", posicaoFila: 0 });
+    await s.projetos.criar({ grupoId: grupo.id, nome: "Site", prioridade: "alta" });
     const tarefa = await s.tarefas.criar({
       titulo: "T",
       areaId: trabalho.id,
@@ -211,13 +211,20 @@ describe("grupos (T014)", () => {
     const { s, trabalho } = await comArea();
     const grupo = await s.grupos.criar({ areaId: trabalho, nome: "Clientes", limiteAtivos: 2 });
     await s.grupos.criar({ areaId: trabalho, nome: "Agência", limiteAtivos: 1 });
-    const projeto = (nome: string, status: "ativo" | "fila" | "pausado") =>
-      s.projetos.criar({ grupoId: grupo.id, nome, prioridade: "media", status, posicaoFila: 0 });
-    await projeto("A", "ativo");
-    await projeto("B", "ativo");
-    await projeto("C", "fila");
-    const arquivado = await projeto("D", "ativo");
-    await s.projetos.excluir(arquivado.id);
+    const projeto = async (nome: string, ativar: boolean) => {
+      const criado = await s.projetos.criar({ grupoId: grupo.id, nome, prioridade: "media" });
+      if (!ativar) return criado;
+      await s.tarefas.criar({ titulo: "Próxima", areaId: trabalho, projetoId: criado.id, prioridade: "media", tempoEstimadoMin: 10, status: "aberta" });
+      return s.projetos.mudarStatus(criado.id, "ativo");
+    };
+    await projeto("A", true);
+    const b = await projeto("B", true);
+    await projeto("C", false);
+    await s.projetos.mudarStatus(b.id, "pausado");
+    const d = await projeto("D", true);
+    await s.projetos.mudarStatus(b.id, "ativo").catch(() => undefined);
+    await s.projetos.excluir(d.id);
+    await s.projetos.mudarStatus(b.id, "ativo");
 
     let grupos = await s.grupos.listarDaArea(trabalho);
     expect(grupos.map((g) => [g.nome, g.ativos, g.limiteAtivos, g.acimaDoLimite])).toEqual([
@@ -235,7 +242,7 @@ describe("grupos (T014)", () => {
     const { s, trabalho } = await comArea();
     const cheio = await s.grupos.criar({ areaId: trabalho, nome: "Cheio", limiteAtivos: 1 });
     const vazio = await s.grupos.criar({ areaId: trabalho, nome: "Vazio", limiteAtivos: 1 });
-    await s.projetos.criar({ grupoId: cheio.id, nome: "P", prioridade: "media", status: "fila", posicaoFila: 0 });
+    await s.projetos.criar({ grupoId: cheio.id, nome: "P", prioridade: "media" });
 
     const erro = await capturarErro(s.grupos.excluir(cheio.id));
     expect(erro.codigo).toBe("grupo_com_projetos");

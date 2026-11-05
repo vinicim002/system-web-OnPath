@@ -164,6 +164,48 @@ export interface ServicoGrupos extends ServicoColecao<T.Grupo, T.NovoGrupo, T.Al
   excluir(id: string): Promise<void>;
 }
 
+// ---------------------------------------------------------------------------
+// Projetos (specs/006-projetos/contracts/servico-projetos.md)
+// ---------------------------------------------------------------------------
+
+export interface ProjetoNaVisao extends T.Projeto {
+  semProximaAcao: boolean;
+  tarefasAbertas: number;
+}
+
+export interface GrupoNaVisao extends GrupoComVagas {
+  /** Por prioridade e nome. */
+  projetosAtivos: ProjetoNaVisao[];
+  /** Pela posição na fila. */
+  fila: ProjetoNaVisao[];
+  pausados: ProjetoNaVisao[];
+  /** Concluídos e cancelados, mais recentes primeiro. */
+  encerrados: ProjetoNaVisao[];
+}
+
+export interface AreaNaVisao {
+  area: T.Area;
+  grupos: GrupoNaVisao[];
+}
+
+export interface FiltrosProjetos {
+  areaId?: string;
+  status?: T.StatusProjeto;
+}
+
+export interface ServicoProjetos extends ServicoColecao<T.Projeto, T.NovoProjeto, T.AlteracaoProjeto> {
+  visaoGeral(filtros?: FiltrosProjetos): Promise<AreaNaVisao[]>;
+  /** Cria na fila, no fim. */
+  criar(dados: Omit<T.NovoProjeto, "status" | "posicaoFila">): Promise<T.Projeto>;
+  /** Nome único no grupo; mudar de grupo propaga a área para as tarefas (RN01). */
+  alterar(id: string, dados: T.AlteracaoProjeto): Promise<T.Projeto>;
+  /** Transições permitidas; ativar confere vaga (RN07) e próxima ação (RN08). */
+  mudarStatus(id: string, status: T.StatusProjeto): Promise<T.Projeto>;
+  reordenarFila(grupoId: string, ids: string[]): Promise<void>;
+  /** Ativo e sem tarefa aberta (RN08). */
+  semProximaAcao(id: string): Promise<boolean>;
+}
+
 export interface CopiaDados {
   formato: "onpath-copia";
   versao: number;
@@ -185,7 +227,7 @@ export interface Servicos {
   metas: ServicoMetas;
   grupos: ServicoGrupos;
   /** O `areaId` vem do grupo (RN01). */
-  projetos: ServicoColecao<T.Projeto, T.NovoProjeto, T.AlteracaoProjeto>;
+  projetos: ServicoProjetos;
   colunas: ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna>;
   tarefas: ServicoTarefas;
   itensCaixa: ServicoItensCaixa;

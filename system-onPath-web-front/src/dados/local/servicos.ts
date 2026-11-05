@@ -1,7 +1,5 @@
 import type { Servicos } from "../contratos";
-import { criarErro } from "../erros";
 import { esquemas, type NomeColecao } from "../tipos";
-import { lerColecao } from "./armazenamento";
 import { criarServicoAreas } from "./areas";
 import { criarServicoItensCaixa } from "./caixa";
 import { criarServicoGrupos } from "./grupos";
@@ -10,14 +8,8 @@ import { criarServicoItensDia } from "./itensDia";
 import { prepararPrimeiroUso } from "./carga";
 import { exportarCopia, importarCopia } from "./copia";
 import { criarServicoColecao, type OpcoesColecao } from "./colecao";
+import { criarServicoProjetos } from "./projetos";
 import { criarServicoTarefas } from "./tarefas";
-
-/** RN01: o projeto fica sempre na área do seu grupo. */
-function areaDoGrupo(registro: Record<string, unknown>): Record<string, unknown> {
-  const grupo = lerColecao("grupos").find((item) => item.id === registro.grupoId);
-  if (!grupo) throw criarErro("dados_invalidos", { campos: ["grupoId"] });
-  return { ...registro, areaId: grupo.areaId };
-}
 
 function colecao<N extends NomeColecao, Novo extends object, Alteracao extends object>(
   nome: N,
@@ -31,7 +23,7 @@ export function criarServicosLocais(): Servicos {
     areas: criarServicoAreas(),
     metas: criarServicoMetas(),
     grupos: criarServicoGrupos(),
-    projetos: colecao("projetos", { completar: areaDoGrupo }),
+    projetos: criarServicoProjetos(),
     colunas: colecao("colunas"),
     tarefas: criarServicoTarefas(),
     itensCaixa: criarServicoItensCaixa(),

@@ -169,6 +169,7 @@ export type NomeColecao = keyof typeof esquemas;
 
 export type Prioridade = z.infer<typeof prioridade>;
 export type StatusTarefa = z.infer<typeof statusTarefa>;
+export type StatusProjeto = z.infer<typeof statusProjeto>;
 
 export const NOMES_COLECOES = [
   "areas",

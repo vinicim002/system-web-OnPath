@@ -40,8 +40,6 @@ async function preparar(): Promise<Cenario> {
     grupoId: grupo.id,
     nome: "Site",
     prioridade: "alta",
-    status: "ativo",
-    posicaoFila: 0,
   });
   const materia = await s.materias.criar({ areaId: pessoal.id, nome: "Cálculo", status: "ativa" });
   return { s, trabalho: trabalho.id, pessoal: pessoal.id, projeto: projeto.id, materia: materia.id };

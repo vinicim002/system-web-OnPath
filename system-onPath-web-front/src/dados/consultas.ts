@@ -1,12 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 
-import type { Destino, FiltrosTarefas } from "./contratos";
+import type { Destino, FiltrosProjetos, FiltrosTarefas } from "./contratos";
 import {
   NOMES_COLECOES,
   type NomeColecao,
   type NovaMeta,
+  type AlteracaoProjeto,
   type NovaTarefa,
+  type NovoProjeto,
+  type StatusProjeto,
   type NovoGrupo,
   type Registros,
 } from "./tipos";
@@ -398,4 +401,56 @@ export function useExcluirGrupo() {
 export function useRecuperarGrupo() {
   const { grupos } = useServicos();
   return useEscrita((id: string) => grupos.recuperar(id), CHAVES_GRUPOS);
+}
+
+// ---------------------------------------------------------------------------
+// Projetos (specs/006-projetos/contracts/servico-projetos.md)
+// ---------------------------------------------------------------------------
+
+const CHAVES_PROJETOS = ["projetos", "grupos", "areas", "opcoesTarefa", "tarefas", "itensDia"];
+
+export function useVisaoProjetos(filtros: FiltrosProjetos = {}) {
+  const { projetos } = useServicos();
+  return useQuery({ queryKey: ["projetos", "visao", filtros], queryFn: () => projetos.visaoGeral(filtros) });
+}
+
+export function useProjeto(id: string) {
+  const { projetos } = useServicos();
+  return useQuery({ queryKey: ["projetos", "um", id], queryFn: () => projetos.obter(id), retry: false });
+}
+
+export function useCriarProjeto() {
+  const { projetos } = useServicos();
+  return useEscrita(
+    (dados: Omit<NovoProjeto, "status" | "posicaoFila">) => projetos.criar(dados),
+    CHAVES_PROJETOS,
+  );
+}
+
+export function useAlterarProjeto() {
+  const { projetos } = useServicos();
+  return useEscrita(({ id, dados }: { id: string; dados: AlteracaoProjeto }) => projetos.alterar(id, dados), CHAVES_PROJETOS);
+}
+
+export function useMudarStatusProjeto() {
+  const { projetos } = useServicos();
+  return useEscrita(
+    ({ id, status }: { id: string; status: StatusProjeto }) => projetos.mudarStatus(id, status),
+    CHAVES_PROJETOS,
+  );
+}
+
+export function useReordenarFila() {
+  const { projetos } = useServicos();
+  return useEscrita(({ grupoId, ids }: { grupoId: string; ids: string[] }) => projetos.reordenarFila(grupoId, ids), CHAVES_PROJETOS);
+}
+
+export function useExcluirProjeto() {
+  const { projetos } = useServicos();
+  return useEscrita((id: string) => projetos.excluir(id), CHAVES_PROJETOS);
+}
+
+export function useRecuperarProjeto() {
+  const { projetos } = useServicos();
+  return useEscrita((id: string) => projetos.recuperar(id), CHAVES_PROJETOS);
 }

@@ -15,7 +15,10 @@ export type CodigoErro =
   | "nome_repetido"
   | "area_com_itens"
   | "ultima_area"
-  | "grupo_com_projetos";
+  | "grupo_com_projetos"
+  | "grupo_cheio"
+  | "sem_proxima_acao"
+  | "transicao_invalida";
 
 export class ErroOnPath extends Error {
   readonly codigo: CodigoErro;
