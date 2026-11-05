@@ -14,7 +14,7 @@ export const cores = {
     900: "#171717",
   },
   /** Reservado ao logo e a pequenos detalhes. */
-  roxo: "#6D28D9",
+  roxo: "#7357F0",
 } as const;
 
 export const fontes = {

@@ -1,6 +1,7 @@
 import { Link, usePathname, type Href } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
+import { Logo } from "@/components/Logo";
 import { t, type ChaveTexto } from "@/i18n";
 import { cores, espaco, fontes, tamanhos } from "@/theme";
 
@@ -22,8 +23,7 @@ export function MenuLateral() {
   return (
     <View role="navigation" style={estilos.menu}>
       <View style={estilos.logo}>
-        <View style={estilos.marca} />
-        <Text style={estilos.nome}>{t("app.nome")}</Text>
+        <Logo altura={26} />
       </View>
 
       {ITENS.map((item) => {
@@ -60,22 +60,8 @@ const estilos = StyleSheet.create({
     gap: espaco(1),
   },
   logo: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: espaco(2),
     paddingHorizontal: espaco(3),
     marginBottom: espaco(6),
-  },
-  marca: {
-    width: espaco(3),
-    height: espaco(3),
-    borderRadius: espaco(1),
-    backgroundColor: cores.roxo,
-  },
-  nome: {
-    fontFamily: fontes.seminegrito,
-    fontSize: tamanhos.subtitulo,
-    color: cores.preto,
   },
   item: {
     paddingHorizontal: espaco(3),

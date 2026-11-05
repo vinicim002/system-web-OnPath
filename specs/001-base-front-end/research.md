@@ -108,7 +108,7 @@ foram resolvidos aqui.
 ## 12. Tema
 
 - **Decisão**: o arquivo `src/theme/index.ts` define as cores (preto `#0A0A0A`, branco `#FFFFFF`
-  e uma escala de cinzas de 50 a 900, além do roxo do logo `#6D28D9`, reservado ao logo e a
+  e uma escala de cinzas de 50 a 900, além do roxo do logo `#7357F0`, reservado ao logo e a
   pequenos detalhes), a fonte Inter (400, 500 e 600) e os espaçamentos em múltiplos de 4.
 - **Motivo**: cumpre a seção 7 de `docs/spec.md` e o princípio V. Nenhum componente usa cor
   literal.
