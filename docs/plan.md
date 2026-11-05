@@ -180,6 +180,8 @@ O navegador obtém o token do Google e o envia à API. A API valida esse token, 
 
 A ativação roda em uma transação: conta os ativos do grupo e bloqueia se o limite foi alcançado (RN06 e RN07). A mesma transação verifica se existe uma tarefa aberta (RN08).
 
+Cada grupo tem a própria fila, com ordem manual (RN26); entrar na fila põe o projeto no fim. Transições de status: fila ou pausado → ativo (com as verificações); ativo → pausado; pausado → fila; qualquer status não final → concluído ou cancelado; concluído ou cancelado → fila.
+
 ### Conclusão de tarefas
 
 Mudar para a coluna final conclui a tarefa. Concluir por outra tela a move para a coluna final, se existir (RN32). Reabrir a tarefa a tira da coluna final; a interface escolhe a primeira coluna não final.
