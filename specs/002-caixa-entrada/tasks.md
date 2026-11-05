@@ -72,9 +72,9 @@ cumpre o "Pronto quando".
 **Teste independente**: descartar, desfazer, descartar de novo e recuperar pela aba
 (`quickstart.md`, cenário 2).
 
-- [ ] T014 [US2] Em `src/features/caixa/ItemCaixa.tsx`, acrescentar o botão de descartar (`Button` `ghost` com ícone `X` do lucide e `aria-label` `caixa.descartar`), visível ao passar o mouse ou com foco no item. Ao clicar, chama `useDescartarItem()` sem confirmação e mostra o aviso `caixa.avisos.descartado` por 5 s com a ação `caixa.avisos.desfazer`, que chama `useRecuperarItem()`. Em erro, mostra o aviso de erro.
-- [ ] T015 [P] [US2] Criar `src/features/caixa/ItemDescartado.tsx`: texto do item, data do descarte (`arquivadoEm`) com `dataCurta`, e o botão `caixa.recuperar`, que chama `useRecuperarItem()` e mostra o aviso `caixa.avisos.recuperado`.
-- [ ] T016 [US2] Em `src/features/caixa/ListaCaixa.tsx`, colocar as abas (`Tabs`) "Caixa" e "Descartados", cada uma com a contagem. A aba Descartados lista `useItensDescartados()` com `ItemDescartado`. Com a lista vazia, mostra `caixa.descartadosVazia`.
+- [X] T014 [US2] Em `src/features/caixa/ItemCaixa.tsx`, acrescentar o botão de descartar (`Button` `ghost` com ícone `X` do lucide e `aria-label` `caixa.descartar`), visível ao passar o mouse ou com foco no item. Ao clicar, chama `useDescartarItem()` sem confirmação e mostra o aviso `caixa.avisos.descartado` por 5 s com a ação `caixa.avisos.desfazer`, que chama `useRecuperarItem()`. Em erro, mostra o aviso de erro.
+- [X] T015 [P] [US2] Criar `src/features/caixa/ItemDescartado.tsx`: texto do item, data do descarte (`arquivadoEm`) com `dataCurta`, e o botão `caixa.recuperar`, que chama `useRecuperarItem()` e mostra o aviso `caixa.avisos.recuperado`.
+- [X] T016 [US2] Em `src/features/caixa/ListaCaixa.tsx`, colocar as abas (`Tabs`) "Caixa" e "Descartados", cada uma com a contagem. A aba Descartados lista `useItensDescartados()` com `ItemDescartado`. Com a lista vazia, mostra `caixa.descartadosVazia`.
 
 **Ponto de controle**: os cenários 1 e 2 do `quickstart.md` passam.
 
