@@ -10,7 +10,7 @@ description: "Lista de tarefas das visões e do painel de tarefas da Agenda"
 ## Fase 1: Base
 
 - [X] T001 Atualizar `docs/spec.md` (seção 6.9), `docs/plan.md` ("Visões e painel da Agenda") e `docs/tasks.md` (T026a e T026b).
-- [ ] T002 Escrever `__tests__/agendaVisoes.test.ts` e criar `src/features/agenda/visoes.ts` (`filtrarItens`, `ordenarItens`, `agruparPorPrazo`, `horaDoSoltar`, `intervaloDaTarefa`, leitura e escrita do filtro no endereço) até passar; textos em `src/i18n/pt-BR.ts`.
+- [X] T002 Escrever `__tests__/agendaVisoes.test.ts` e criar `src/features/agenda/visoes.ts` (`filtrarItens`, `ordenarItens`, `agruparPorPrazo`, `horaDoSoltar`, `intervaloDaTarefa`, leitura e escrita do filtro no endereço) até passar; textos em `src/i18n/pt-BR.ts`.
 
 ## Fase 2: Visões e filtro (T026a)
 
