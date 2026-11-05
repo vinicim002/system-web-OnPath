@@ -95,3 +95,7 @@ Decisões da Fase 0. A base técnica (stack, camada de dados, tema e textos) vem
 - **Decisão**: lista simples, sem virtualização.
 - **Motivo**: 500 itens de texto curto são leves para o navegador (SC-005). A virtualização
   pode entrar depois, se a medição mostrar necessidade.
+- **Medição (T023)**: com 500 itens, no build de produção, descartar levava de 75 a 150 ms,
+  porque cada item tinha os próprios hooks de escrita e a lista inteira era redesenhada. As
+  ações passaram a ser criadas uma vez na lista (`src/features/caixa/acoes.ts`), e os itens
+  são memorizados. Depois disso, descartar leva de 9 a 31 ms, e desfazer, 33 ms.

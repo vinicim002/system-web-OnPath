@@ -1,55 +1,27 @@
 import { Pencil, X } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
+import { memo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { useDescartarItem, useEditarItem, useRecuperarItem } from "@/dados/consultas";
 import type { ItemCaixa as Item } from "@/dados/tipos";
 import { t } from "@/i18n";
 import { tempoRelativo } from "@/i18n/datas";
 
-import { avisarErro } from "./avisos";
+import type { AcoesCaixa } from "./acoes";
 import { CampoAnotacao } from "./CampoAnotacao";
 
 interface Props {
   item: Item;
+  acoes: AcoesCaixa;
 }
 
 /** Um item novo da caixa: o texto inteiro, há quanto tempo foi anotado e as ações. */
-export function ItemCaixa({ item }: Props) {
-  const descartar = useDescartarItem();
-  const recuperar = useRecuperarItem();
-  const editar = useEditarItem();
+function ItemCaixaBase({ item, acoes }: Props) {
   const [editando, setEditando] = useState(false);
 
   async function aoSalvarEdicao(conteudo: string) {
-    if (conteudo === item.conteudo) {
-      setEditando(false);
-      return true;
-    }
-    try {
-      await editar.mutateAsync({ id: item.id, conteudo });
-      setEditando(false);
-      return true;
-    } catch (erro) {
-      avisarErro(erro);
-      return false;
-    }
-  }
-
-  async function aoDescartar() {
-    try {
-      await descartar.mutateAsync(item.id);
-      toast(t("caixa.avisos.descartado"), {
-        duration: 5000,
-        action: {
-          label: t("caixa.avisos.desfazer"),
-          onClick: () => recuperar.mutateAsync(item.id).catch(avisarErro),
-        },
-      });
-    } catch (erro) {
-      avisarErro(erro);
-    }
+    const salvou = conteudo === item.conteudo || (await acoes.editar(item.id, conteudo));
+    if (salvou) setEditando(false);
+    return salvou;
   }
 
   if (editando) {
@@ -89,8 +61,7 @@ export function ItemCaixa({ item }: Props) {
           size="icon-sm"
           aria-label={t("caixa.descartar")}
           title={t("caixa.descartar")}
-          onClick={aoDescartar}
-          disabled={descartar.isPending}
+          onClick={() => void acoes.descartar(item.id)}
         >
           <X />
         </Button>
@@ -98,3 +69,13 @@ export function ItemCaixa({ item }: Props) {
     </li>
   );
 }
+
+/** Só redesenha o item quando o texto ou as ações mudam. */
+export const ItemCaixa = memo(
+  ItemCaixaBase,
+  (antes, depois) =>
+    antes.acoes === depois.acoes &&
+    antes.item.id === depois.item.id &&
+    antes.item.conteudo === depois.item.conteudo &&
+    antes.item.criadoEm === depois.item.criadoEm,
+);

@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useItensDescartados, useItensNovos } from "@/dados/consultas";
 import { t } from "@/i18n";
 
+import { useAcoesCaixa } from "./acoes";
 import { ItemCaixa } from "./ItemCaixa";
 import { ItemDescartado } from "./ItemDescartado";
 
@@ -13,6 +14,7 @@ function Contagem({ valor }: { valor: number }) {
 export function ListaCaixa() {
   const { data: novos = [] } = useItensNovos();
   const { data: descartados = [] } = useItensDescartados();
+  const acoes = useAcoesCaixa();
 
   return (
     <Tabs defaultValue="caixa" className="gap-4">
@@ -31,7 +33,7 @@ export function ListaCaixa() {
         ) : (
           <ul className="flex flex-col divide-y divide-cinza-100">
             {novos.map((item) => (
-              <ItemCaixa key={item.id} item={item} />
+              <ItemCaixa key={item.id} item={item} acoes={acoes} />
             ))}
           </ul>
         )}
