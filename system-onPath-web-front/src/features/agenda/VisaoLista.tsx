@@ -48,7 +48,7 @@ export function VisaoLista({ inicioSemana, hoje, itens, areas, aoClicarItem }: P
                       {item.titulo}
                     </span>
                     <span className="hidden text-pequeno text-cinza-500 sm:block">{areas.nome(item.areaId)}</span>
-                    <span className="w-24 shrink-0 text-right text-pequeno text-cinza-500">
+                    <span className="shrink-0 text-right text-pequeno whitespace-nowrap text-cinza-500">
                       {[tipoCurto(item), statusDoItem(item)].filter(Boolean).join(" · ")}
                     </span>
                   </button>

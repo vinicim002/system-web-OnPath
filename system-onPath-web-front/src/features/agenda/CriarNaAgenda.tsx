@@ -16,8 +16,16 @@ function maisUmaHora(hora: string): string {
   return `${String(Math.min(h! + 1, 23)).padStart(2, "0")}:${String(h! + 1 > 23 ? 59 : m!).padStart(2, "0")}`;
 }
 
+/** Dia e hora clicados; com `tarefaId`, abre na aba Bloco com a tarefa escolhida (botão "Agendar"). */
+export interface InicioCriacao {
+  data: string;
+  hora: string;
+  fim?: string;
+  tarefaId?: string;
+}
+
 interface Props {
-  inicial: { data: string; hora: string } | null;
+  inicial: InicioCriacao | null;
   aoFechar: () => void;
 }
 
@@ -28,7 +36,7 @@ export function CriarNaAgenda({ inicial, aoFechar }: Props) {
   const conflito = useSalvarComConflito();
 
   if (!inicial) return null;
-  const horario = { data: inicial.data, inicio: inicial.hora, fim: maisUmaHora(inicial.hora) };
+  const horario = { data: inicial.data, inicio: inicial.hora, fim: inicial.fim ?? maisUmaHora(inicial.hora) };
   const intervalo = (v: { data: string; inicio: string; fim: string }) => ({
     inicio: instanteLocal(v.data, v.inicio),
     fim: instanteLocal(v.data, v.fim),
@@ -42,7 +50,7 @@ export function CriarNaAgenda({ inicial, aoFechar }: Props) {
             <DialogTitle>{t("agenda.criarTitulo")}</DialogTitle>
             <DialogDescription className="sr-only">{t("agenda.criarTitulo")}</DialogDescription>
           </DialogHeader>
-          <Tabs defaultValue="compromisso" className="gap-4">
+          <Tabs defaultValue={inicial.tarefaId ? "bloco" : "compromisso"} className="gap-4">
             <TabsList>
               <TabsTrigger value="compromisso">{t("agenda.compromisso")}</TabsTrigger>
               <TabsTrigger value="bloco">{t("agenda.bloco")}</TabsTrigger>
@@ -66,7 +74,7 @@ export function CriarNaAgenda({ inicial, aoFechar }: Props) {
             </TabsContent>
             <TabsContent value="bloco">
               <FormularioBloco
-                valoresIniciais={{ ...horario, alvo: "tarefa", tarefaId: "", rotinaId: "" }}
+                valoresIniciais={{ ...horario, alvo: "tarefa", tarefaId: inicial.tarefaId ?? "", rotinaId: "" }}
                 aoCancelar={aoFechar}
                 aoSalvar={(v) =>
                   conflito.salvar(async (confirmarConflito) => {

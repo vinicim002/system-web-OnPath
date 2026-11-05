@@ -1,3 +1,4 @@
+import { useDroppable } from "@dnd-kit/core";
 import { Check } from "lucide-react";
 
 import type { ItemAgenda } from "@/dados/contratos";
@@ -9,6 +10,7 @@ import { nomeDoDia } from "@/features/rotinas/dias";
 
 import { HORA_FIM, HORA_INICIO, PX_POR_HORA, horaDoClique, posicionar } from "./grade";
 import { useAgora } from "./useAgora";
+import type { DadosAlvo } from "./arrasto";
 
 interface Props {
   inicioSemana: string;
@@ -17,6 +19,13 @@ interface Props {
   corDaArea: (areaId: string | null) => string | undefined;
   aoClicarHorario: (data: string, hora: string) => void;
   aoClicarItem: (item: ItemAgenda) => void;
+}
+
+/** Coluna do dia que recebe uma tarefa arrastada do painel (specs/010-agenda-visoes, história 3). */
+function AlvoDoDia({ data, className, ...resto }: { data: string } & React.ComponentProps<"div">) {
+  const alvo: DadosAlvo = { tipo: "dia-grade", data };
+  const { setNodeRef, isOver } = useDroppable({ id: `grade-${data}`, data: alvo });
+  return <div ref={setNodeRef} className={cn(className, isOver && "bg-roxo/5 ring-2 ring-roxo ring-inset")} {...resto} />;
 }
 
 const HORAS = Array.from({ length: HORA_FIM - HORA_INICIO }, (_, i) => HORA_INICIO + i);
@@ -62,8 +71,9 @@ export function GradeSemana({ inicioSemana, hoje, itens, corDaArea, aoClicarHora
         {dias.map((data) => {
           const doDia = posicionar(itens.filter((item) => dataLocal(item.inicio) === data));
           return (
-            <div
+            <AlvoDoDia
               key={data}
+              data={data}
               role="button"
               tabIndex={-1}
               aria-label={data}
@@ -114,7 +124,7 @@ export function GradeSemana({ inicioSemana, hoje, itens, corDaArea, aoClicarHora
               {data === hoje && topoAgora >= 0 && topoAgora <= alturaTotal && (
                 <div aria-hidden className="pointer-events-none absolute inset-x-0 z-[1] h-0.5 bg-roxo" style={{ top: topoAgora }} />
               )}
-            </div>
+            </AlvoDoDia>
           );
         })}
       </div>

@@ -20,7 +20,7 @@ description: "Lista de tarefas das visões e do painel de tarefas da Agenda"
 
 ## Fase 3: Painel de tarefas (T026b)
 
-- [ ] T006 Criar `PainelTarefas.tsx` (abas, grupos, concluir, Agendar, recolher) e ligar o soltar na `GradeSemana.tsx`; `CriarNaAgenda.tsx` aceita a tarefa e abre na aba Bloco.
+- [X] T006 Criar `PainelTarefas.tsx` (abas, grupos, concluir, Agendar, recolher) e ligar o soltar na `GradeSemana.tsx`; `CriarNaAgenda.tsx` aceita a tarefa e abre na aba Bloco.
 
 ## Fase 4: Acabamento
 

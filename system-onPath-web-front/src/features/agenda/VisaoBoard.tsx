@@ -8,11 +8,8 @@ import { cn } from "@/lib/utils";
 
 import { nomeDoDia } from "@/features/rotinas/dias";
 
+import type { DadosAlvo, DadosArrasto } from "./arrasto";
 import { horarioDoItem, tipoCurto, type Areas } from "./rotulos";
-
-/** Dados de arrastar e soltar compartilhados com a tela (um só DndContext para a Agenda). */
-export type DadosArrasto = { tipo: "item"; item: ItemAgenda } | { tipo: "tarefa"; tarefaId: string; titulo: string; estimadoMin: number | null };
-export type DadosAlvo = { tipo: "dia-board"; data: string } | { tipo: "dia-grade"; data: string };
 
 interface Props {
   inicioSemana: string;
