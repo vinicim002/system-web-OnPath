@@ -16,10 +16,10 @@ description: "Lista de tarefas da Etapa 6 (Kanban)"
 
 ## Fase 2: Kanban (T019)
 
-- [ ] T005 [P] Criar `src/features/kanban/EditarColunas.tsx` (lista ordenável com `dnd-kit` e teclado, renomear no lugar, marcar final, arquivar com Desfazer, nova coluna).
-- [ ] T006 [P] Criar `src/features/kanban/CartaoKanban.tsx` (`useDraggable`; título, prioridade, prazo, subtarefas abertas; clique abre `/tarefas?tarefa=id`) e `src/features/kanban/ColunaKanban.tsx` (`useDroppable`; nome, quantidade, "Final", "+ Tarefa" que cria a tarefa já na coluna).
-- [ ] T007 Criar `src/features/kanban/QuadroKanban.tsx`: tarefas principais abertas e concluídas do projeto, "Sem coluna" quando preciso, `DndContext` com sensores de ponteiro e teclado, movimento otimista com `useMoverParaColuna`, confirmação de subtarefas (`ConfirmarSubtarefas`) e volta do cartão se recusar.
-- [ ] T008 Em `src/telas/Projeto.tsx`, abas "Lista" e "Kanban" (no endereço, `?vista=kanban`).
+- [X] T005 [P] Criar `src/features/kanban/EditarColunas.tsx` (lista ordenável com `dnd-kit` e teclado, renomear no lugar, marcar final, arquivar com Desfazer, nova coluna).
+- [X] T006 [P] Criar `src/features/kanban/CartaoKanban.tsx` (`useDraggable`; título, prioridade, prazo, subtarefas abertas; clique abre `/tarefas?tarefa=id`) e `src/features/kanban/ColunaKanban.tsx` (`useDroppable`; nome, quantidade, "Final", "+ Tarefa" que cria a tarefa já na coluna).
+- [X] T007 Criar `src/features/kanban/QuadroKanban.tsx`: tarefas principais abertas e concluídas do projeto, "Sem coluna" quando preciso, `DndContext` com sensores de ponteiro e teclado, movimento otimista com `useMoverParaColuna`, confirmação de subtarefas (`ConfirmarSubtarefas`) e volta do cartão se recusar.
+- [X] T008 Em `src/telas/Projeto.tsx`, abas "Lista" e "Kanban" (no endereço, `?vista=kanban`).
 
 ## Fase 3: Acabamento
 

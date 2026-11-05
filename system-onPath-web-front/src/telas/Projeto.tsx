@@ -1,11 +1,12 @@
 import { ArrowLeft, Plus } from "lucide-react";
 import { useMemo, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { toast } from "sonner";
 
 import { TelaBase } from "@/components/TelaBase";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   useAlterarProjeto,
@@ -19,6 +20,8 @@ import {
 import { ehErroOnPath, type ErroOnPath } from "@/dados/erros";
 import type { Projeto as TipoProjeto, StatusTarefa } from "@/dados/tipos";
 import { avisarErro } from "@/features/caixa/avisos";
+import { EditarColunas } from "@/features/kanban/EditarColunas";
+import { QuadroKanban } from "@/features/kanban/QuadroKanban";
 import { AcoesStatus } from "@/features/projetos/AcoesStatus";
 import { FormularioProjeto, type ValoresProjeto } from "@/features/projetos/FormularioProjeto";
 import { paraDadosProjeto, valoresDoProjeto } from "@/features/projetos/valoresProjeto";
@@ -122,6 +125,9 @@ export function Projeto() {
   const excluir = useExcluirProjeto();
   const recuperar = useRecuperarProjeto();
   const navegar = useNavigate();
+  const [parametros, setParametros] = useSearchParams();
+  const vista = parametros.get("vista") === "kanban" ? "kanban" : "lista";
+  const [editandoColunas, setEditandoColunas] = useState(false);
 
   const valoresIniciais = useMemo(
     () => (projeto ? valoresDoProjeto(projeto) : null),
@@ -178,17 +184,43 @@ export function Projeto() {
         </div>
       </div>
 
-      <div className="grid gap-10 xl:grid-cols-[1fr_24rem]">
-        <TarefasDoProjeto projeto={projeto} />
-        <section className="flex flex-col gap-3">
-          <FormularioProjeto
-            valoresIniciais={valoresIniciais}
-            rotuloSalvar={t("projetos.acoes.salvar")}
-            aoSalvar={aoSalvar}
-            somenteComMudancas
-          />
-        </section>
-      </div>
+      <Tabs
+        value={vista}
+        onValueChange={(valor) => {
+          const novos = new URLSearchParams(parametros);
+          if (valor === "kanban") novos.set("vista", "kanban");
+          else novos.delete("vista");
+          setParametros(novos, { replace: true });
+        }}
+        className="gap-6"
+      >
+        <TabsList>
+          <TabsTrigger value="lista">{t("kanban.abas.lista")}</TabsTrigger>
+          <TabsTrigger value="kanban">{t("kanban.abas.kanban")}</TabsTrigger>
+        </TabsList>
+        <TabsContent value="lista">
+          <div className="grid gap-10 xl:grid-cols-[1fr_24rem]">
+            <TarefasDoProjeto projeto={projeto} />
+            <section className="flex flex-col gap-3">
+              <FormularioProjeto
+                valoresIniciais={valoresIniciais}
+                rotuloSalvar={t("projetos.acoes.salvar")}
+                aoSalvar={aoSalvar}
+                somenteComMudancas
+              />
+            </section>
+          </div>
+        </TabsContent>
+        <TabsContent value="kanban" className="flex flex-col gap-4">
+          <div>
+            <Button size="sm" variant="outline" onClick={() => setEditandoColunas((atual) => !atual)}>
+              {editandoColunas ? t("kanban.fecharEdicao") : t("kanban.editarColunas")}
+            </Button>
+          </div>
+          {editandoColunas && <EditarColunas projetoId={projeto.id} />}
+          <QuadroKanban projeto={projeto} />
+        </TabsContent>
+      </Tabs>
     </TelaBase>
   );
 }
