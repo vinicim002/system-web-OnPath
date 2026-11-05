@@ -30,6 +30,8 @@ Motivo: manter um único registro das decisões e evitar que o código se afaste
 - A Parte 1 constrói todas as telas com dados locais no navegador.
 - NÃO é permitido criar API, banco de dados ou login antes da Parte 2 de
   `docs/tasks.md`.
+- Uma tela de login só visual É permitida antes da Parte 2, desde que não autentique, não
+  guarde sessão nem senha e não bloqueie nenhuma rota. O login de verdade continua na Parte 2.
 - O back-end só começa depois da revisão da Etapa 10 (T031 e T032).
 
 Motivo: revelar novas necessidades usando as telas antes de existir código de back-end.
@@ -87,7 +89,7 @@ Motivo: manter a interface minimalista e consistente em todas as telas.
 - Todo plano e toda revisão de código DEVEM verificar a conformidade com estes
   princípios.
 
-**Versão**: 1.2.0 | **Ratificada**: 2026-11-05 | **Última emenda**: 2026-11-05
+**Versão**: 1.3.0 | **Ratificada**: 2026-11-05 | **Última emenda**: 2026-11-05
 
 ### Emendas
 
@@ -99,3 +101,6 @@ Motivo: manter a interface minimalista e consistente em todas as telas.
   interface vêm do shadcn/ui. Motivo: as próximas telas precisam de diálogos, menus, painéis
   laterais e formulários acessíveis, que o shadcn/ui já entrega sobre o Radix. A regra do
   princípio V foi ampliada para valer também nas classes do Tailwind.
+- **1.3.0 (2026-11-05):** o princípio III passa a permitir uma tela de login só visual antes da
+  Parte 2, sem autenticação, sessão ou bloqueio de rotas. Motivo: ver o fluxo de entrada no app
+  desde já, sem adiantar o back-end.

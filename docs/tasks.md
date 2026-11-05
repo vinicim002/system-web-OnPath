@@ -136,6 +136,7 @@ Estas tarefas devem ser revisadas na T032, pois podem mudar com o uso das telas.
   - Pronto quando: um teste provar que um usuário não acessa dados de outro (RN17).
 - [ ] **T038: Criar a tela de Login.** Cubra a seção 6.1 da `spec.md`.
   - Pronto quando: os critérios de aceite forem cumpridos.
+  - Já existe uma versão só visual em `/login`, feita na Parte 1. Esta tarefa liga a tela ao login real.
 
 ### Etapa 13 — API por módulo
 

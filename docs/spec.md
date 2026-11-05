@@ -154,6 +154,10 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.1 Login
 
+> 2026-11-05: uma tela de login só visual foi adiantada para a Parte 1 (constituição 1.3.0). Ela
+> tem e-mail, senha e um botão de acesso rápido, mas não autentica nem bloqueia as rotas. O login
+> com Google e os critérios abaixo continuam nas T036 e T038.
+
 - [ ] Sem sessão, qualquer rota leva ao login.
 - [ ] O usuário entra com a conta Google.
 - [ ] No primeiro login, os dados iniciais são criados uma única vez.

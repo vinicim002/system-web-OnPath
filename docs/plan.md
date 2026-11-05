@@ -34,6 +34,14 @@ Versões instaladas na Etapa 0 (interface): React 19, Vite 8, TypeScript 7, Reac
 
 Outras bibliotecas entram na tarefa em que forem usadas: sonner (avisos com desfazer) na T006, react-hook-form na T009, date-fns com `@date-fns/tz` nas T011 e T012, e dnd-kit nas T011 e T019.
 
+### Painel do projeto
+
+Em desenvolvimento (`npm run dev`), a rota `/painel` mostra o que é o projeto, o andamento das
+etapas, um Board das tarefas, o histórico de commits e os documentos `docs/` e `specs/`. Os
+documentos são lidos direto dos arquivos, e o histórico vem do `git log` por um endereço do
+servidor de desenvolvimento. O painel não entra no build final. Ele usa `react-markdown` e
+`remark-gfm` para mostrar os documentos.
+
 ## 2. Ordem de construção
 
 A construção é **front-end primeiro**. As telas são feitas com dados locais no navegador, para revelar novas necessidades antes de existir código de back-end.
@@ -77,7 +85,7 @@ onPath/                           # Repositório
     │       ├── api/              # Implementação dos serviços pela API (Parte 2)
     │       ├── components/       # Componentes do app; ui/ guarda os do shadcn/ui
     │       ├── dados/            # Tipos, contratos dos serviços e implementação local
-    │       ├── features/         # Um módulo por área do produto
+    │       ├── features/         # Um módulo por área do produto; painel/ só em desenvolvimento
     │       ├── i18n/             # Textos em português
     │       ├── telas/            # Uma tela por rota
     │       ├── plataforma/       # APIs do navegador: arquivos, travas e notificações
