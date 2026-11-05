@@ -105,20 +105,20 @@ página de não encontrada.
 
 **Teste independente**: o cenário 3 do `quickstart.md` e `system-onPath-web-front/__tests__/copia.test.ts`.
 
-- [ ] T027 [US3] Criar `system-onPath-web-front/src/dados/local/copia.ts`:
+- [X] T027 [US3] Criar `system-onPath-web-front/src/dados/local/copia.ts`:
   - `esquemaCopia` (Zod) segue `contracts/copia-dados.md`: `formato` literal `"onpath-copia"`, `versao` inteira de 1 até `VERSAO_COPIA = 1` e as 15 coleções obrigatórias.
   - `exportarCopia()` lê todas as coleções, inclusive as arquivadas, e grava `ultimaExportacaoEm` na meta.
   - `importarCopia(conteudo)` valida o esquema. Uma falha gera `copia_invalida`, e uma versão maior que a atual gera `copia_versao_desconhecida`. Depois, confere cada referência (`areaId`, `grupoId`, `metaId`, `projetoId`, `materiaId`, `colunaId`, `tarefaPaiId`, `tarefaId`, `rotinaId`, `sessaoEstudoId` e `topicoId`), e uma referência quebrada gera `copia_referencia_quebrada` com o registro em `detalhes`. Só então grava todas as coleções e a meta com `dadosIniciaisEm` igual a agora, em uma única chamada de `gravar`, e devolve `{ registros }`.
   - Ligar as duas funções a `servicos.dados` em `system-onPath-web-front/src/dados/local/servicos.ts`.
-- [ ] T028 [P] [US3] Criar `system-onPath-web-front/src/plataforma/arquivos.web.ts`, com `baixarJson(nomeArquivo, objeto)` (`Blob` e link temporário) e `escolherArquivoJson(): Promise<string | null>` (`<input type="file" accept="application/json">` escondido, lido com `FileReader`). A função devolve `null` se o usuário cancelar.
-- [ ] T029 [US3] Acrescentar a `system-onPath-web-front/src/dados/consultas.ts` os hooks `useExportarDados()` e `useImportarDados()` (mutações do TanStack Query). A importação invalida todas as consultas ao terminar. Os hooks só chamam `servicos.dados` e nunca acessam o armazenamento.
-- [ ] T030 [US3] Criar `system-onPath-web-front/src/features/ajustes/CopiaDados.tsx`, com a seção `t("ajustes.copia.titulo")`:
+- [X] T028 [P] [US3] Criar `system-onPath-web-front/src/plataforma/arquivos.web.ts`, com `baixarJson(nomeArquivo, objeto)` (`Blob` e link temporário) e `escolherArquivoJson(): Promise<string | null>` (`<input type="file" accept="application/json">` escondido, lido com `FileReader`). A função devolve `null` se o usuário cancelar.
+- [X] T029 [US3] Acrescentar a `system-onPath-web-front/src/dados/consultas.ts` os hooks `useExportarDados()` e `useImportarDados()` (mutações do TanStack Query). A importação invalida todas as consultas ao terminar. Os hooks só chamam `servicos.dados` e nunca acessam o armazenamento.
+- [X] T030 [US3] Criar `system-onPath-web-front/src/features/ajustes/CopiaDados.tsx`, com a seção `t("ajustes.copia.titulo")`:
   - **Exportar** baixa o arquivo `onpath-copia-AAAA-MM-DD.json`, com a data local.
   - **Importar** escolhe o arquivo e, se já existirem dados, mostra uma confirmação dentro da página com `t("ajustes.copia.confirmarSubstituir")`, sem usar `window.confirm`.
   - Mostrar o resultado (`t("ajustes.copia.importado", { registros })`) ou a mensagem do `ErroOnPath`.
   - São no máximo 3 cliques por ação (SC-007), e os textos e cores vêm de `t` e do tema.
-- [ ] T031 [US3] Em `system-onPath-web-front/app/ajustes.tsx`, mostrar `<CopiaDados />` dentro da `TelaBase` (FR-024).
-- [ ] T032 [P] [US3] Escrever `system-onPath-web-front/__tests__/copia.test.ts`, que confere:
+- [X] T031 [US3] Em `system-onPath-web-front/app/ajustes.tsx`, mostrar `<CopiaDados />` dentro da `TelaBase` (FR-024).
+- [X] T032 [P] [US3] Escrever `system-onPath-web-front/__tests__/copia.test.ts`, que confere:
   - uma cópia exportada e importada depois de `limparTudo()` reproduz 100% dos registros, inclusive os arquivados;
   - depois de importar, `prepararPrimeiroUso` devolve `{ criou: false }`;
   - texto que não é JSON, `formato` errado, `versao: 2`, coleção faltando e referência quebrada são recusados, sem alterar os dados que já existiam;

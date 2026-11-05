@@ -3,6 +3,7 @@ import { criarErro } from "../erros";
 import { esquemas, type NomeColecao } from "../tipos";
 import { lerColecao } from "./armazenamento";
 import { prepararPrimeiroUso } from "./carga";
+import { exportarCopia, importarCopia } from "./copia";
 import { criarServicoColecao, type OpcoesColecao } from "./colecao";
 
 /** RN01: o projeto fica sempre na área do seu grupo. */
@@ -17,11 +18,6 @@ function colecao<N extends NomeColecao, Novo extends object, Alteracao extends o
   opcoes?: OpcoesColecao,
 ) {
   return criarServicoColecao<N, Novo, Alteracao>(nome, esquemas[nome].completo, opcoes);
-}
-
-/** Só existe durante o desenvolvimento, até a etapa da cópia. */
-function naoImplementado(): never {
-  throw new Error("não implementado");
 }
 
 export function criarServicosLocais(): Servicos {
@@ -43,8 +39,8 @@ export function criarServicosLocais(): Servicos {
     sessoesEstudo: colecao("sessoesEstudo"),
     dados: {
       prepararPrimeiroUso,
-      exportar: async () => naoImplementado(),
-      importar: async () => naoImplementado(),
+      exportar: exportarCopia,
+      importar: importarCopia,
     },
   };
 }
