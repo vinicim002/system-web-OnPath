@@ -130,7 +130,7 @@ Toda tabela tem `id`, `usuario_id`, `criado_em`, `atualizado_em` e `arquivado_em
 | grupos | `area_id`, `nome`, `limite_ativos` |
 | projetos | `area_id`, `grupo_id`, `meta_id?`, `nome`, `descricao?`, `prazo?`, `prioridade`, `status`, `posicao_fila` |
 | colunas | `projeto_id`, `nome`, `ordem`, `final` |
-| tarefas | `area_id`, `projeto_id?`, `materia_id?`, `coluna_id?`, `tarefa_pai_id?`, `titulo`, `prioridade`, `tempo_estimado_min?`, `prazo?`, `status`, `concluida_em?` |
+| tarefas | `area_id`, `projeto_id?`, `materia_id?`, `coluna_id?`, `tarefa_pai_id?`, `titulo`, `prioridade`, `tempo_estimado_min?`, `prazo?`, `status`, `concluida_em?`, `anotacoes?` |
 | itens_caixa | `conteudo`, `status` |
 | itens_dia | `tarefa_id`, `data`, `ordem`, `resultado` |
 | rotinas | `area_id`, `nome`, `tipo`, `dias_semana`, `hora_inicio?`, `duracao_min?`, `meta_min?` |
@@ -186,7 +186,7 @@ Mudar para a coluna final conclui a tarefa. Concluir por outra tela a move para 
 
 ### Subtarefas
 
-Uma subtarefa usa `tarefa_pai_id`, herda `area_id` e `prioridade` e pode não ter tempo estimado (RN33). Impedir ciclos é obrigatório. Concluir uma tarefa com subtarefas abertas exige confirmação.
+Uma subtarefa usa `tarefa_pai_id`, herda `area_id`, `prioridade` e o vínculo (`projeto_id` ou `materia_id`) da tarefa do topo e pode não ter tempo estimado (RN33). Mudar esses campos na tarefa do topo atualiza todas as subtarefas. Impedir ciclos é obrigatório. Concluir uma tarefa com subtarefas abertas exige confirmação, e confirmar conclui as subtarefas abertas junto.
 
 ### Rotinas e blocos
 
