@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 import { ehErroOnPath } from "@/dados/erros";
 import { useServicos } from "@/dados/ServicosProvider";
 import { t } from "@/i18n";
-import { cores, espaco, fontes, tamanhos } from "@/theme";
+
+import estilos from "./PreparoPrimeiroUso.module.css";
 
 type Estado = { fase: "carregando" } | { fase: "pronto" } | { fase: "erro"; mensagem: string };
 
@@ -31,43 +31,17 @@ export function PreparoPrimeiroUso({ children }: { children: ReactNode }) {
   if (estado.fase === "pronto") return children;
 
   return (
-    <View style={estilos.centro}>
+    <div className={estilos.centro}>
       {estado.fase === "carregando" ? (
-        <>
-          <ActivityIndicator color={cores.cinza[500]} />
-          <Text style={estilos.texto}>{t("carregando")}</Text>
-        </>
+        <p className={estilos.texto} role="status">
+          {t("carregando")}
+        </p>
       ) : (
-        <View role="alert" style={estilos.erro}>
-          <Text style={estilos.titulo}>{estado.mensagem}</Text>
-          <Text style={estilos.texto}>{t("erros.acao.liberarArmazenamento")}</Text>
-        </View>
+        <div className={estilos.erro} role="alert">
+          <p className={estilos.titulo}>{estado.mensagem}</p>
+          <p className={estilos.texto}>{t("erros.acao.liberarArmazenamento")}</p>
+        </div>
       )}
-    </View>
+    </div>
   );
 }
-
-const estilos = StyleSheet.create({
-  centro: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: espaco(3),
-    padding: espaco(8),
-    backgroundColor: cores.branco,
-  },
-  erro: {
-    maxWidth: 480,
-    gap: espaco(2),
-  },
-  titulo: {
-    fontFamily: fontes.media,
-    fontSize: tamanhos.normal,
-    color: cores.preto,
-  },
-  texto: {
-    fontFamily: fontes.regular,
-    fontSize: tamanhos.normal,
-    color: cores.cinza[600],
-  },
-});

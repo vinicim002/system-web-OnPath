@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import type { CopiaDados } from "@/dados/contratos";
 import { ErroOnPath, type CodigoErro } from "@/dados/erros";
 import { limparTudo } from "@/dados/local/armazenamento";
@@ -114,7 +116,7 @@ describe("cópia dos dados", () => {
 
     const original = Storage.prototype.setItem;
     let chamadas = 0;
-    const espiao = jest.spyOn(Storage.prototype, "setItem").mockImplementation(function (
+    const espiao = vi.spyOn(Storage.prototype, "setItem").mockImplementation(function (
       this: Storage,
       chave: string,
       valor: string,

@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
 
-import { cores, espaco, fontes, tamanhos } from "@/theme";
+import estilos from "./TelaBase.module.css";
 
 interface Props {
   titulo: string;
@@ -10,28 +9,9 @@ interface Props {
 
 export function TelaBase({ titulo, children }: Props) {
   return (
-    <ScrollView style={estilos.tela} contentContainerStyle={estilos.conteudo}>
-      <Text role="heading" aria-level={1} style={estilos.titulo}>
-        {titulo}
-      </Text>
+    <section className={estilos.tela}>
+      <h1 className={estilos.titulo}>{titulo}</h1>
       {children}
-    </ScrollView>
+    </section>
   );
 }
-
-const estilos = StyleSheet.create({
-  tela: {
-    flex: 1,
-    backgroundColor: cores.branco,
-  },
-  conteudo: {
-    paddingHorizontal: espaco(10),
-    paddingVertical: espaco(8),
-    gap: espaco(6),
-  },
-  titulo: {
-    fontFamily: fontes.seminegrito,
-    fontSize: tamanhos.titulo,
-    color: cores.preto,
-  },
-});

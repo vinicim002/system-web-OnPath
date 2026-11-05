@@ -1,6 +1,6 @@
 import { TelaBase } from "@/components/TelaBase";
 import { t } from "@/i18n";
 
-export default function TelaRotinas() {
+export function Rotinas() {
   return <TelaBase titulo={t("telas.rotinas.titulo")} />;
 }

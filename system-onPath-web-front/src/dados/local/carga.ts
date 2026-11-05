@@ -1,4 +1,4 @@
-import { comTrava } from "@/plataforma/trava.web";
+import { comTrava } from "@/plataforma/trava";
 
 import { montarDadosIniciais } from "../iniciais";
 import type { Colecoes } from "../tipos";

@@ -1,6 +1,6 @@
 import { TelaBase } from "@/components/TelaBase";
 import { t } from "@/i18n";
 
-export default function TelaEstudos() {
+export function Estudos() {
   return <TelaBase titulo={t("telas.estudos.titulo")} />;
 }

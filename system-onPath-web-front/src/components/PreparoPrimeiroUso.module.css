@@ -1,0 +1,22 @@
+.centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: calc(var(--espaco) * 8);
+}
+
+.erro {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--espaco) * 2);
+  max-width: 480px;
+}
+
+.titulo {
+  font-weight: var(--peso-media);
+}
+
+.texto {
+  color: var(--cor-cinza-600);
+}

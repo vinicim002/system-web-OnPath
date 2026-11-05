@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 
 import { Botao } from "@/components/Botao";
 import { useExistemDados, useExportarDados, useImportarDados } from "@/dados/consultas";
 import { ehErroOnPath } from "@/dados/erros";
 import { t } from "@/i18n";
-import { baixarJson, escolherArquivoJson } from "@/plataforma/arquivos.web";
-import { cores, espaco, fontes, tamanhos } from "@/theme";
+import { baixarJson, escolherArquivoJson } from "@/plataforma/arquivos";
+
+import estilos from "./CopiaDados.module.css";
 
 type Aviso = { tipo: "sucesso" | "erro"; mensagem: string; acao?: string } | null;
 
@@ -36,7 +36,7 @@ export function CopiaDados() {
 
   const [aviso, setAviso] = useState<Aviso>(null);
   const [aguardandoConfirmacao, setAguardandoConfirmacao] = useState<string | null>(null);
-  const ocupado = exportar.isPending || importar.isPending;
+  const bloqueado = exportar.isPending || importar.isPending || aguardandoConfirmacao !== null;
 
   async function aoExportar() {
     setAviso(null);
@@ -72,95 +72,49 @@ export function CopiaDados() {
   }
 
   return (
-    <View style={estilos.secao}>
-      <Text role="heading" aria-level={2} style={estilos.titulo}>
-        {t("ajustes.copia.titulo")}
-      </Text>
-      <Text style={estilos.descricao}>{t("ajustes.copia.descricao")}</Text>
+    <section className={estilos.secao}>
+      <h2 className={estilos.titulo}>{t("ajustes.copia.titulo")}</h2>
+      <p className={estilos.descricao}>{t("ajustes.copia.descricao")}</p>
 
-      <View style={estilos.acoes}>
+      <div className={estilos.acoes}>
         <Botao
           rotulo={exportar.isPending ? t("ajustes.copia.exportando") : t("ajustes.copia.exportar")}
-          aoPressionar={aoExportar}
-          desativado={ocupado || aguardandoConfirmacao !== null}
+          aoClicar={aoExportar}
+          desativado={bloqueado}
         />
         <Botao
           rotulo={importar.isPending ? t("ajustes.copia.importando") : t("ajustes.copia.importar")}
-          aoPressionar={aoImportar}
-          desativado={ocupado || aguardandoConfirmacao !== null}
+          aoClicar={aoImportar}
+          desativado={bloqueado}
         />
-      </View>
+      </div>
 
       {aguardandoConfirmacao !== null && (
-        <View role="alertdialog" style={estilos.confirmacao}>
-          <Text style={estilos.textoAviso}>{t("ajustes.copia.confirmarSubstituir")}</Text>
-          <View style={estilos.acoes}>
+        <div role="alertdialog" aria-label={t("ajustes.copia.titulo")} className={estilos.confirmacao}>
+          <p className={estilos.destaque}>{t("ajustes.copia.confirmarSubstituir")}</p>
+          <div className={estilos.acoes}>
             <Botao
               variante="principal"
               rotulo={t("ajustes.copia.confirmar")}
-              aoPressionar={() => substituir(aguardandoConfirmacao)}
+              aoClicar={() => substituir(aguardandoConfirmacao)}
             />
             <Botao
               rotulo={t("ajustes.copia.cancelar")}
-              aoPressionar={() => setAguardandoConfirmacao(null)}
+              aoClicar={() => setAguardandoConfirmacao(null)}
             />
-          </View>
-        </View>
+          </div>
+        </div>
       )}
 
       {aviso && (
-        <View
+        <div
           role={aviso.tipo === "erro" ? "alert" : "status"}
-          style={[estilos.aviso, aviso.tipo === "erro" && estilos.avisoErro]}
+          className={`${estilos.aviso} ${aviso.tipo === "erro" ? estilos.avisoErro : ""}`}
         >
-          <Text style={estilos.textoAviso}>{aviso.mensagem}</Text>
-          {aviso.acao && <Text style={estilos.descricao}>{aviso.acao}</Text>}
-        </View>
+          <p className={estilos.destaque}>{aviso.mensagem}</p>
+          {aviso.acao && <p className={estilos.descricao}>{aviso.acao}</p>}
+        </div>
       )}
-    </View>
+    </section>
   );
 }
-
-const estilos = StyleSheet.create({
-  secao: {
-    maxWidth: 560,
-    gap: espaco(3),
-  },
-  titulo: {
-    fontFamily: fontes.seminegrito,
-    fontSize: tamanhos.subtitulo,
-    color: cores.preto,
-  },
-  descricao: {
-    fontFamily: fontes.regular,
-    fontSize: tamanhos.normal,
-    color: cores.cinza[600],
-  },
-  acoes: {
-    flexDirection: "row",
-    gap: espaco(2),
-  },
-  confirmacao: {
-    gap: espaco(3),
-    padding: espaco(4),
-    borderRadius: espaco(2),
-    borderWidth: 1,
-    borderColor: cores.cinza[300],
-    backgroundColor: cores.cinza[50],
-  },
-  aviso: {
-    gap: espaco(1),
-    padding: espaco(3),
-    borderRadius: espaco(2),
-    backgroundColor: cores.cinza[100],
-  },
-  avisoErro: {
-    borderLeftWidth: 3,
-    borderLeftColor: cores.preto,
-  },
-  textoAviso: {
-    fontFamily: fontes.media,
-    fontSize: tamanhos.normal,
-    color: cores.preto,
-  },
-});

@@ -1,6 +1,6 @@
 import { TelaBase } from "@/components/TelaBase";
 import { t } from "@/i18n";
 
-export default function TelaAgenda() {
+export function Agenda() {
   return <TelaBase titulo={t("telas.agenda.titulo")} />;
 }

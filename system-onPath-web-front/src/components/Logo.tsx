@@ -1,5 +1,3 @@
-import Svg, { Circle, Path } from "react-native-svg";
-
 import { t } from "@/i18n";
 import { cores } from "@/theme";
 
@@ -21,16 +19,16 @@ export function Logo({ variante = "completo", altura = 28 }: Props) {
     ? { x: 15, y: 3, largura: 343, altura: 94 }
     : { x: 0.5, y: 0, largura: 100, altura: 100 };
   return (
-    <Svg
+    <svg
       role="img"
       aria-label={t("app.nome")}
       width={(altura * caixa.largura) / caixa.altura}
       height={altura}
       viewBox={`${caixa.x} ${caixa.y} ${caixa.largura} ${caixa.altura}`}
     >
-      <Path fill={cores.preto} d={SIMBOLO} />
-      <Circle cx={45} cy={63} r={8.5} fill={cores.roxo} />
-      {completo && <Path fill={cores.preto} transform="translate(100 76) scale(.72)" d={NOME} />}
-    </Svg>
+      <path fill={cores.preto} d={SIMBOLO} />
+      <circle cx={45} cy={63} r={8.5} fill={cores.roxo} />
+      {completo && <path fill={cores.preto} transform="translate(100 76) scale(.72)" d={NOME} />}
+    </svg>
   );
 }

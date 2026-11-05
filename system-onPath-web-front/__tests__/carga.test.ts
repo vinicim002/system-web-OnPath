@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, it } from "vitest";
+
 import { limparTudo, lerMeta } from "@/dados/local/armazenamento";
 import { criarServicosLocais } from "@/dados/local/servicos";
 

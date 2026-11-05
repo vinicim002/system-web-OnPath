@@ -1,6 +1,6 @@
 import { TelaBase } from "@/components/TelaBase";
 import { t } from "@/i18n";
 
-export default function TelaAreas() {
+export function Areas() {
   return <TelaBase titulo={t("telas.areas.titulo")} />;
 }

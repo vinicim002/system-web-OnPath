@@ -137,6 +137,25 @@ página de não encontrada.
 
 ---
 
+## Fase 7: Troca de Expo por React com Vite
+
+**Objetivo**: refazer a interface como app React com Vite (constituição 1.1.0, `research.md`,
+item 13), mantendo a camada de dados, os textos, o tema e os testes.
+
+- [X] T037 Recriar `system-onPath-web-front/` com o template `react-ts` do Vite (versão estável atual), mantendo `src/dados/`, `src/i18n/`, `src/theme/`, `src/plataforma/id.ts` e `__tests__/`. Remover tudo que é do Expo (`app/`, `app.json`, `jest.config.js`, `jest.setup.js` e as dependências do Expo e do React Native).
+- [X] T038 Instalar `react-router`, `@tanstack/react-query`, `zod` e `@fontsource/inter`, e, para desenvolvimento, `vitest` e `jsdom`. Em `package.json`, deixar os scripts `dev` e `web` (Vite na porta 8081), `build`, `test` (`vitest run`) e `typecheck`.
+- [X] T039 Configurar em `vite.config.ts` o atalho `@` para `src/`, a porta 8081 e o Vitest (`jsdom`, `__tests__/**/*.test.ts` e `setupFiles` com o `crypto` do Node). Passar os testes de `jest.*` para `vi.*`.
+- [X] T040 Em `src/theme/index.ts`, trocar as fontes por família e pesos da Inter e acrescentar `variaveisCss()`, que gera as variáveis `--cor-*`, `--fonte`, `--peso-*`, `--tamanho-*` e `--espaco`. Em `src/main.tsx`, aplicar as variáveis no `:root`, carregar a Inter e montar `ServicosProvider` e as rotas.
+- [X] T041 Criar `src/components/` com `Moldura` (menu à esquerda, `PreparoPrimeiroUso` e `<Outlet />`), `MenuLateral` (`NavLink`), `TelaBase`, `Botao`, `Logo` (SVG) e `PreparoPrimeiroUso`, todos com CSS Modules que só usam as variáveis do tema.
+- [X] T042 Criar as 10 telas em `src/telas/` e as rotas em `src/rotas.tsx`, como em `contracts/rotas.md`, com a rota `*` para a página de não encontrada.
+- [X] T043 Passar `src/plataforma/arquivos.web.ts` e `trava.web.ts` para `arquivos.ts` e `trava.ts`, e refazer `src/features/ajustes/CopiaDados.tsx` com os mesmos textos e comportamento.
+- [X] T044 Copiar o favicon do logo para `public/` e definir em `index.html` o idioma `pt-BR`, o título "OnPath" e o fundo branco.
+- [X] T045 Rodar `npm test`, `npm run typecheck`, `npm run build` e os cenários do `quickstart.md` no navegador, e registrar as versões instaladas em `docs/plan.md`.
+
+**Ponto de controle**: todos os cenários do `quickstart.md` passam com a interface nova.
+
+---
+
 ## Dependências e ordem
 
 - **Fase 1** não depende de nada.
@@ -147,6 +166,7 @@ página de não encontrada.
 - **US3 (Fase 5)** depende da Fase 2. A T031 usa a tela `ajustes.tsx` da T020, e o teste da T032
   usa a carga da T024. Por isso, a US3 vem depois da US1 e da US2.
 - **Fase 6** vem depois de todas as histórias.
+- **Fase 7** vem depois da Fase 6 e substitui a interface das fases 1, 3, 4 e 5.
 
 Dentro de cada fase, as tarefas sem [P] seguem a ordem dos IDs.
 
