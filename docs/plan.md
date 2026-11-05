@@ -10,9 +10,11 @@ Itens marcados com **Proposta** ainda não foram debatidos e podem mudar. Os dem
 | Camada | Escolha | Situação |
 |---|---|---|
 | Interface | React Native/Expo, começando pela web no computador | Decidido |
-| Linguagem da interface | TypeScript | Proposta |
-| Rotas da interface | Expo Router | Proposta |
-| Dados na interface | TanStack Query | Proposta |
+| Linguagem da interface | TypeScript | Decidido |
+| Rotas da interface | Expo Router | Decidido |
+| Dados na interface | TanStack Query | Decidido |
+| Validação na interface | Zod | Decidido |
+| Testes da interface | Jest com `jest-expo` | Decidido |
 | API | Python e FastAPI | Decidido |
 | Validação | Pydantic | Proposta |
 | Banco | PostgreSQL | Decidido |
@@ -62,10 +64,12 @@ onpath/
 ├── app/                  # Expo
 │   ├── app/              # Rotas
 │   └── src/
-│       ├── api/          # Chamadas à API
+│       ├── api/          # Implementação dos serviços pela API (Parte 2)
 │       ├── components/
+│       ├── dados/        # Tipos, contratos dos serviços e implementação local
 │       ├── features/     # Um módulo por área do produto
 │       ├── i18n/         # Textos em português
+│       ├── plataforma/   # Código só da web: arquivos, travas e notificações
 │       └── theme/        # Cores, fontes e espaçamentos
 ├── api/                  # FastAPI
 │   ├── app/
@@ -128,6 +132,8 @@ Adições ao modelo do minimundo: `hora_inicio_dia` e `hora_fim_dia` calculam o 
 | Prioridade | `alta`, `media`, `baixa` |
 | `tarefas.status` | `aberta`, `concluida`, `cancelada` |
 | `itens_caixa.status` | `novo`, `processado`, `descartado` |
+| `metas.status` | `ativa`, `concluida`, `cancelada` |
+| `materias.status` | `ativa`, `pausada`, `concluida` |
 | `itens_dia.resultado` | `pendente`, `feita`, `remarcada`, `devolvida`, `cancelada` |
 | `rotinas.tipo` | `horario`, `meta_horas` |
 | `blocos_tempo.status` | `planejado`, `realizado`, `perdido`, `remarcado` |
