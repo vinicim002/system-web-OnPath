@@ -69,11 +69,11 @@ página de não encontrada.
 
 **Teste independente**: o cenário 1 do `quickstart.md`.
 
-- [ ] T017 [P] [US1] Criar `system-onPath-web-front/src/components/TelaBase.tsx`: uma moldura de conteúdo que recebe `titulo` e `children`, com fundo `branco`, título em Inter seminegrito e espaçamentos do tema, sem cores literais.
-- [ ] T018 [P] [US1] Criar `system-onPath-web-front/src/components/MenuLateral.tsx`, com os 9 itens de `contracts/rotas.md` na ordem e os rótulos de `t("menu.*")`. Usar o `Link` do Expo Router e marcar o item ativo com `usePathname()` e o tom de cinza do tema. Mostrar o nome "OnPath" no topo, com o detalhe roxo permitido ao logo. A largura é fixa, e a borda direita é `cinza.200`.
-- [ ] T019 [US1] Criar `system-onPath-web-front/app/_layout.tsx`. Ele carrega a Inter com `useFonts`, mantém a tela de abertura até a fonte carregar e envolve o app em `ServicosProvider` com `criarServicosLocais()`. A moldura é uma linha com o `MenuLateral` à esquerda e o `<Slot />` à direita, ocupando a altura toda da janela.
-- [ ] T020 [P] [US1] Criar as 9 telas `system-onPath-web-front/app/index.tsx`, `caixa.tsx`, `tarefas.tsx`, `projetos.tsx`, `areas.tsx`, `agenda.tsx`, `rotinas.tsx`, `estudos.tsx` e `ajustes.tsx`. Cada uma mostra só `<TelaBase titulo={t("telas.<nome>.titulo")} />`.
-- [ ] T021 [P] [US1] Criar `system-onPath-web-front/app/+not-found.tsx` com `TelaBase`, a mensagem `t("naoEncontrada.mensagem")` e um `Link` para `/` com `t("naoEncontrada.voltar")` (FR-007).
+- [X] T017 [P] [US1] Criar `system-onPath-web-front/src/components/TelaBase.tsx`: uma moldura de conteúdo que recebe `titulo` e `children`, com fundo `branco`, título em Inter seminegrito e espaçamentos do tema, sem cores literais.
+- [X] T018 [P] [US1] Criar `system-onPath-web-front/src/components/MenuLateral.tsx`, com os 9 itens de `contracts/rotas.md` na ordem e os rótulos de `t("menu.*")`. Usar o `Link` do Expo Router e marcar o item ativo com `usePathname()` e o tom de cinza do tema. Mostrar o nome "OnPath" no topo, com o detalhe roxo permitido ao logo. A largura é fixa, e a borda direita é `cinza.200`.
+- [X] T019 [US1] Criar `system-onPath-web-front/app/_layout.tsx`. Ele carrega a Inter com `useFonts`, mantém a tela de abertura até a fonte carregar e envolve o app em `ServicosProvider` com `criarServicosLocais()`. A moldura é uma linha com o `MenuLateral` à esquerda e o `<Slot />` à direita, ocupando a altura toda da janela.
+- [X] T020 [P] [US1] Criar as 9 telas `system-onPath-web-front/app/index.tsx`, `caixa.tsx`, `tarefas.tsx`, `projetos.tsx`, `areas.tsx`, `agenda.tsx`, `rotinas.tsx`, `estudos.tsx` e `ajustes.tsx`. Cada uma mostra só `<TelaBase titulo={t("telas.<nome>.titulo")} />`.
+- [X] T021 [P] [US1] Criar `system-onPath-web-front/app/+not-found.tsx` com `TelaBase`, a mensagem `t("naoEncontrada.mensagem")` e um `Link` para `/` com `t("naoEncontrada.voltar")` (FR-007).
 
 **Ponto de controle**: o cenário 1 do `quickstart.md` passa.
 
