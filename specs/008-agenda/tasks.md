@@ -17,7 +17,7 @@ description: "Lista de tarefas da Etapa 7, parte 1 (Agenda, blocos e rotinas)"
 
 ## Fase 2: Tela Rotinas (T022)
 
-- [ ] T006 Criar `src/features/rotinas/FormularioRotina.tsx` (nome, área, tipo, dias, hora e duração ou meta) e `src/telas/Rotinas.tsx` (duas seções, total do dia nas rotinas com meta, criar, editar, arquivar com Desfazer).
+- [X] T006 Criar `src/features/rotinas/FormularioRotina.tsx` (nome, área, tipo, dias, hora e duração ou meta) e `src/telas/Rotinas.tsx` (duas seções, total do dia nas rotinas com meta, criar, editar, arquivar com Desfazer).
 
 ## Fase 3: Agenda (T023)
 
