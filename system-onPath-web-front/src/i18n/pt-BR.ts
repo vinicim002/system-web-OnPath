@@ -2,6 +2,9 @@ export const ptBR = {
   app: {
     nome: "OnPath",
   },
+  comum: {
+    fechar: "Fechar",
+  },
   menu: {
     hoje: "Hoje",
     caixa: "Caixa de entrada",

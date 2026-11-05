@@ -3,6 +3,7 @@ import {
   CalendarDays,
   FolderKanban,
   Inbox,
+  Plus,
   ListChecks,
   Repeat,
   Settings,
@@ -12,7 +13,9 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router";
 
+import { Button } from "@/components/ui/button";
 import { useItensNovos } from "@/dados/consultas";
+import { textoAtalho } from "@/features/caixa/useAtalhoCaptura";
 import { t, type ChaveTexto } from "@/i18n";
 import { cn } from "@/lib/utils";
 
@@ -44,12 +47,21 @@ function ContadorCaixa() {
   );
 }
 
-export function MenuLateral() {
+interface Props {
+  abrirCaptura: () => void;
+}
+
+export function MenuLateral({ abrirCaptura }: Props) {
   return (
     <nav className="flex h-full w-60 shrink-0 flex-col gap-1 border-r bg-cinza-50 px-3 py-6">
       <div className="mb-6 px-3">
         <Logo altura={26} />
       </div>
+      <Button variant="outline" className="mb-4 w-full justify-start" onClick={abrirCaptura}>
+        <Plus />
+        {t("menu.anotar")}
+        <kbd className="ml-auto font-sans text-pequeno text-cinza-500">{textoAtalho()}</kbd>
+      </Button>
       {ITENS.map(({ rota, rotulo, Icone }) => (
         <NavLink
           key={rota}

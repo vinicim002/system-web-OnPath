@@ -87,10 +87,10 @@ cumpre o "Pronto quando".
 **Teste independente**: em `/projetos`, anotar pelo atalho e pelo botão, sem sair da tela
 (`quickstart.md`, cenário 4).
 
-- [ ] T017 [P] [US4] Criar `src/features/caixa/useAtalhoCaptura.ts`: escuta `keydown` na `window` e, com Ctrl+K (ou ⌘K no Mac), chama `preventDefault` e o callback recebido. Funciona com o foco em campos de texto e ignora a tecla repetida (`event.repeat`). Exportar também `textoAtalho()`, que devolve "Ctrl K" ou "⌘K" conforme a plataforma.
-- [ ] T018 [P] [US4] Criar `src/features/caixa/CapturaRapida.tsx`: `Dialog` controlado (`aberta`, `aoMudar`) com o título `caixa.rapida.titulo` e um `CampoAnotacao` com foco e a dica `caixa.rapida.dica`. Ao salvar com sucesso, fecha e mostra o aviso `caixa.avisos.anotado`. Em erro, mantém aberto com o texto e mostra o aviso de erro. Esc e o clique fora fecham sem criar nada.
-- [ ] T019 [US4] Em `src/components/Moldura.tsx`, guardar o estado `capturaAberta`, ligar `useAtalhoCaptura(() => setCapturaAberta(true))` e renderizar `CapturaRapida`. Como o estado só abre, apertar o atalho com o campo aberto não abre outro. Passar `abrirCaptura` para o `MenuLateral`.
-- [ ] T020 [US4] Em `src/components/MenuLateral.tsx`, colocar abaixo do logo o botão `menu.anotar` (ícone `Plus` do lucide, variante `outline`, largura total), com o atalho de `textoAtalho()` à direita, em `text-cinza-500`. Ao clicar, chama `abrirCaptura`.
+- [X] T017 [P] [US4] Criar `src/features/caixa/useAtalhoCaptura.ts`: escuta `keydown` na `window` e, com Ctrl+K (ou ⌘K no Mac), chama `preventDefault` e o callback recebido. Funciona com o foco em campos de texto e ignora a tecla repetida (`event.repeat`). Exportar também `textoAtalho()`, que devolve "Ctrl K" ou "⌘K" conforme a plataforma.
+- [X] T018 [P] [US4] Criar `src/features/caixa/CapturaRapida.tsx`: `Dialog` controlado (`aberta`, `aoMudar`) com o título `caixa.rapida.titulo` e um `CampoAnotacao` com foco e a dica `caixa.rapida.dica`. Ao salvar com sucesso, fecha e mostra o aviso `caixa.avisos.anotado`. Em erro, mantém aberto com o texto e mostra o aviso de erro. Esc e o clique fora fecham sem criar nada.
+- [X] T019 [US4] Em `src/components/Moldura.tsx`, guardar o estado `capturaAberta`, ligar `useAtalhoCaptura(() => setCapturaAberta(true))` e renderizar `CapturaRapida`. Como o estado só abre, apertar o atalho com o campo aberto não abre outro. Passar `abrirCaptura` para o `MenuLateral`.
+- [X] T020 [US4] Em `src/components/MenuLateral.tsx`, colocar abaixo do logo o botão `menu.anotar` (ícone `Plus` do lucide, variante `outline`, largura total), com o atalho de `textoAtalho()` à direita, em `text-cinza-500`. Ao clicar, chama `abrirCaptura`.
 
 **Ponto de controle**: os cenários 1, 2 e 4 do `quickstart.md` passam.
 
