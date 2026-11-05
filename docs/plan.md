@@ -53,34 +53,37 @@ A KVM 1 só será contratada depois que o app for aprovado. Nessa etapa, cada pr
 
 ## 4. Estrutura do repositório
 
-Proposta de repositório único:
+O repositório guarda cada sistema em uma pasta própria. O sistema web fica em `system-web-onPath/`, e um app para celular, no futuro, ganha uma pasta irmã.
 
 ```text
-onpath/
-├── docs/
-│   ├── spec.md
-│   ├── plan.md
-│   └── tasks.md
-├── app/                  # Expo
-│   ├── app/              # Rotas
-│   └── src/
-│       ├── api/          # Implementação dos serviços pela API (Parte 2)
-│       ├── components/
-│       ├── dados/        # Tipos, contratos dos serviços e implementação local
-│       ├── features/     # Um módulo por área do produto
-│       ├── i18n/         # Textos em português
-│       ├── plataforma/   # Código só da web: arquivos, travas e notificações
-│       └── theme/        # Cores, fontes e espaçamentos
-├── api/                  # FastAPI
-│   ├── app/
-│   │   ├── core/         # Configuração, banco e segurança
-│   │   ├── modules/      # Um módulo por área do produto
-│   │   └── main.py
-│   ├── alembic/
-│   └── tests/
-├── scripts/              # Backup e dados iniciais
-├── docker-compose.yml
-└── README.md
+onPath/                           # Repositório
+└── system-web-onPath/            # Sistema web
+    ├── .specify/                 # Spec Kit
+    ├── docs/
+    │   ├── spec.md
+    │   ├── plan.md
+    │   └── tasks.md
+    ├── specs/                    # Especificações por etapa
+    ├── system-onPath-web-front/  # Expo
+    │   ├── app/                  # Rotas
+    │   └── src/
+    │       ├── api/              # Implementação dos serviços pela API (Parte 2)
+    │       ├── components/
+    │       ├── dados/            # Tipos, contratos dos serviços e implementação local
+    │       ├── features/         # Um módulo por área do produto
+    │       ├── i18n/             # Textos em português
+    │       ├── plataforma/       # Código só da web: arquivos, travas e notificações
+    │       └── theme/            # Cores, fontes e espaçamentos
+    ├── system-onPath-web-back/   # FastAPI
+    │   ├── app/
+    │   │   ├── core/             # Configuração, banco e segurança
+    │   │   ├── modules/          # Um módulo por área do produto
+    │   │   └── main.py
+    │   ├── alembic/
+    │   └── tests/
+    ├── scripts/                  # Backup e dados iniciais
+    ├── docker-compose.yml
+    └── README.md
 ```
 
 Cada módulo da API separa rotas, esquemas, serviço e modelos. As regras de negócio ficam nos serviços, nunca nas rotas.

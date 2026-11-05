@@ -4,16 +4,16 @@ O menu lateral mostra os itens nesta ordem (FR-003). Os rótulos vêm de `src/i1
 
 | Ordem | Rótulo | Endereço | Arquivo de rota |
 |---|---|---|---|
-| 1 | Hoje | `/` | `app/app/index.tsx` |
-| 2 | Caixa de entrada | `/caixa` | `app/app/caixa.tsx` |
-| 3 | Tarefas | `/tarefas` | `app/app/tarefas.tsx` |
-| 4 | Projetos | `/projetos` | `app/app/projetos.tsx` |
-| 5 | Áreas e metas | `/areas` | `app/app/areas.tsx` |
-| 6 | Agenda | `/agenda` | `app/app/agenda.tsx` |
-| 7 | Rotinas | `/rotinas` | `app/app/rotinas.tsx` |
-| 8 | Estudos | `/estudos` | `app/app/estudos.tsx` |
-| 9 | Ajustes | `/ajustes` | `app/app/ajustes.tsx` |
-| — | Página não encontrada | qualquer outro | `app/app/+not-found.tsx` |
+| 1 | Hoje | `/` | `system-onPath-web-front/app/index.tsx` |
+| 2 | Caixa de entrada | `/caixa` | `system-onPath-web-front/app/caixa.tsx` |
+| 3 | Tarefas | `/tarefas` | `system-onPath-web-front/app/tarefas.tsx` |
+| 4 | Projetos | `/projetos` | `system-onPath-web-front/app/projetos.tsx` |
+| 5 | Áreas e metas | `/areas` | `system-onPath-web-front/app/areas.tsx` |
+| 6 | Agenda | `/agenda` | `system-onPath-web-front/app/agenda.tsx` |
+| 7 | Rotinas | `/rotinas` | `system-onPath-web-front/app/rotinas.tsx` |
+| 8 | Estudos | `/estudos` | `system-onPath-web-front/app/estudos.tsx` |
+| 9 | Ajustes | `/ajustes` | `system-onPath-web-front/app/ajustes.tsx` |
+| — | Página não encontrada | qualquer outro | `system-onPath-web-front/app/+not-found.tsx` |
 
 ## Comportamento
 

@@ -45,8 +45,8 @@ de dados. As telas são validadas pelos cenários de aceite e pelo `quickstart.m
 
 **Plataforma-alvo**: navegadores atuais de computador, rodando em `http://localhost:8081`.
 
-**Tipo de projeto**: app web de página única, com front-end apenas. O repositório único fica
-preparado para a pasta `api/` da Parte 2.
+**Tipo de projeto**: app web de página única, com front-end apenas. O sistema web fica
+preparado para a pasta `system-onPath-web-back/` da Parte 2.
 
 **Metas de desempenho**: a troca de tela parece imediata (menos de 100 ms, sem recarregar a
 página). Exportar e importar centenas de registros leva menos de 1 s.
@@ -103,10 +103,10 @@ specs/001-base-front-end/
 └── tasks.md             # Fase 2 (/speckit-tasks)
 ```
 
-### Código (raiz do repositório)
+### Código (`system-web-onPath/`)
 
 ```text
-app/                          # Projeto Expo
+system-onPath-web-front/      # Projeto Expo
 ├── app/                      # Rotas (Expo Router)
 │   ├── _layout.tsx           # Fonte, provedores e moldura com o menu lateral
 │   ├── index.tsx             # Hoje
@@ -147,8 +147,9 @@ app/                          # Projeto Expo
 └── tsconfig.json
 ```
 
-**Decisão de estrutura**: segue a seção 4 de `docs/plan.md`, com as pastas `app/` e `docs/` na
-raiz. As pastas `api/`, `scripts/` e o `docker-compose.yml` ficam para a Parte 2. Dentro de
-`app/src/`, a camada de dados fica em `dados/`, com os contratos separados da implementação
+**Decisão de estrutura**: segue a seção 4 de `docs/plan.md`. Dentro do repositório, a pasta
+`system-web-onPath/` reúne o sistema web: documentos, Spec Kit, `system-onPath-web-front/` e
+`system-onPath-web-back/`. O back, `scripts/` e o `docker-compose.yml` só ganham conteúdo na Parte 2.
+Dentro de `system-onPath-web-front/src/`, a camada de dados fica em `dados/`, com os contratos separados da implementação
 `local/`. Na T046, uma implementação `src/api/` cumpre os mesmos contratos e é trocada só no
 `ServicosProvider`.

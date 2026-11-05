@@ -11,7 +11,7 @@ Roteiro para provar que a Etapa 0 funciona de ponta a ponta. Os detalhes estão 
 ## Rodar
 
 ```bash
-cd app
+cd system-onPath-web-front
 npm install
 npm run web        # abre http://localhost:8081
 npm test           # testes dos serviços locais
@@ -50,7 +50,7 @@ npm run typecheck  # TypeScript sem erros
 ### 4. Regras da constituição (SC-002 e SC-006)
 
 ```bash
-cd app
+cd system-onPath-web-front
 # Nenhuma tela importa a implementação local diretamente:
 grep -rn "dados/local" app/ src/components src/features   # sem resultado
 # Nenhuma cor literal fora do tema:

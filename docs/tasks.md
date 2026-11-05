@@ -17,7 +17,7 @@
 ### Etapa 0 — Base do front-end
 
 - [ ] **T001: Criar o repositório.** Crie a estrutura de pastas e adicione `spec.md`, `plan.md` e `tasks.md` em `docs/`.
-  - Pronto quando: o repositório tiver a pasta `app/` e os documentos.
+  - Pronto quando: existirem a pasta `system-web-onPath/`, com `system-onPath-web-front/`, `system-onPath-web-back/` e os documentos.
 - [ ] **T002: Criar o app base.** Configure Expo web, rotas, tema preto e branco, textos separados e menu lateral.
   - Pronto quando: o menu navegar entre telas vazias no navegador.
 - [ ] **T003: Criar a camada de dados.** Defina os tipos e os serviços que as telas usam, com implementação local no navegador.

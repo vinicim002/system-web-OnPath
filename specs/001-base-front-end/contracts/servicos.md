@@ -1,6 +1,6 @@
 # Contrato: serviços usados pelas telas
 
-As telas só conhecem este contrato, definido em `app/src/dados/contratos.ts`. A implementação
+As telas só conhecem este contrato, definido em `system-onPath-web-front/src/dados/contratos.ts`. A implementação
 local (Parte 1) e a implementação pela API (Parte 2, T046) cumprem a mesma interface. A troca
 acontece só no `ServicosProvider` (FR-012).
 

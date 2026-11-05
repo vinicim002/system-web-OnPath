@@ -13,7 +13,7 @@ foram resolvidos aqui.
 
 ## 2. Rotas
 
-- **Decisão**: Expo Router, com um arquivo por tela em `app/app/` e um layout raiz que desenha
+- **Decisão**: Expo Router, com um arquivo por tela em `system-onPath-web-front/app/` e um layout raiz que desenha
   o menu lateral e a tela atual ao lado.
 - **Motivo**: dá a cada tela um endereço próprio na web (FR-004 e cenário 3 da história 1) e
   tem uma tela de "não encontrada" pronta (`+not-found`). Também segue a estrutura do
