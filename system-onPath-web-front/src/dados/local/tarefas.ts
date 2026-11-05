@@ -100,6 +100,28 @@ function prepararNova(dados: Objeto): Tarefa {
   });
 }
 
+/** Colunas ativas do projeto, na ordem (specs/007-kanban). */
+function colunasDoProjeto(projetoId: string | null) {
+  if (!projetoId) return [];
+  return lerColecao("colunas")
+    .filter((coluna) => coluna.projetoId === projetoId && coluna.arquivadoEm === null)
+    .sort((a, b) => a.ordem - b.ordem || a.criadoEm.localeCompare(b.criadoEm));
+}
+
+/** Coluna final do projeto, para onde vai a tarefa principal concluída (RN32). */
+function colunaFinal(tarefa: Tarefa): string | null {
+  if (tarefa.tarefaPaiId !== null) return null;
+  return colunasDoProjeto(tarefa.projetoId).find((coluna) => coluna.final)?.id ?? null;
+}
+
+/** Para onde vai a tarefa reaberta que estava na coluna final: a primeira não final. */
+function colunaAoReabrir(tarefa: Tarefa): string | null {
+  const colunas = colunasDoProjeto(tarefa.projetoId);
+  const naFinal = colunas.some((coluna) => coluna.id === tarefa.colunaId && coluna.final);
+  if (!naFinal) return tarefa.colunaId;
+  return colunas.find((coluna) => !coluna.final)?.id ?? null;
+}
+
 function heranca(topo: Tarefa): Objeto {
   return Object.fromEntries(HERDADOS.map((campo) => [campo, topo[campo]]));
 }
@@ -173,6 +195,7 @@ export function criarServicoTarefas(): ServicoTarefas {
         ...(ehSubtarefa ? HERDADOS : []),
       ]);
       const novo = validarTarefa({ ...atual, ...permitidos });
+      if (novo.projetoId !== atual.projetoId) novo.colunaId = null;
       if (ehSubtarefa) {
         const [alterada] = await gravarVarios([{ id, campos: novo }]);
         return alterada!;
@@ -201,7 +224,7 @@ export function criarServicoTarefas(): ServicoTarefas {
       const topo = tarefaDoTopo(pai, new Map(tarefas.map((t) => [t.id, t])));
       const herdados = heranca(topo);
       const [movida] = await gravarVarios([
-        { id, campos: { ...herdados, tarefaPaiId } },
+        { id, campos: { ...herdados, tarefaPaiId, colunaId: null } },
         ...descendentes(id, tarefas).map((filha) => ({ id: filha.id, campos: herdados })),
       ]);
       return movida!;
@@ -216,14 +239,22 @@ export function criarServicoTarefas(): ServicoTarefas {
       const concluidaEm = new Date().toISOString();
       const alvos = [...(atual.status === "concluida" ? [] : [atual]), ...abertas];
       if (alvos.length === 0) return atual;
-      await gravarVarios(alvos.map((t) => ({ id: t.id, campos: { status: "concluida", concluidaEm } })));
+      const final = colunaFinal(atual);
+      await gravarVarios(
+        alvos.map((t) => ({
+          id: t.id,
+          campos: { status: "concluida", concluidaEm, ...(t.id === id && final ? { colunaId: final } : {}) },
+        })),
+      );
       return base.obter(id);
     },
 
     async reabrir(id) {
       const atual = await base.obter(id);
       if (atual.status === "aberta") return atual;
-      const [reaberta] = await gravarVarios([{ id, campos: { status: "aberta", concluidaEm: null } }]);
+      const [reaberta] = await gravarVarios([
+        { id, campos: { status: "aberta", concluidaEm: null, colunaId: colunaAoReabrir(atual) } },
+      ]);
       return reaberta!;
     },
 
@@ -256,6 +287,37 @@ export function criarServicoTarefas(): ServicoTarefas {
           .map((t) => ({ id: t.id, campos: { arquivadoEm: null } })),
       );
       return base.obter(id);
+    },
+
+    async moverParaColuna(id, colunaId, opcoes = {}) {
+      const atual = await base.obter(id);
+      const coluna = colunaId === null ? null : colunasDoProjeto(atual.projetoId).find((c) => c.id === colunaId);
+      if (colunaId !== null && (!coluna || atual.tarefaPaiId !== null || atual.projetoId === null)) {
+        throw criarErro("dados_invalidos", { campos: ["colunaId"] });
+      }
+      const agora = new Date().toISOString();
+
+      // Soltar na coluna final conclui (RN32), com as mesmas regras de subtarefas de `concluir`.
+      if (coluna?.final && atual.status === "aberta") {
+        const abertas = descendentes(id, await base.listar()).filter((t) => t.status === "aberta");
+        if (abertas.length > 0 && !opcoes.incluirSubtarefas) {
+          throw criarErro("subtarefas_abertas", { quantidade: abertas.length });
+        }
+        const [movida] = await gravarVarios([
+          { id, campos: { colunaId, status: "concluida", concluidaEm: agora } },
+          ...abertas.map((t) => ({ id: t.id, campos: { status: "concluida", concluidaEm: agora } })),
+        ]);
+        return movida!;
+      }
+
+      // Tirar uma tarefa concluída da coluna final a reabre.
+      if (atual.status === "concluida" && !coluna?.final) {
+        const [movida] = await gravarVarios([{ id, campos: { colunaId, status: "aberta", concluidaEm: null } }]);
+        return movida!;
+      }
+
+      const [movida] = await gravarVarios([{ id, campos: { colunaId } }]);
+      return movida!;
     },
 
     async criarDeItemCaixa(itemId, dados) {

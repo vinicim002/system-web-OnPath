@@ -477,3 +477,53 @@ export function useOpcoesProjeto() {
     },
   });
 }
+
+// ---------------------------------------------------------------------------
+// Kanban (specs/007-kanban/contracts/servicos.md)
+// ---------------------------------------------------------------------------
+
+const CHAVES_KANBAN = ["colunas", "tarefas", "itensDia", "projetos"];
+
+export function useColunas(projetoId: string) {
+  const { colunas } = useServicos();
+  return useQuery({ queryKey: ["colunas", projetoId], queryFn: () => colunas.listarDoProjeto(projetoId) });
+}
+
+export function useCriarColuna() {
+  const { colunas } = useServicos();
+  return useEscrita((dados: { projetoId: string; nome: string }) => colunas.criar(dados), CHAVES_KANBAN);
+}
+
+export function useAlterarColuna() {
+  const { colunas } = useServicos();
+  return useEscrita(({ id, nome }: { id: string; nome: string }) => colunas.alterar(id, { nome }), CHAVES_KANBAN);
+}
+
+export function useReordenarColunas() {
+  const { colunas } = useServicos();
+  return useEscrita(({ projetoId, ids }: { projetoId: string; ids: string[] }) => colunas.reordenar(projetoId, ids), CHAVES_KANBAN);
+}
+
+export function useMarcarFinal() {
+  const { colunas } = useServicos();
+  return useEscrita(({ id, final }: { id: string; final: boolean }) => colunas.marcarFinal(id, final), CHAVES_KANBAN);
+}
+
+export function useExcluirColuna() {
+  const { colunas } = useServicos();
+  return useEscrita((id: string) => colunas.excluir(id), CHAVES_KANBAN);
+}
+
+export function useRecuperarColuna() {
+  const { colunas } = useServicos();
+  return useEscrita((id: string) => colunas.recuperar(id), CHAVES_KANBAN);
+}
+
+export function useMoverParaColuna() {
+  const { tarefas } = useServicos();
+  return useEscrita(
+    ({ id, colunaId, incluirSubtarefas }: { id: string; colunaId: string | null; incluirSubtarefas?: boolean }) =>
+      tarefas.moverParaColuna(id, colunaId, { incluirSubtarefas }),
+    CHAVES_KANBAN,
+  );
+}

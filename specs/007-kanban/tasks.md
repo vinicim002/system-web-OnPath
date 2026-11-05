@@ -9,10 +9,10 @@ description: "Lista de tarefas da Etapa 6 (Kanban)"
 
 ## Fase 1: Colunas e conclusão (T018)
 
-- [ ] T001 [P] Em `src/dados/contratos.ts`, criar `ServicoColunas` e acrescentar `moverParaColuna` ao `ServicoTarefas`, como em `contracts/servicos.md`; trocar o tipo de `colunas` em `Servicos`.
-- [ ] T002 Escrever `__tests__/kanban.test.ts`: projeto novo sem colunas; criar no fim e não final; nome vazio ou repetido no projeto recusado; reordenar; `marcarFinal` deixa uma só; arquivar zera a coluna das tarefas e `recuperar` devolve; `concluir` leva à final; `reabrir` leva à primeira não final (ou `null`); sem coluna final, concluir não muda a coluna; `moverParaColuna` para a final conclui, com `subtarefas_abertas` quando há subtarefas abertas e sem gravar; de concluída para outra coluna reabre; recusa coluna de outro projeto, tarefa avulsa e subtarefa (`dados_invalidos`, `colunaId`); mudar o projeto da tarefa zera a coluna.
-- [ ] T003 Criar `src/dados/local/colunas.ts` e ajustar `src/dados/local/tarefas.ts` (concluir, reabrir, `moverParaColuna`, coluna zerada ao mudar projeto ou virar avulsa) até a T002 passar; usar o serviço novo em `src/dados/local/servicos.ts`.
-- [ ] T004 [P] Em `src/dados/consultas.ts`, criar os hooks de `contracts/servicos.md`; em `src/i18n/pt-BR.ts`, criar `kanban.*`.
+- [X] T001 [P] Em `src/dados/contratos.ts`, criar `ServicoColunas` e acrescentar `moverParaColuna` ao `ServicoTarefas`, como em `contracts/servicos.md`; trocar o tipo de `colunas` em `Servicos`.
+- [X] T002 Escrever `__tests__/kanban.test.ts`: projeto novo sem colunas; criar no fim e não final; nome vazio ou repetido no projeto recusado; reordenar; `marcarFinal` deixa uma só; arquivar zera a coluna das tarefas e `recuperar` devolve; `concluir` leva à final; `reabrir` leva à primeira não final (ou `null`); sem coluna final, concluir não muda a coluna; `moverParaColuna` para a final conclui, com `subtarefas_abertas` quando há subtarefas abertas e sem gravar; de concluída para outra coluna reabre; recusa coluna de outro projeto, tarefa avulsa e subtarefa (`dados_invalidos`, `colunaId`); mudar o projeto da tarefa zera a coluna.
+- [X] T003 Criar `src/dados/local/colunas.ts` e ajustar `src/dados/local/tarefas.ts` (concluir, reabrir, `moverParaColuna`, coluna zerada ao mudar projeto ou virar avulsa) até a T002 passar; usar o serviço novo em `src/dados/local/servicos.ts`.
+- [X] T004 [P] Em `src/dados/consultas.ts`, criar os hooks de `contracts/servicos.md`; em `src/i18n/pt-BR.ts`, criar `kanban.*`.
 
 ## Fase 2: Kanban (T019)
 

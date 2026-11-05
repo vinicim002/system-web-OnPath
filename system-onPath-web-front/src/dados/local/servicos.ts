@@ -2,6 +2,7 @@ import type { Servicos } from "../contratos";
 import { esquemas, type NomeColecao } from "../tipos";
 import { criarServicoAreas } from "./areas";
 import { criarServicoItensCaixa } from "./caixa";
+import { criarServicoColunas } from "./colunas";
 import { criarServicoGrupos } from "./grupos";
 import { criarServicoMetas } from "./metas";
 import { criarServicoItensDia } from "./itensDia";
@@ -24,7 +25,7 @@ export function criarServicosLocais(): Servicos {
     metas: criarServicoMetas(),
     grupos: criarServicoGrupos(),
     projetos: criarServicoProjetos(),
-    colunas: colecao("colunas"),
+    colunas: criarServicoColunas(),
     tarefas: criarServicoTarefas(),
     itensCaixa: criarServicoItensCaixa(),
     itensDia: criarServicoItensDia(),

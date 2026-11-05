@@ -67,6 +67,24 @@ export interface ServicoTarefas extends ServicoColecao<T.Tarefa, T.NovaTarefa, T
   recuperar(id: string): Promise<T.Tarefa>;
   /** Cria a tarefa e marca o item da caixa como processado, na mesma escrita. */
   criarDeItemCaixa(itemId: string, dados: T.NovaTarefa): Promise<T.Tarefa>;
+  /** Muda a coluna; para a final, conclui; de concluída para outra, reabre (RN32). */
+  moverParaColuna(id: string, colunaId: string | null, opcoes?: { incluirSubtarefas?: boolean }): Promise<T.Tarefa>;
+}
+
+/** Colunas do Kanban (specs/007-kanban/contracts/servicos.md). */
+export interface ServicoColunas extends ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna> {
+  /** Colunas ativas do projeto, na ordem. */
+  listarDoProjeto(projetoId: string): Promise<T.Coluna[]>;
+  /** Cria no fim, não final. */
+  criar(dados: { projetoId: string; nome: string }): Promise<T.Coluna>;
+  alterar(id: string, dados: { nome?: string }): Promise<T.Coluna>;
+  reordenar(projetoId: string, ids: string[]): Promise<void>;
+  /** Marca como final e desmarca a anterior; `false` desmarca. */
+  marcarFinal(id: string, final: boolean): Promise<void>;
+  /** Arquiva e deixa as tarefas dela sem coluna. */
+  excluir(id: string): Promise<void>;
+  /** Recupera no fim e devolve as tarefas. */
+  recuperar(id: string): Promise<T.Coluna>;
 }
 
 /** Item do plano do dia, com a tarefa (specs/004-hoje/contracts/servico-itens-dia.md). */
@@ -228,7 +246,7 @@ export interface Servicos {
   grupos: ServicoGrupos;
   /** O `areaId` vem do grupo (RN01). */
   projetos: ServicoProjetos;
-  colunas: ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna>;
+  colunas: ServicoColunas;
   tarefas: ServicoTarefas;
   itensCaixa: ServicoItensCaixa;
   itensDia: ServicoItensDia;
