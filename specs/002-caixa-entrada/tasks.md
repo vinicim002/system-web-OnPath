@@ -113,9 +113,9 @@ cenário 3).
 
 **Objetivo**: validar tudo e registrar a conclusão.
 
-- [ ] T022 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build` em `system-onPath-web-front/`, e os greps do cenário 7 do `quickstart.md`.
-- [ ] T023 Rodar no navegador os cenários 1 a 6 do `quickstart.md`, incluindo 500 itens criados pelo serviço para o SC-005.
-- [ ] T024 Marcar a T006 em `docs/tasks.md` (caminho a partir de `system-web-onPath/`) e marcar como atendidos, na seção 6.2 de `docs/spec.md`, os critérios "Um item é criado só com texto (RN03)", "A captura funciona com poucos cliques, sem abrir outra tela" e "Um item pode ser descartado e recuperado (RN31)". Os critérios de transformar o item ficam para a T010.
+- [X] T022 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build` em `system-onPath-web-front/`, e os greps do cenário 7 do `quickstart.md`.
+- [X] T023 Rodar no navegador os cenários 1 a 6 do `quickstart.md`, incluindo 500 itens criados pelo serviço para o SC-005.
+- [X] T024 Marcar a T006 em `docs/tasks.md` (caminho a partir de `system-web-onPath/`) e marcar como atendidos, na seção 6.2 de `docs/spec.md`, os critérios "Um item é criado só com texto (RN03)", "A captura funciona com poucos cliques, sem abrir outra tela" e "Um item pode ser descartado e recuperado (RN31)". Os critérios de transformar o item ficam para a T010.
 
 ---
 

@@ -161,10 +161,10 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.2 Caixa de entrada
 
-- [ ] Um item é criado só com texto (RN03).
-- [ ] A captura funciona com poucos cliques, sem abrir outra tela.
+- [x] Um item é criado só com texto (RN03).
+- [x] A captura funciona com poucos cliques, sem abrir outra tela.
 - [ ] Um item pode virar tarefa, projeto, compromisso ou material.
-- [ ] Um item pode ser descartado e recuperado (RN31).
+- [x] Um item pode ser descartado e recuperado (RN31).
 - [ ] Ao virar tarefa, os campos da RN24 são exigidos.
 
 ### 6.3 Tarefas

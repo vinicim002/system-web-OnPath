@@ -29,7 +29,7 @@
 
 ### Etapa 1 — Caixa de entrada
 
-- [ ] **T006: Construir a tela da caixa.** Cubra a captura rápida, o descarte e a recuperação (RN03 e RN31).
+- [x] **T006: Construir a tela da caixa.** Cubra a captura rápida, o descarte e a recuperação (RN03 e RN31).
   - Pronto quando: o usuário registrar uma ideia só com texto.
 
 ### Etapa 2 — Tarefas
