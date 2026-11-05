@@ -48,9 +48,11 @@ foram resolvidos aqui.
 ## 5. Criação única dos dados iniciais
 
 - **Decisão**: no início, o app pega a trava `onpath-carga` da Web Locks API
-  (`navigator.locks`), lê a chave de controle e, se `dadosIniciaisEm` estiver vazio, grava todos
-  os dados iniciais e a marca em uma única escrita. Sem Web Locks, o app usa uma marca
-  provisória com horário e confere de novo depois de gravar.
+  (`navigator.locks`), quando ela existe. Dentro da trava, sem nenhum `await` entre ler e gravar,
+  ele lê a chave de controle e, se `dadosIniciaisEm` estiver vazio, grava os dados iniciais e a
+  marca em uma única chamada. Só grava as coleções que estiverem vazias. Sem Web Locks, faz o
+  mesmo passo sem a trava: como cada aba executa um código por vez e o `localStorage` responde
+  na hora, a chance de duas abas se cruzarem é desprezível.
 - **Motivo**: cumpre FR-017 e SC-003 com várias abas abertas. Como a marca fica na chave de
   controle, os itens arquivados ou editados não voltam (cenário 3 da história 2).
 - **Alternativas**: verificar se já existem áreas. Foi descartado porque, se o usuário arquivar
@@ -76,7 +78,7 @@ foram resolvidos aqui.
 
 ## 8. Identificadores e datas
 
-- **Decisão**: identificadores com `crypto.randomUUID()`. Datas guardadas como texto ISO 8601 em
+- **Decisão**: identificadores com `crypto.randomUUID()`, chamado por `gerarId()` em `src/plataforma/id.ts`. Datas guardadas como texto ISO 8601 em
   UTC (`2026-11-05T15:00:00.000Z`), e horários de rotina como `HH:mm` locais.
 - **Motivo**: UUIDs evitam colisão ao importar no banco (T047). O formato ISO cumpre a seção 7 de
   `docs/spec.md`. A exibição usa o fuso `America/Sao_Paulo` até a T030.

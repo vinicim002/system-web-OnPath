@@ -97,7 +97,7 @@ arquivo e conferir que os dados são os mesmos.
 - O armazenamento do navegador é apagado: o app volta ao estado de primeiro uso e recria os
   dados iniciais. O usuário recupera seus dados importando a última cópia.
 - O armazenamento do navegador está bloqueado ou cheio: o app informa que não consegue salvar e
-  sugere exportar uma cópia.
+  explica como liberar o armazenamento.
 - O app é aberto em duas abas ao mesmo tempo no primeiro uso: os dados iniciais são criados uma
   única vez.
 - A importação falha no meio: nenhum dado é alterado.

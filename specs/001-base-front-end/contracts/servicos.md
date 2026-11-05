@@ -70,7 +70,7 @@ que as usa.
 interface ServicoDados {
   /** Cria os dados iniciais se ainda não existirem. Pode ser chamado várias vezes. */
   prepararPrimeiroUso(): Promise<{ criou: boolean }>;
-  /** Devolve a cópia completa, inclusive arquivados (FR-020). */
+  /** Devolve a cópia completa, inclusive arquivados (FR-020), e registra a data da exportação. */
   exportar(): Promise<CopiaDados>;
   /** Valida a cópia inteira e só então substitui todos os dados (FR-021 e FR-022). */
   importar(conteudo: unknown): Promise<{ registros: number }>;
