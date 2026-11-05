@@ -26,6 +26,8 @@ Itens marcados com **Proposta** ainda não foram debatidos e podem mudar. Os dem
 
 Use versões estáveis atuais no momento de instalar.
 
+Versões instaladas na Etapa 0 (interface): Expo SDK 58, React Native 0.88, TypeScript 6, Expo Router 58, TanStack Query 5, Zod 4 e Jest 30.
+
 ## 2. Ordem de construção
 
 A construção é **front-end primeiro**. As telas são feitas com dados locais no navegador, para revelar novas necessidades antes de existir código de back-end.

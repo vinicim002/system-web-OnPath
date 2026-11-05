@@ -130,10 +130,10 @@ página de não encontrada.
 
 ## Fase 6: Fechamento
 
-- [ ] T033 [P] Rodar as verificações do cenário 4 do `quickstart.md`: nenhuma importação de `dados/local` e nenhuma cor literal em `system-onPath-web-front/app/`, `system-onPath-web-front/src/components/` e `system-onPath-web-front/src/features/`. Corrigir o que aparecer.
-- [ ] T034 [P] Revisar se existe texto visível escrito direto nos componentes de `system-onPath-web-front/app/`, `system-onPath-web-front/src/components/` e `system-onPath-web-front/src/features/`, e levá-lo para `system-onPath-web-front/src/i18n/pt-BR.ts`.
-- [ ] T035 Rodar `npm test` e `npm run typecheck` em `system-onPath-web-front/` e percorrer todos os cenários do `quickstart.md` no navegador, conferindo também que a troca de tela parece imediata e que exportar e importar levam menos de 1 s (metas de desempenho do `plan.md`).
-- [ ] T036 Marcar T001 a T005 em `docs/tasks.md` e registrar em `docs/plan.md` qualquer decisão que tenha mudado durante a implementação (constituição, princípio II).
+- [X] T033 [P] Rodar as verificações do cenário 4 do `quickstart.md`: nenhuma importação de `dados/local` e nenhuma cor literal em `system-onPath-web-front/app/`, `system-onPath-web-front/src/components/` e `system-onPath-web-front/src/features/`. Corrigir o que aparecer.
+- [X] T034 [P] Revisar se existe texto visível escrito direto nos componentes de `system-onPath-web-front/app/`, `system-onPath-web-front/src/components/` e `system-onPath-web-front/src/features/`, e levá-lo para `system-onPath-web-front/src/i18n/pt-BR.ts`.
+- [X] T035 Rodar `npm test` e `npm run typecheck` em `system-onPath-web-front/` e percorrer todos os cenários do `quickstart.md` no navegador, conferindo também que a troca de tela parece imediata e que exportar e importar levam menos de 1 s (metas de desempenho do `plan.md`).
+- [X] T036 Marcar T001 a T005 em `docs/tasks.md` e registrar em `docs/plan.md` qualquer decisão que tenha mudado durante a implementação (constituição, princípio II).
 
 ---
 

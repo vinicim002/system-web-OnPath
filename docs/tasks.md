@@ -16,15 +16,15 @@
 
 ### Etapa 0 — Base do front-end
 
-- [ ] **T001: Criar o repositório.** Crie a estrutura de pastas e adicione `spec.md`, `plan.md` e `tasks.md` em `docs/`.
+- [x] **T001: Criar o repositório.** Crie a estrutura de pastas e adicione `spec.md`, `plan.md` e `tasks.md` em `docs/`.
   - Pronto quando: existirem a pasta `system-web-onPath/`, com `system-onPath-web-front/`, `system-onPath-web-back/` e os documentos.
-- [ ] **T002: Criar o app base.** Configure Expo web, rotas, tema preto e branco, textos separados e menu lateral.
+- [x] **T002: Criar o app base.** Configure Expo web, rotas, tema preto e branco, textos separados e menu lateral.
   - Pronto quando: o menu navegar entre telas vazias no navegador.
-- [ ] **T003: Criar a camada de dados.** Defina os tipos e os serviços que as telas usam, com implementação local no navegador.
+- [x] **T003: Criar a camada de dados.** Defina os tipos e os serviços que as telas usam, com implementação local no navegador.
   - Pronto quando: as telas puderem trocar a implementação local pela API sem mudar seus componentes.
-- [ ] **T004: Carregar os dados iniciais.** Crie áreas, grupos, projetos e rotina da `spec.md`, seção 5.
+- [x] **T004: Carregar os dados iniciais.** Crie áreas, grupos, projetos e rotina da `spec.md`, seção 5.
   - Pronto quando: os dados aparecerem uma única vez, sem duplicar.
-- [ ] **T005: Exportar e importar dados.** Crie uma cópia em JSON dos dados locais.
+- [x] **T005: Exportar e importar dados.** Crie uma cópia em JSON dos dados locais.
   - Pronto quando: uma cópia exportada for restaurada em um navegador limpo.
 
 ### Etapa 1 — Caixa de entrada
