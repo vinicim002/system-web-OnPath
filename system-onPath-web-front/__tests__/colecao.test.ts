@@ -19,7 +19,7 @@ describe("serviço de coleção local", () => {
 
   it("cria, lista e obtém", async () => {
     const { areas } = criarServicosLocais();
-    const area = await areas.criar({ nome: "Trabalho", cor: "#525252", ordem: 0 });
+    const area = await areas.criar({ nome: "Trabalho", cor: "#525252" });
 
     expect(area.id).toMatch(/^[0-9a-f-]{36}$/);
     expect(area.criadoEm).toBe(area.atualizadoEm);
@@ -30,7 +30,7 @@ describe("serviço de coleção local", () => {
 
   it("altera sem mexer nos campos comuns", async () => {
     const { areas } = criarServicosLocais();
-    const area = await areas.criar({ nome: "Trabalho", cor: "#525252", ordem: 0 });
+    const area = await areas.criar({ nome: "Trabalho", cor: "#525252" });
     const alterada = await areas.alterar(area.id, {
       nome: "Emprego",
       id: "outro",
@@ -44,17 +44,19 @@ describe("serviço de coleção local", () => {
 
   it("excluir arquiva, e recuperar desfaz", async () => {
     const { areas } = criarServicosLocais();
-    const area = await areas.criar({ nome: "Trabalho", cor: "#525252", ordem: 0 });
+    const area = await areas.criar({ nome: "Trabalho", cor: "#525252" });
+    // A última área ativa não pode ser arquivada (specs/005), então há uma segunda.
+    await areas.criar({ nome: "Pessoal", cor: "#525252" });
 
     await areas.excluir(area.id);
-    expect(await areas.listar()).toEqual([]);
+    expect(await areas.listar()).toHaveLength(1);
     const todas = await areas.listar({ incluirArquivados: true });
-    expect(todas).toHaveLength(1);
-    expect(todas[0].arquivadoEm).not.toBeNull();
+    expect(todas).toHaveLength(2);
+    expect(todas.find((a) => a.id === area.id)?.arquivadoEm).not.toBeNull();
 
     const recuperada = await areas.recuperar(area.id);
     expect(recuperada.arquivadoEm).toBeNull();
-    expect(await areas.listar()).toHaveLength(1);
+    expect(await areas.listar()).toHaveLength(2);
   });
 
   it("gera nao_encontrado para id inexistente", async () => {
@@ -67,13 +69,13 @@ describe("serviço de coleção local", () => {
 
   it("gera dados_invalidos só com os nomes dos campos", async () => {
     const { areas, grupos } = criarServicosLocais();
-    const erro = await capturar(areas.criar({ nome: "", cor: "#000", ordem: -1 }));
+    const erro = await capturar(areas.criar({ nome: "", cor: "#000" }));
 
     expect(erro.codigo).toBe("dados_invalidos");
-    expect(erro.detalhes).toEqual({ campos: ["nome", "ordem"] });
+    expect(erro.detalhes).toEqual({ campos: ["nome", "cor"] });
     expect(erro.mensagem).toMatch(/inválidos/);
 
-    const area = await areas.criar({ nome: "Pessoal", cor: "#000", ordem: 0 });
+    const area = await areas.criar({ nome: "Pessoal", cor: "#171717" });
     const erroGrupo = await capturar(grupos.criar({ areaId: area.id, nome: "X", limiteAtivos: -1 }));
     expect(erroGrupo.detalhes).toEqual({ campos: ["limiteAtivos"] });
     expect(await areas.listar()).toHaveLength(1);
@@ -81,8 +83,8 @@ describe("serviço de coleção local", () => {
 
   it("projetos herdam a área do grupo (RN01)", async () => {
     const { areas, grupos, projetos } = criarServicosLocais();
-    const trabalho = await areas.criar({ nome: "Trabalho", cor: "#000", ordem: 0 });
-    const pessoal = await areas.criar({ nome: "Pessoal", cor: "#000", ordem: 1 });
+    const trabalho = await areas.criar({ nome: "Trabalho", cor: "#171717" });
+    const pessoal = await areas.criar({ nome: "Pessoal", cor: "#171717" });
     const grupoTrabalho = await grupos.criar({ areaId: trabalho.id, nome: "A", limiteAtivos: 1 });
     const grupoPessoal = await grupos.criar({ areaId: pessoal.id, nome: "B", limiteAtivos: 1 });
 
@@ -102,7 +104,7 @@ describe("serviço de coleção local", () => {
 
   it("persiste depois de recriar o serviço", async () => {
     const primeiro = criarServicosLocais();
-    const area = await primeiro.areas.criar({ nome: "Trabalho", cor: "#000", ordem: 0 });
+    const area = await primeiro.areas.criar({ nome: "Trabalho", cor: "#171717" });
 
     const segundo = criarServicosLocais();
     expect(await segundo.areas.obter(area.id)).toEqual(area);

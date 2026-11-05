@@ -111,6 +111,59 @@ export interface ServicoItensDia extends ServicoColecao<T.ItemDia, T.NovoItemDia
   remarcarTodasPara(hoje: string): Promise<void>;
 }
 
+// ---------------------------------------------------------------------------
+// Áreas, metas e grupos (specs/005-areas-metas-grupos/contracts/servicos.md)
+// ---------------------------------------------------------------------------
+
+export interface ContagemArea {
+  metasAtivas: number;
+  grupos: number;
+  projetos: number;
+  tarefasAbertas: number;
+  materias: number;
+}
+
+export interface AreaComResumo extends T.Area {
+  contagem: ContagemArea;
+}
+
+export interface ServicoAreas extends ServicoColecao<T.Area, T.NovaArea, T.AlteracaoArea> {
+  /** Áreas ativas na ordem, com as contagens. */
+  listarComResumo(): Promise<AreaComResumo[]>;
+  /** Áreas arquivadas, da mais recente para a mais antiga. */
+  listarArquivadas(): Promise<T.Area[]>;
+  /** Cria no fim. Nome único e tom do tema. */
+  criar(dados: { nome: string; cor: string }): Promise<T.Area>;
+  alterar(id: string, dados: { nome?: string; cor?: string }): Promise<T.Area>;
+  /** Regrava a ordem das áreas ativas. A lista precisa ter todas elas. */
+  reordenar(ids: string[]): Promise<void>;
+  /** Com itens ativos, exige `confirmado: true`. Nunca arquiva a última área ativa. */
+  excluir(id: string, opcoes?: { confirmado?: boolean }): Promise<void>;
+  /** Recupera no fim da ordem. */
+  recuperar(id: string): Promise<T.Area>;
+}
+
+export interface MetaNaLista extends T.Meta {
+  atrasada: boolean;
+}
+
+export interface ServicoMetas extends ServicoColecao<T.Meta, T.NovaMeta, T.AlteracaoMeta> {
+  /** Metas não arquivadas da área, na ordem da tela; `hoje` define o atraso. */
+  listarDaArea(areaId: string, hoje: string): Promise<MetaNaLista[]>;
+}
+
+export interface GrupoComVagas extends T.Grupo {
+  ativos: number;
+  acimaDoLimite: boolean;
+}
+
+export interface ServicoGrupos extends ServicoColecao<T.Grupo, T.NovoGrupo, T.AlteracaoGrupo> {
+  /** Grupos ativos da área, por nome, com as vagas (RN06). */
+  listarDaArea(areaId: string): Promise<GrupoComVagas[]>;
+  /** Recusa enquanto houver projetos não arquivados no grupo. */
+  excluir(id: string): Promise<void>;
+}
+
 export interface CopiaDados {
   formato: "onpath-copia";
   versao: number;
@@ -128,9 +181,9 @@ export interface ServicoDados {
 }
 
 export interface Servicos {
-  areas: ServicoColecao<T.Area, T.NovaArea, T.AlteracaoArea>;
-  metas: ServicoColecao<T.Meta, T.NovaMeta, T.AlteracaoMeta>;
-  grupos: ServicoColecao<T.Grupo, T.NovoGrupo, T.AlteracaoGrupo>;
+  areas: ServicoAreas;
+  metas: ServicoMetas;
+  grupos: ServicoGrupos;
   /** O `areaId` vem do grupo (RN01). */
   projetos: ServicoColecao<T.Projeto, T.NovoProjeto, T.AlteracaoProjeto>;
   colunas: ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna>;

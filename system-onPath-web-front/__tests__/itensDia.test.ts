@@ -33,7 +33,7 @@ interface Cenario {
 
 async function preparar(): Promise<Cenario> {
   const s = criarServicosLocais();
-  const area = await s.areas.criar({ nome: "Pessoal", cor: "#737373", ordem: 0 });
+  const area = await s.areas.criar({ nome: "Pessoal", cor: "#737373" });
   return {
     s,
     tarefa: async (titulo, campos = {}) => {

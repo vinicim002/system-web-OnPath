@@ -21,3 +21,13 @@ export const cores = {
   /** Reservado ao logo e a pequenos detalhes. */
   roxo: "#7357F0",
 } as const;
+
+/** Tons que uma área pode ter: os cinzas 400 a 900 (seção 7 de docs/spec.md). */
+export const TONS_AREA: readonly string[] = [
+  cores.cinza[900],
+  cores.cinza[800],
+  cores.cinza[700],
+  cores.cinza[600],
+  cores.cinza[500],
+  cores.cinza[400],
+];

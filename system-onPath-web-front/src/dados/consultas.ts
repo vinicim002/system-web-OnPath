@@ -2,7 +2,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback } from "react";
 
 import type { Destino, FiltrosTarefas } from "./contratos";
-import { NOMES_COLECOES, type NomeColecao, type NovaTarefa, type Registros } from "./tipos";
+import {
+  NOMES_COLECOES,
+  type NomeColecao,
+  type NovaMeta,
+  type NovaTarefa,
+  type NovoGrupo,
+  type Registros,
+} from "./tipos";
 import { useServicos } from "./ServicosProvider";
 
 /** Lista os registros ativos de uma coleção. */
@@ -279,4 +286,116 @@ export function useDecidirPendencia() {
 export function useRemarcarTodas() {
   const { itensDia } = useServicos();
   return useEscritaDia((hoje: string) => itensDia.remarcarTodasPara(hoje));
+}
+
+// ---------------------------------------------------------------------------
+// Áreas, metas e grupos (specs/005-areas-metas-grupos/contracts/servicos.md)
+// ---------------------------------------------------------------------------
+
+function useEscrita<Entrada, Saida>(escrever: (entrada: Entrada) => Promise<Saida>, chaves: string[]) {
+  const clienteConsultas = useQueryClient();
+  return useMutation({
+    mutationFn: escrever,
+    onSettled: () => {
+      for (const chave of chaves) void clienteConsultas.invalidateQueries({ queryKey: [chave] });
+    },
+  });
+}
+
+const CHAVES_AREAS = ["areas", "opcoesTarefa", "tarefas"];
+const CHAVES_METAS = ["metas", "areas"];
+const CHAVES_GRUPOS = ["grupos", "areas"];
+
+export function useAreasComResumo() {
+  const { areas } = useServicos();
+  return useQuery({ queryKey: ["areas", "resumo"], queryFn: () => areas.listarComResumo() });
+}
+
+export function useAreasArquivadas() {
+  const { areas } = useServicos();
+  return useQuery({ queryKey: ["areas", "arquivadas"], queryFn: () => areas.listarArquivadas() });
+}
+
+export function useCriarArea() {
+  const { areas } = useServicos();
+  return useEscrita((dados: { nome: string; cor: string }) => areas.criar(dados), CHAVES_AREAS);
+}
+
+export function useAlterarArea() {
+  const { areas } = useServicos();
+  return useEscrita(
+    ({ id, dados }: { id: string; dados: { nome?: string; cor?: string } }) => areas.alterar(id, dados),
+    CHAVES_AREAS,
+  );
+}
+
+export function useReordenarAreas() {
+  const { areas } = useServicos();
+  return useEscrita((ids: string[]) => areas.reordenar(ids), CHAVES_AREAS);
+}
+
+export function useArquivarArea() {
+  const { areas } = useServicos();
+  return useEscrita(
+    ({ id, confirmado }: { id: string; confirmado?: boolean }) => areas.excluir(id, { confirmado }),
+    CHAVES_AREAS,
+  );
+}
+
+export function useRecuperarArea() {
+  const { areas } = useServicos();
+  return useEscrita((id: string) => areas.recuperar(id), CHAVES_AREAS);
+}
+
+export function useMetasDaArea(areaId: string, hoje: string) {
+  const { metas } = useServicos();
+  return useQuery({ queryKey: ["metas", areaId, hoje], queryFn: () => metas.listarDaArea(areaId, hoje) });
+}
+
+export function useCriarMeta() {
+  const { metas } = useServicos();
+  return useEscrita((dados: NovaMeta) => metas.criar(dados), CHAVES_METAS);
+}
+
+export function useAlterarMeta() {
+  const { metas } = useServicos();
+  return useEscrita(({ id, dados }: { id: string; dados: Partial<NovaMeta> }) => metas.alterar(id, dados), CHAVES_METAS);
+}
+
+export function useExcluirMeta() {
+  const { metas } = useServicos();
+  return useEscrita((id: string) => metas.excluir(id), CHAVES_METAS);
+}
+
+export function useRecuperarMeta() {
+  const { metas } = useServicos();
+  return useEscrita((id: string) => metas.recuperar(id), CHAVES_METAS);
+}
+
+export function useGruposDaArea(areaId: string) {
+  const { grupos } = useServicos();
+  return useQuery({ queryKey: ["grupos", areaId], queryFn: () => grupos.listarDaArea(areaId) });
+}
+
+export function useCriarGrupo() {
+  const { grupos } = useServicos();
+  return useEscrita((dados: NovoGrupo) => grupos.criar(dados), CHAVES_GRUPOS);
+}
+
+export function useAlterarGrupo() {
+  const { grupos } = useServicos();
+  return useEscrita(
+    ({ id, dados }: { id: string; dados: Partial<NovoGrupo> }) => grupos.alterar(id, dados),
+    CHAVES_GRUPOS,
+  );
+}
+
+export function useExcluirGrupo() {
+  const { grupos } = useServicos();
+  return useEscrita((id: string) => grupos.excluir(id), CHAVES_GRUPOS);
+}
+
+export function useRecuperarGrupo() {
+  const { grupos } = useServicos();
+  return useEscrita((id: string) => grupos.recuperar(id), CHAVES_GRUPOS);
 }

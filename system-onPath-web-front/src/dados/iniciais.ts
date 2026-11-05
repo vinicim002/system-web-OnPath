@@ -1,5 +1,5 @@
 import { gerarId } from "@/plataforma/id";
-import { cores } from "@/theme";
+import { TONS_AREA } from "@/theme";
 
 import type { Area, Grupo, Projeto, Rotina } from "./tipos";
 
@@ -23,18 +23,10 @@ export function montarDadosIniciais(agora: string): DadosIniciais {
   const comuns = () => ({ id: gerarId(), criadoEm: agora, atualizadoEm: agora, arquivadoEm: null });
 
   const nomesAreas = ["Faculdade", "Trabalho", "Estudos", "Saúde", "Pessoal", "Finanças"] as const;
-  const coresAreas = [
-    cores.cinza[900],
-    cores.cinza[800],
-    cores.cinza[700],
-    cores.cinza[600],
-    cores.cinza[500],
-    cores.cinza[400],
-  ];
   const areas: Area[] = nomesAreas.map((nome, ordem) => ({
     ...comuns(),
     nome,
-    cor: coresAreas[ordem],
+    cor: TONS_AREA[ordem]!,
     ordem,
   }));
   const area = (nome: (typeof nomesAreas)[number]) => areas.find((item) => item.nome === nome)!.id;

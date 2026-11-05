@@ -31,7 +31,7 @@ async function prepararComArquivado(): Promise<CopiaDados> {
   const servicos = criarServicosLocais();
   await servicos.dados.prepararPrimeiroUso();
   const [area] = await servicos.areas.listar();
-  await servicos.areas.excluir(area.id);
+  await servicos.areas.excluir(area.id, { confirmado: true });
   await servicos.itensCaixa.criar({ conteudo: "Ligar para o banco", status: "novo" });
   return servicos.dados.exportar();
 }

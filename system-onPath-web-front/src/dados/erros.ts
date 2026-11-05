@@ -11,7 +11,11 @@ export type CodigoErro =
   | "subtarefas_abertas"
   | "item_indisponivel"
   | "data_passada"
-  | "nao_e_pendencia";
+  | "nao_e_pendencia"
+  | "nome_repetido"
+  | "area_com_itens"
+  | "ultima_area"
+  | "grupo_com_projetos";
 
 export class ErroOnPath extends Error {
   readonly codigo: CodigoErro;

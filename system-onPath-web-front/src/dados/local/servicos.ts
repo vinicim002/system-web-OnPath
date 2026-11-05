@@ -2,7 +2,10 @@ import type { Servicos } from "../contratos";
 import { criarErro } from "../erros";
 import { esquemas, type NomeColecao } from "../tipos";
 import { lerColecao } from "./armazenamento";
+import { criarServicoAreas } from "./areas";
 import { criarServicoItensCaixa } from "./caixa";
+import { criarServicoGrupos } from "./grupos";
+import { criarServicoMetas } from "./metas";
 import { criarServicoItensDia } from "./itensDia";
 import { prepararPrimeiroUso } from "./carga";
 import { exportarCopia, importarCopia } from "./copia";
@@ -25,9 +28,9 @@ function colecao<N extends NomeColecao, Novo extends object, Alteracao extends o
 
 export function criarServicosLocais(): Servicos {
   return {
-    areas: colecao("areas"),
-    metas: colecao("metas"),
-    grupos: colecao("grupos"),
+    areas: criarServicoAreas(),
+    metas: criarServicoMetas(),
+    grupos: criarServicoGrupos(),
     projetos: colecao("projetos", { completar: areaDoGrupo }),
     colunas: colecao("colunas"),
     tarefas: criarServicoTarefas(),

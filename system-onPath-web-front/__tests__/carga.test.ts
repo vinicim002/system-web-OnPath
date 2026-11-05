@@ -56,7 +56,7 @@ describe("dados iniciais", () => {
     const servicos = criarServicosLocais();
     await servicos.dados.prepararPrimeiroUso();
     const [primeira] = await servicos.areas.listar();
-    await servicos.areas.excluir(primeira.id);
+    await servicos.areas.excluir(primeira.id, { confirmado: true });
 
     expect(await servicos.dados.prepararPrimeiroUso()).toEqual({ criou: false });
     const ativas = await servicos.areas.listar();

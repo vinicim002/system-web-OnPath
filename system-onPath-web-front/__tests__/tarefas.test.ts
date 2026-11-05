@@ -33,8 +33,8 @@ interface Cenario {
 /** Duas áreas, um projeto em Trabalho e uma matéria em Pessoal. */
 async function preparar(): Promise<Cenario> {
   const s = criarServicosLocais();
-  const trabalho = await s.areas.criar({ nome: "Trabalho", cor: "#525252", ordem: 0 });
-  const pessoal = await s.areas.criar({ nome: "Pessoal", cor: "#737373", ordem: 1 });
+  const trabalho = await s.areas.criar({ nome: "Trabalho", cor: "#525252" });
+  const pessoal = await s.areas.criar({ nome: "Pessoal", cor: "#737373" });
   const grupo = await s.grupos.criar({ areaId: trabalho.id, nome: "Clientes", limiteAtivos: 2 });
   const projeto = await s.projetos.criar({
     grupoId: grupo.id,
@@ -148,7 +148,7 @@ describe("tarefas: criação (RN02, RN21, RN24)", () => {
 
   it("recusa área arquivada", async () => {
     const c = await preparar();
-    await c.s.areas.excluir(c.pessoal);
+    await c.s.areas.excluir(c.pessoal, { confirmado: true });
     const erro = await capturarErro(c.s.tarefas.criar(nova(c)));
     expect(erro.detalhes.campos).toEqual(["areaId"]);
   });
