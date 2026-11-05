@@ -153,3 +153,94 @@ describe("tarefas: criação (RN02, RN21, RN24)", () => {
     expect(erro.detalhes.campos).toEqual(["areaId"]);
   });
 });
+
+describe("tarefas: edição, situação e filtros", () => {
+  it("alterar aplica as mesmas regras da criação", async () => {
+    const c = await preparar();
+    const tarefa = await c.s.tarefas.criar(nova(c));
+    const erro = await capturarErro(c.s.tarefas.alterar(tarefa.id, { titulo: "  ", tempoEstimadoMin: null }));
+    expect([...(erro.detalhes.campos as string[])].sort()).toEqual(["tempoEstimadoMin", "titulo"]);
+    const alterada = await c.s.tarefas.alterar(tarefa.id, { projetoId: c.projeto });
+    expect(alterada.areaId).toBe(c.trabalho);
+  });
+
+  it("alterar não mexe na situação nem no pai", async () => {
+    const c = await preparar();
+    const tarefa = await c.s.tarefas.criar(nova(c));
+    const alterada = await c.s.tarefas.alterar(tarefa.id, {
+      status: "concluida",
+      tarefaPaiId: tarefa.id,
+    } as Partial<NovaTarefa>);
+    expect(alterada.status).toBe("aberta");
+    expect(alterada.tarefaPaiId).toBeNull();
+  });
+
+  it("concluir, reabrir e cancelar", async () => {
+    const c = await preparar();
+    const tarefa = await c.s.tarefas.criar(nova(c));
+    passarUmMinuto();
+    const concluida = await c.s.tarefas.concluir(tarefa.id);
+    expect(concluida.status).toBe("concluida");
+    expect(concluida.concluidaEm).toBe(new Date(instante).toISOString());
+
+    const reaberta = await c.s.tarefas.reabrir(tarefa.id);
+    expect(reaberta).toMatchObject({ status: "aberta", concluidaEm: null });
+
+    const cancelada = await c.s.tarefas.cancelar(tarefa.id);
+    expect(cancelada).toMatchObject({ status: "cancelada", concluidaEm: null });
+  });
+
+  it("excluir arquiva e recuperar desarquiva (RN31)", async () => {
+    const c = await preparar();
+    const tarefa = await c.s.tarefas.criar(nova(c));
+    await c.s.tarefas.excluir(tarefa.id);
+    expect(await c.s.tarefas.listarFiltradas({ status: "todas" })).toEqual([]);
+    const recuperada = await c.s.tarefas.recuperar(tarefa.id);
+    expect(recuperada.arquivadoEm).toBeNull();
+    expect(await c.s.tarefas.listarFiltradas()).toHaveLength(1);
+  });
+
+  it("filtra por cada campo, combina filtros e usa abertas como padrão", async () => {
+    const c = await preparar();
+    const avulsa = await c.s.tarefas.criar(nova(c, { titulo: "avulsa", prioridade: "baixa" }));
+    const deProjeto = await c.s.tarefas.criar(nova(c, { titulo: "projeto", projetoId: c.projeto }));
+    const deMateria = await c.s.tarefas.criar(nova(c, { titulo: "matéria", materiaId: c.materia, prioridade: "alta" }));
+    const concluida = await c.s.tarefas.criar(nova(c, { titulo: "feita" }));
+    await c.s.tarefas.concluir(concluida.id);
+
+    const titulos = async (filtros: Parameters<Servicos["tarefas"]["listarFiltradas"]>[0]) =>
+      (await c.s.tarefas.listarFiltradas(filtros)).map((t) => t.titulo).sort();
+
+    expect(await titulos({})).toEqual(["avulsa", "matéria", "projeto"].sort());
+    expect(await titulos({ status: "concluida" })).toEqual(["feita"]);
+    expect(await titulos({ status: "todas" })).toHaveLength(4);
+    expect(await titulos({ areaId: c.trabalho })).toEqual(["projeto"]);
+    expect(await titulos({ projetoId: c.projeto })).toEqual(["projeto"]);
+    expect(await titulos({ projetoId: "avulsa" })).toEqual(["avulsa"]);
+    expect(await titulos({ materiaId: c.materia })).toEqual(["matéria"]);
+    expect(await titulos({ prioridade: "baixa" })).toEqual(["avulsa"]);
+    expect(await titulos({ areaId: c.pessoal, prioridade: "alta" })).toEqual(["matéria"]);
+    expect([avulsa, deProjeto, deMateria].every((t) => t.status === "aberta")).toBe(true);
+  });
+
+  it("ordena por prioridade, prazo e criação", async () => {
+    const c = await preparar();
+    const criar = async (titulo: string, campos: Partial<NovaTarefa>) => {
+      passarUmMinuto();
+      return c.s.tarefas.criar(nova(c, { titulo, ...campos }));
+    };
+    await criar("média sem prazo", { prioridade: "media" });
+    await criar("alta sem prazo", { prioridade: "alta" });
+    await criar("média prazo longe", { prioridade: "media", prazo: "2026-12-20" });
+    await criar("média prazo perto", { prioridade: "media", prazo: "2026-11-10" });
+    await criar("baixa", { prioridade: "baixa", prazo: "2026-11-06" });
+
+    expect((await c.s.tarefas.listarFiltradas()).map((t) => t.titulo)).toEqual([
+      "alta sem prazo",
+      "média prazo perto",
+      "média prazo longe",
+      "média sem prazo",
+      "baixa",
+    ]);
+  });
+});

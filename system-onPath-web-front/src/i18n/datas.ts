@@ -1,5 +1,7 @@
 /** Formatação de datas em português, no fuso do usuário (seção 7 de docs/spec.md). */
 
+import { t } from "./index";
+
 const FUSO = "America/Sao_Paulo";
 
 const relativo = new Intl.RelativeTimeFormat("pt-BR", { numeric: "auto" });
@@ -54,4 +56,13 @@ export function dataPrazo(data: string): string {
 /** "5 de nov., 14:30" */
 export function dataCurta(dataIso: string): string {
   return curta.format(new Date(dataIso));
+}
+
+/** "45 min", "2 h" ou "1 h 30 min". */
+export function duracao(totalMin: number): string {
+  const horas = Math.floor(totalMin / 60);
+  const minutos = totalMin % 60;
+  if (horas === 0) return t("tarefas.minutos", { minutos });
+  if (minutos === 0) return t("tarefas.horas", { horas });
+  return t("tarefas.horasMinutos", { horas, minutos });
 }
