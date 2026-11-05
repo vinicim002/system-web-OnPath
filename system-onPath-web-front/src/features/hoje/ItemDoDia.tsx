@@ -4,20 +4,23 @@ import { GripVertical, X } from "lucide-react";
 import { Link } from "react-router";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { ItemDoPlano } from "@/dados/contratos";
 import { t } from "@/i18n";
 import { duracao } from "@/i18n/datas";
 import { cn } from "@/lib/utils";
+import type { AcoesTarefas } from "@/features/tarefas/acoes";
 
 interface Props {
   linha: ItemDoPlano;
   proxima: boolean;
   contexto: string;
   aoTirar: (itemId: string) => void;
+  acoes: AcoesTarefas;
 }
 
 /** Uma tarefa do dia, ordenável por arrastar ou pelo teclado (FR-004 e FR-007). */
-export function ItemDoDia({ linha, proxima, contexto, aoTirar }: Props) {
+export function ItemDoDia({ linha, proxima, contexto, aoTirar, acoes }: Props) {
   const { item, tarefa, tituloPrincipal } = linha;
   const { attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging } =
     useSortable({ id: item.id });
@@ -44,10 +47,19 @@ export function ItemDoDia({ linha, proxima, contexto, aoTirar }: Props) {
         >
           <GripVertical className="size-4" />
         </button>
+        <Checkbox
+          checked={tarefa.status === "concluida"}
+          onCheckedChange={() => void acoes.alternarConclusao(tarefa)}
+          aria-label={t(tarefa.status === "aberta" ? "tarefas.acoes.concluir" : "tarefas.acoes.reabrir")}
+        />
         <div className="flex min-w-0 flex-1 flex-col">
           <Link
             to={`/tarefas?tarefa=${tarefa.id}`}
-            className={cn("truncate hover:underline", proxima && "text-subtitulo font-medium")}
+            className={cn(
+              "truncate hover:underline",
+              proxima && "text-subtitulo font-medium",
+              tarefa.status === "concluida" && "text-cinza-500 line-through",
+            )}
           >
             {tarefa.titulo}
           </Link>

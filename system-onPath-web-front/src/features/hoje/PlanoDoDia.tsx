@@ -16,13 +16,14 @@ import { Button } from "@/components/ui/button";
 import { useOpcoesTarefa, usePlanoDoDia, useReordenarDia, useTirarDoDia } from "@/dados/consultas";
 import { avisarErro } from "@/features/caixa/avisos";
 import { t } from "@/i18n";
-import { dataPorExtenso } from "@/i18n/datas";
+import { dataPorExtenso, duracao } from "@/i18n/datas";
+import type { AcoesTarefas } from "@/features/tarefas/acoes";
 
 import { AdicionarAoDia } from "./AdicionarAoDia";
 import { ItemDoDia } from "./ItemDoDia";
 
 /** Plano do dia: tarefas na ordem escolhida, com a próxima em destaque (RN20). */
-export function PlanoDoDia({ data }: { data: string }) {
+export function PlanoDoDia({ data, acoes }: { data: string; acoes: AcoesTarefas }) {
   const { data: plano } = usePlanoDoDia(data);
   const { data: opcoes } = useOpcoesTarefa();
   const reordenar = useReordenarDia();
@@ -79,6 +80,12 @@ export function PlanoDoDia({ data }: { data: string }) {
     <div className="flex max-w-180 flex-col gap-5">
       <div className="-mt-4 flex flex-wrap items-center justify-between gap-3">
         <p className="text-cinza-600 first-letter:uppercase">{dataPorExtenso(data)}</p>
+        {plano && plano.itens.length > 0 && (
+          <p className="text-pequeno text-cinza-600">
+            {t("hoje.planejado", { tempo: duracao(plano.planejadoMin) })} ·{" "}
+            {t("hoje.feito", { tempo: duracao(plano.feitoMin) })}
+          </p>
+        )}
       </div>
 
       <div>
@@ -89,6 +96,9 @@ export function PlanoDoDia({ data }: { data: string }) {
       </div>
 
       {plano && itens.length === 0 && <p className="text-cinza-600">{t("hoje.vazio")}</p>}
+      {plano && itens.length > 0 && plano.proximaId === null && (
+        <p className="font-medium">{t("hoje.concluido")}</p>
+      )}
 
       <DndContext sensors={sensores} collisionDetection={closestCenter} onDragEnd={(evento) => void aoSoltar(evento)}>
         <SortableContext items={itens.map((linha) => linha.item.id)} strategy={verticalListSortingStrategy}>
@@ -102,6 +112,7 @@ export function PlanoDoDia({ data }: { data: string }) {
                   proxima={linha.item.id === plano?.proximaId}
                   contexto={vinculo ? (nomes.get(vinculo) ?? "") : t("tarefas.campos.avulsa")}
                   aoTirar={(id) => void aoTirar(id)}
+                  acoes={acoes}
                 />
               );
             })}

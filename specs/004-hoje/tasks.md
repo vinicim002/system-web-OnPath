@@ -59,8 +59,8 @@ description: "Lista de tarefas da Etapa 3 (Hoje)"
 
 **Teste independente**: `quickstart.md`, cenário 2.
 
-- [ ] T013 [US2] Acrescentar em `__tests__/itensDia.test.ts`: tarefa concluída continua no plano e não é a próxima; tarefa cancelada ou arquivada sai do plano; `planejadoMin` soma os tempos (vazio conta zero) e `feitoMin` soma os das concluídas; com tudo concluído, `proximaId` é `null`. Ajustar `src/dados/local/itensDia.ts` até passar.
-- [ ] T014 [US2] Em `src/features/hoje/ItemDoDia.tsx`, acrescentar a caixa de concluir/reabrir com `useAcoesTarefas` (recebido da tela) e o título riscado quando a tarefa está concluída. Em `src/features/hoje/PlanoDoDia.tsx`, mostrar "Planejado {tempo} · Feito {tempo}" e a mensagem "Tudo feito por hoje". Em `src/telas/Hoje.tsx`, criar `useAcoesTarefas()` e renderizar `ConfirmarSubtarefas`.
+- [X] T013 [US2] Acrescentar em `__tests__/itensDia.test.ts`: tarefa concluída continua no plano e não é a próxima; tarefa cancelada ou arquivada sai do plano; `planejadoMin` soma os tempos (vazio conta zero) e `feitoMin` soma os das concluídas; com tudo concluído, `proximaId` é `null`. Ajustar `src/dados/local/itensDia.ts` até passar.
+- [X] T014 [US2] Em `src/features/hoje/ItemDoDia.tsx`, acrescentar a caixa de concluir/reabrir com `useAcoesTarefas` (recebido da tela) e o título riscado quando a tarefa está concluída. Em `src/features/hoje/PlanoDoDia.tsx`, mostrar "Planejado {tempo} · Feito {tempo}" e a mensagem "Tudo feito por hoje". Em `src/telas/Hoje.tsx`, criar `useAcoesTarefas()` e renderizar `ConfirmarSubtarefas`.
 
 **Ponto de controle**: cenários 1 e 2 do `quickstart.md` passam. A T011 do `docs/tasks.md` cumpre
 o "Pronto quando".

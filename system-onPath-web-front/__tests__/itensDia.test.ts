@@ -150,3 +150,44 @@ describe("itens do dia: montar o plano (T011)", () => {
     expect(ONTEM < HOJE).toBe(true);
   });
 });
+
+describe("itens do dia: fazer as tarefas", () => {
+  it("concluída continua no dia e passa a próxima adiante; tempos somam", async () => {
+    const c = await preparar();
+    const a = await c.tarefa("A", { tempoEstimadoMin: 60 });
+    const b = await c.tarefa("B", { tempoEstimadoMin: 30 });
+    const sub = await c.s.tarefas.criarSubtarefa(a.id, "Sub sem tempo");
+    await c.s.itensDia.adicionar(HOJE, [a.id, b.id, sub.id]);
+
+    let plano = await c.s.itensDia.planoDoDia(HOJE);
+    expect(plano.planejadoMin).toBe(90);
+    expect(plano.feitoMin).toBe(0);
+
+    await c.s.tarefas.concluir(a.id, { incluirSubtarefas: true });
+    plano = await c.s.itensDia.planoDoDia(HOJE);
+    expect(titulos(plano)).toEqual(["A", "B", "Sub sem tempo"]);
+    expect(plano.proximaId).toBe(plano.itens[1]!.item.id);
+    expect(plano.feitoMin).toBe(60);
+  });
+
+  it("tarefa cancelada ou arquivada sai do plano", async () => {
+    const c = await preparar();
+    const a = await c.tarefa("A");
+    const b = await c.tarefa("B");
+    const d = await c.tarefa("D");
+    await c.s.itensDia.adicionar(HOJE, [a.id, b.id, d.id]);
+    await c.s.tarefas.cancelar(a.id);
+    await c.s.tarefas.excluir(b.id);
+    expect(titulos(await c.s.itensDia.planoDoDia(HOJE))).toEqual(["D"]);
+    await c.s.tarefas.recuperar(b.id);
+    expect(titulos(await c.s.itensDia.planoDoDia(HOJE))).toEqual(["B", "D"]);
+  });
+
+  it("com tudo feito, não há próxima", async () => {
+    const c = await preparar();
+    const a = await c.tarefa("A");
+    await c.s.itensDia.adicionar(HOJE, [a.id]);
+    await c.s.tarefas.concluir(a.id);
+    expect((await c.s.itensDia.planoDoDia(HOJE)).proximaId).toBeNull();
+  });
+});
