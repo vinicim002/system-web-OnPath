@@ -100,9 +100,9 @@ cumpre o "Pronto quando".
 
 **Teste independente**: `quickstart.md`, cenário 4.
 
-- [ ] T022 [US4] Acrescentar em `__tests__/tarefas.test.ts`: `criarDeItemCaixa` cria a tarefa e grava o item com `status = processado` na mesma escrita; com dados inválidos, não cria a tarefa e o item continua `novo`; item descartado ou processado dá `item_indisponivel`; o item processado não aparece em `listarNovos` nem em `listarDescartados`. Implementar em `src/dados/local/tarefas.ts`, gravando `tarefas` e `itensCaixa` juntos com `gravar` de `src/dados/local/armazenamento.ts`.
-- [ ] T023 [US4] Criar `src/features/caixa/VirarTarefa.tsx`: `Dialog` com o `FormularioTarefa`, título com a primeira linha do item e anotações com o texto inteiro (só quando houver mais de uma linha). Salvar chama `useCriarTarefaDeItem`; em sucesso, fecha e mostra `caixa.avisos.virouTarefa` com a ação "Ver tarefa", que navega para `/tarefas?tarefa={id}`.
-- [ ] T024 [US4] Em `src/features/caixa/ItemCaixa.tsx`, acrescentar o botão "Virar tarefa" (ícone `ListChecks`, `aria-label` `caixa.virarTarefa`) antes de editar e descartar, abrindo `VirarTarefa`.
+- [X] T022 [US4] Acrescentar em `__tests__/tarefas.test.ts`: `criarDeItemCaixa` cria a tarefa e grava o item com `status = processado` na mesma escrita; com dados inválidos, não cria a tarefa e o item continua `novo`; item descartado ou processado dá `item_indisponivel`; o item processado não aparece em `listarNovos` nem em `listarDescartados`. Implementar em `src/dados/local/tarefas.ts`, gravando `tarefas` e `itensCaixa` juntos com `gravar` de `src/dados/local/armazenamento.ts`.
+- [X] T023 [US4] Criar `src/features/caixa/VirarTarefa.tsx`: `Dialog` com o `FormularioTarefa`, título com a primeira linha do item e anotações com o texto inteiro (só quando houver mais de uma linha). Salvar chama `useCriarTarefaDeItem`; em sucesso, fecha e mostra `caixa.avisos.virouTarefa` com a ação "Ver tarefa", que navega para `/tarefas?tarefa={id}`.
+- [X] T024 [US4] Em `src/features/caixa/ItemCaixa.tsx`, acrescentar o botão "Virar tarefa" (ícone `ListChecks`, `aria-label` `caixa.virarTarefa`) antes de editar e descartar, abrindo `VirarTarefa`.
 
 **Ponto de controle**: cenários 1 a 4 do `quickstart.md` passam.
 

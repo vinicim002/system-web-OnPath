@@ -377,3 +377,47 @@ describe("tarefas: subtarefas (RN30 e RN33)", () => {
     expect(ids).toEqual([principal.id, filha.id, neta.id].sort());
   });
 });
+
+describe("tarefas: item da caixa vira tarefa (T010)", () => {
+  it("cria a tarefa e marca o item como processado, juntos", async () => {
+    const c = await preparar();
+    const item = await c.s.itensCaixa.capturar("Revisar contrato\nver cláusula 3");
+    const tarefa = await c.s.tarefas.criarDeItemCaixa(
+      item.id,
+      nova(c, { titulo: "Revisar contrato", anotacoes: item.conteudo }),
+    );
+
+    expect(tarefa).toMatchObject({ titulo: "Revisar contrato", anotacoes: "Revisar contrato\nver cláusula 3" });
+    expect(await c.s.itensCaixa.obter(item.id)).toMatchObject({ status: "processado", arquivadoEm: null });
+    expect(await c.s.itensCaixa.listarNovos()).toEqual([]);
+    expect(await c.s.itensCaixa.listarDescartados()).toEqual([]);
+  });
+
+  it("com dados inválidos, nada muda: sem tarefa e o item continua novo", async () => {
+    const c = await preparar();
+    const item = await c.s.itensCaixa.capturar("Ideia");
+    const erro = await capturarErro(c.s.tarefas.criarDeItemCaixa(item.id, nova(c, { tempoEstimadoMin: null })));
+    expect(erro.detalhes.campos).toEqual(["tempoEstimadoMin"]);
+    expect(await c.s.tarefas.listar()).toEqual([]);
+    expect((await c.s.itensCaixa.obter(item.id)).status).toBe("novo");
+  });
+
+  it("item descartado, processado ou inexistente dá item_indisponivel", async () => {
+    const c = await preparar();
+    const descartado = await c.s.itensCaixa.capturar("a");
+    await c.s.itensCaixa.descartar(descartado.id);
+    expect((await capturarErro(c.s.tarefas.criarDeItemCaixa(descartado.id, nova(c)))).codigo).toBe(
+      "item_indisponivel",
+    );
+
+    const item = await c.s.itensCaixa.capturar("b");
+    await c.s.tarefas.criarDeItemCaixa(item.id, nova(c));
+    expect((await capturarErro(c.s.tarefas.criarDeItemCaixa(item.id, nova(c)))).codigo).toBe("item_indisponivel");
+
+    const inexistente = "00000000-0000-4000-8000-000000000000";
+    expect((await capturarErro(c.s.tarefas.criarDeItemCaixa(inexistente, nova(c)))).codigo).toBe(
+      "item_indisponivel",
+    );
+    expect(await c.s.tarefas.listar()).toHaveLength(1);
+  });
+});

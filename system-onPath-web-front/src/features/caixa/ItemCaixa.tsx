@@ -1,4 +1,4 @@
-import { Pencil, X } from "lucide-react";
+import { ListChecks, Pencil, X } from "lucide-react";
 import { memo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { tempoRelativo } from "@/i18n/datas";
 
 import type { AcoesCaixa } from "./acoes";
 import { CampoAnotacao } from "./CampoAnotacao";
+import { VirarTarefa } from "./VirarTarefa";
 
 interface Props {
   item: Item;
@@ -17,6 +18,7 @@ interface Props {
 /** Um item novo da caixa: o texto inteiro, há quanto tempo foi anotado e as ações. */
 function ItemCaixaBase({ item, acoes }: Props) {
   const [editando, setEditando] = useState(false);
+  const [virando, setVirando] = useState(false);
 
   async function aoSalvarEdicao(conteudo: string) {
     const salvou = conteudo === item.conteudo || (await acoes.editar(item.id, conteudo));
@@ -50,6 +52,15 @@ function ItemCaixaBase({ item, acoes }: Props) {
         <Button
           variant="ghost"
           size="icon-sm"
+          aria-label={t("caixa.virarTarefa")}
+          title={t("caixa.virarTarefa")}
+          onClick={() => setVirando(true)}
+        >
+          <ListChecks />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon-sm"
           aria-label={t("caixa.editar")}
           title={t("caixa.editar")}
           onClick={() => setEditando(true)}
@@ -66,6 +77,7 @@ function ItemCaixaBase({ item, acoes }: Props) {
           <X />
         </Button>
       </div>
+      {virando && <VirarTarefa item={item} aberto={virando} aoMudar={setVirando} />}
     </li>
   );
 }
