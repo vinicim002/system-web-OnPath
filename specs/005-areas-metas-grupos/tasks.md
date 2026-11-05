@@ -61,9 +61,9 @@ A tela é validada pelo `quickstart.md`.
 
 **Teste independente**: `quickstart.md`, cenário 3.
 
-- [ ] T013 [US3] Acrescentar em `__tests__/areas.test.ts`: grupo sem nome, com limite negativo ou quebrado, ou com área arquivada dá `dados_invalidos`; nome repetido na mesma área dá `nome_repetido`, mas em outra área é aceito; `listarDaArea` traz os grupos por nome com `ativos` e `acimaDoLimite` (projetos arquivados e não ativos não contam); baixar o limite abaixo dos ativos é aceito e não muda os projetos; `excluir` com projetos dá `grupo_com_projetos` e sem projetos arquiva. Criar `src/dados/local/grupos.ts` até passar e usar em `src/dados/local/servicos.ts`.
-- [ ] T014 [P] [US3] Em `src/dados/consultas.ts`, criar `useGruposDaArea(areaId)`, `useCriarGrupo`, `useAlterarGrupo`, `useExcluirGrupo` e `useRecuperarGrupo`, invalidando `["grupos"]` e `["areas"]`.
-- [ ] T015 [US3] Criar `src/features/areas/FormularioGrupo.tsx` (nome e limite) e `src/features/areas/GruposDaArea.tsx` (nome, "{ativos} de {limite} ativos", "Acima do limite", editar no lugar, novo grupo, arquivar com Desfazer e o erro `grupo_com_projetos` como aviso), e mostrar em `PainelArea.tsx`.
+- [X] T013 [US3] Acrescentar em `__tests__/areas.test.ts`: grupo sem nome, com limite negativo ou quebrado, ou com área arquivada dá `dados_invalidos`; nome repetido na mesma área dá `nome_repetido`, mas em outra área é aceito; `listarDaArea` traz os grupos por nome com `ativos` e `acimaDoLimite` (projetos arquivados e não ativos não contam); baixar o limite abaixo dos ativos é aceito e não muda os projetos; `excluir` com projetos dá `grupo_com_projetos` e sem projetos arquiva. Criar `src/dados/local/grupos.ts` até passar e usar em `src/dados/local/servicos.ts`.
+- [X] T014 [P] [US3] Em `src/dados/consultas.ts`, criar `useGruposDaArea(areaId)`, `useCriarGrupo`, `useAlterarGrupo`, `useExcluirGrupo` e `useRecuperarGrupo`, invalidando `["grupos"]` e `["areas"]`.
+- [X] T015 [US3] Criar `src/features/areas/FormularioGrupo.tsx` (nome e limite) e `src/features/areas/GruposDaArea.tsx` (nome, "{ativos} de {limite} ativos", "Acima do limite", editar no lugar, novo grupo, arquivar com Desfazer e o erro `grupo_com_projetos` como aviso), e mostrar em `PainelArea.tsx`.
 
 **Ponto de controle**: cenários 1 a 3 passam. A T014 do `docs/tasks.md` cumpre o "Pronto quando" (o
 limite novo aparece na hora e é o valor que a regra de ativação da Etapa 5 vai consultar).
@@ -72,9 +72,9 @@ limite novo aparece na hora e é o valor que a regra de ativação da Etapa 5 va
 
 ## Fase 5: Acabamento
 
-- [ ] T016 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build`, e os greps do cenário 4 do `quickstart.md`.
-- [ ] T017 Rodar no navegador os cenários 1 a 3 do `quickstart.md` no build de produção (porta 4173).
-- [ ] T018 Marcar T013 e T014 em `docs/tasks.md` (a partir de `system-web-onPath/`) e os três critérios da seção 6.5 de `docs/spec.md`.
+- [X] T016 Rodar `npm test`, `npm run typecheck`, `npm run lint` e `npm run build`, e os greps do cenário 4 do `quickstart.md`.
+- [X] T017 Rodar no navegador os cenários 1 a 3 do `quickstart.md` no build de produção (porta 4173).
+- [X] T018 Marcar T013 e T014 em `docs/tasks.md` (a partir de `system-web-onPath/`) e os três critérios da seção 6.5 de `docs/spec.md`.
 
 ---
 

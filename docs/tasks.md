@@ -54,9 +54,9 @@
 
 ### Etapa 4 — Áreas, metas e grupos
 
-- [ ] **T013: Construir a tela de Áreas e metas.** Cubra a seção 6.5.
+- [x] **T013: Construir a tela de Áreas e metas.** Cubra a seção 6.5.
   - Pronto quando: os critérios de aceite forem cumpridos.
-- [ ] **T014: Permitir editar grupos.** Inclua nome e limite de ativos.
+- [x] **T014: Permitir editar grupos.** Inclua nome e limite de ativos.
   - Pronto quando: um limite alterado passar a valer nos projetos.
 
 ### Etapa 5 — Projetos

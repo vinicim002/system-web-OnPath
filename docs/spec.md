@@ -192,9 +192,9 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 
 ### 6.5 Áreas e metas
 
-- [ ] O usuário cria, edita, ordena e arquiva áreas.
-- [ ] Uma meta pertence a uma área e tem status e prazo opcional.
-- [ ] Arquivar uma área com itens ativos pede confirmação.
+- [x] O usuário cria, edita, ordena e arquiva áreas.
+- [x] Uma meta pertence a uma área e tem status e prazo opcional.
+- [x] Arquivar uma área com itens ativos pede confirmação.
 
 ### 6.6 Projetos
 
