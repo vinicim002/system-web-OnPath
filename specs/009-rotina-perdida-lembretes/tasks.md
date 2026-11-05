@@ -21,8 +21,8 @@ description: "Lista de tarefas da Etapa 7, parte 2 (rotina perdida, tempo livre 
 
 ## Fase 3: Ajustes e lembretes (T026)
 
-- [ ] T007 Criar `src/features/ajustes/Preferencias.tsx` (janela do dia e ativação com pedido de permissão) e ligar em `src/telas/Ajustes.tsx`.
-- [ ] T008 Criar `src/features/lembretes/Lembretes.tsx` e `avisados.ts`; montar em `src/components/Moldura.tsx`.
+- [X] T007 Criar `src/features/ajustes/Preferencias.tsx` (janela do dia e ativação com pedido de permissão) e ligar em `src/telas/Ajustes.tsx`.
+- [X] T008 Criar `src/features/lembretes/Lembretes.tsx` e `avisados.ts`; montar em `src/components/Moldura.tsx`.
 
 ## Fase 4: Acabamento
 

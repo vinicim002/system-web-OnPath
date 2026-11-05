@@ -4,6 +4,7 @@ import { Outlet } from "react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { CapturaRapida } from "@/features/caixa/CapturaRapida";
 import { useAtalhoCaptura } from "@/features/caixa/useAtalhoCaptura";
+import { Lembretes } from "@/features/lembretes/Lembretes";
 import { useModo } from "@/theme/modo";
 
 import { MenuLateral } from "./MenuLateral";
@@ -22,6 +23,7 @@ export function Moldura() {
       <main className="min-w-0 flex-1 overflow-y-auto rounded-3xl border border-cinza-200/70 bg-branco shadow-sm">
         <PreparoPrimeiroUso>
           <Outlet />
+          <Lembretes />
         </PreparoPrimeiroUso>
       </main>
       <CapturaRapida aberta={capturaAberta} aoMudar={setCapturaAberta} />

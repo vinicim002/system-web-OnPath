@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Servicos } from "@/dados/contratos";
 import { ErroOnPath } from "@/dados/erros";
 import { criarServicosLocais } from "@/dados/local/servicos";
+import { avisarUmaVez } from "@/features/lembretes/avisados";
 import { instanteLocal } from "@/i18n/datas";
 import { TONS_AREA } from "@/theme";
 
@@ -135,6 +136,17 @@ describe("lembretes", () => {
 
     const devidos = await c.s.agenda.lembretesDevidos(em(HOJE, "09:00"), 10);
     expect(devidos.map((item) => item.id)).toEqual([logo.id, bloco.id]);
+  });
+
+  it("avisa cada item uma vez e esquece os avisos com mais de um dia", () => {
+    const agora = Date.parse("2026-11-05T12:00:00.000Z");
+    expect(avisarUmaVez("a", "2026-11-05T12:05:00.000Z", agora)).toBe(true);
+    expect(avisarUmaVez("a", "2026-11-05T12:05:00.000Z", agora)).toBe(false);
+    // O mesmo item em outro horário (compromisso movido) avisa de novo.
+    expect(avisarUmaVez("a", "2026-11-05T13:00:00.000Z", agora)).toBe(true);
+    const depois = agora + 25 * 60 * 60 * 1000;
+    avisarUmaVez("b", "2026-11-06T13:00:00.000Z", depois);
+    expect(Object.keys(JSON.parse(localStorage.getItem("onpath:lembretes-avisados")!) as object)).toEqual(["b@2026-11-06T13:00:00.000Z"]);
   });
 });
 

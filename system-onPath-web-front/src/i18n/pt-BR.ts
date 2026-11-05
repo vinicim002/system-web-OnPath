@@ -626,7 +626,6 @@ export const ptBR = {
       descricao:
         "Avisa 10 minutos antes de compromissos e blocos. Os lembretes só aparecem com o OnPath aberto.",
       ativar: "Ativar lembretes",
-      ativos: "Lembretes ativos",
       negada: "O navegador bloqueou as notificações. Os lembretes aparecem só dentro do app.",
       semSuporte: "Este navegador não tem notificações. Os lembretes aparecem só dentro do app.",
     },
