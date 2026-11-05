@@ -255,6 +255,7 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 - **Horários:** o app guarda datas em UTC e exibe no fuso do usuário.
 - **Mensagens:** todo erro informa o que aconteceu e o que fazer.
 - **Visual:** preto, branco e tons de cinza, com cor só em gráficos e ícones. Logo e pequenos detalhes podem puxar para o roxo. A fonte sugerida é a Inter.
+- **Modo escuro:** o visual tem uma versão clara e uma escura, com os mesmos tons invertidos. O usuário escolhe claro, escuro ou seguir o sistema, e a escolha fica salva no navegador.
 - **Idioma:** textos em português, separados do código.
 
 ## 8. Definição de pronto

@@ -34,6 +34,10 @@ Versões instaladas na Etapa 0 (interface): React 19, Vite 8, TypeScript 7, Reac
 
 Outras bibliotecas entram na tarefa em que forem usadas: sonner (avisos com desfazer) na T006, react-hook-form na T009, date-fns com `@date-fns/tz` nas T011 e T012, e dnd-kit nas T011 e T019.
 
+### Modo escuro
+
+O tema define a paleta clara no `@theme` do Tailwind (`src/theme/tema.css`). A classe `.dark` na raiz da página troca as mesmas variáveis de cor pelos tons invertidos, então os componentes não mudam: `bg-branco` passa a ser o fundo escuro e `text-preto` o texto claro. A escolha (claro, escuro ou sistema) fica no `localStorage` e é aplicada antes da primeira pintura da tela, para não piscar.
+
 ### Painel do projeto
 
 Em desenvolvimento (`npm run dev`), a rota `/painel` mostra o que é o projeto, o andamento das
