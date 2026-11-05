@@ -1,5 +1,6 @@
 import type { Servicos } from "../contratos";
 import { esquemas, type NomeColecao } from "../tipos";
+import { criarServicoAgenda } from "./agenda";
 import { criarServicoAreas } from "./areas";
 import { criarServicoItensCaixa } from "./caixa";
 import { criarServicoColunas } from "./colunas";
@@ -10,6 +11,7 @@ import { prepararPrimeiroUso } from "./carga";
 import { exportarCopia, importarCopia } from "./copia";
 import { criarServicoColecao, type OpcoesColecao } from "./colecao";
 import { criarServicoProjetos } from "./projetos";
+import { criarServicoRotinas } from "./rotinas";
 import { criarServicoTarefas } from "./tarefas";
 
 function colecao<N extends NomeColecao, Novo extends object, Alteracao extends object>(
@@ -29,13 +31,14 @@ export function criarServicosLocais(): Servicos {
     tarefas: criarServicoTarefas(),
     itensCaixa: criarServicoItensCaixa(),
     itensDia: criarServicoItensDia(),
-    rotinas: colecao("rotinas"),
+    rotinas: criarServicoRotinas(),
     compromissos: colecao("compromissos"),
     blocosTempo: colecao("blocosTempo"),
     materias: colecao("materias"),
     topicos: colecao("topicos"),
     materiais: colecao("materiais"),
     sessoesEstudo: colecao("sessoesEstudo"),
+    agenda: criarServicoAgenda(),
     dados: {
       prepararPrimeiroUso,
       exportar: exportarCopia,

@@ -1,12 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
-import type { Destino, FiltrosProjetos, FiltrosTarefas } from "./contratos";
+import type { Destino, FiltrosProjetos, FiltrosTarefas, OpcoesConflito } from "./contratos";
 import {
   NOMES_COLECOES,
   type NomeColecao,
   type NovaMeta,
+  type AlteracaoBlocoTempo,
+  type AlteracaoCompromisso,
   type AlteracaoProjeto,
+  type AlteracaoRotina,
+  type NovaRotina,
+  type NovoBlocoTempo,
+  type NovoCompromisso,
   type NovaTarefa,
   type NovoProjeto,
   type StatusProjeto,
@@ -526,4 +532,113 @@ export function useMoverParaColuna() {
       tarefas.moverParaColuna(id, colunaId, { incluirSubtarefas }),
     CHAVES_KANBAN,
   );
+}
+
+// ---------------------------------------------------------------------------
+// Agenda e rotinas (specs/008-agenda/contracts/servicos.md)
+// ---------------------------------------------------------------------------
+
+const CHAVES_AGENDA = ["agenda", "rotinas", "itensDia"];
+
+/** Itens da agenda entre dois instantes (a semana da tela). */
+export function useAgenda(inicio: string, fim: string) {
+  const { agenda } = useServicos();
+  return useQuery({ queryKey: ["agenda", inicio, fim], queryFn: () => agenda.listarNoIntervalo(inicio, fim) });
+}
+
+export function useRotinas() {
+  const { rotinas } = useServicos();
+  return useQuery({ queryKey: ["rotinas", "lista"], queryFn: () => rotinas.listarOrdenadas() });
+}
+
+export function useTotalRotina(rotinaId: string, data: string) {
+  const { rotinas } = useServicos();
+  return useQuery({ queryKey: ["rotinas", "total", rotinaId, data], queryFn: () => rotinas.totalDoDia(rotinaId, data) });
+}
+
+export function useCriarBloco() {
+  const { agenda } = useServicos();
+  return useEscrita(
+    ({ dados, opcoes }: { dados: NovoBlocoTempo; opcoes?: OpcoesConflito }) => agenda.criarBloco(dados, opcoes),
+    CHAVES_AGENDA,
+  );
+}
+
+export function useAlterarBloco() {
+  const { agenda } = useServicos();
+  return useEscrita(
+    ({ id, dados, opcoes }: { id: string; dados: AlteracaoBlocoTempo; opcoes?: OpcoesConflito }) => agenda.alterarBloco(id, dados, opcoes),
+    CHAVES_AGENDA,
+  );
+}
+
+export function useMarcarRealizado() {
+  const { agenda } = useServicos();
+  return useEscrita((id: string) => agenda.marcarRealizado(id), CHAVES_AGENDA);
+}
+
+export function useExcluirBloco() {
+  const { agenda } = useServicos();
+  return useEscrita((id: string) => agenda.excluirBloco(id), CHAVES_AGENDA);
+}
+
+export function useCriarCompromisso() {
+  const { agenda } = useServicos();
+  return useEscrita(
+    ({ dados, opcoes }: { dados: NovoCompromisso; opcoes?: OpcoesConflito }) => agenda.criarCompromisso(dados, opcoes),
+    CHAVES_AGENDA,
+  );
+}
+
+export function useAlterarCompromisso() {
+  const { agenda } = useServicos();
+  return useEscrita(
+    ({ id, dados, opcoes }: { id: string; dados: AlteracaoCompromisso; opcoes?: OpcoesConflito }) =>
+      agenda.alterarCompromisso(id, dados, opcoes),
+    CHAVES_AGENDA,
+  );
+}
+
+export function useArquivarCompromisso() {
+  const { agenda } = useServicos();
+  return useEscrita((id: string) => agenda.arquivarCompromisso(id), CHAVES_AGENDA);
+}
+
+export function useRecuperarCompromisso() {
+  const { agenda } = useServicos();
+  return useEscrita((id: string) => agenda.recuperarCompromisso(id), CHAVES_AGENDA);
+}
+
+export function useCriarRotina() {
+  const { rotinas } = useServicos();
+  return useEscrita((dados: NovaRotina) => rotinas.criar(dados), CHAVES_AGENDA);
+}
+
+export function useAlterarRotina() {
+  const { rotinas } = useServicos();
+  return useEscrita(({ id, dados }: { id: string; dados: AlteracaoRotina }) => rotinas.alterar(id, dados), CHAVES_AGENDA);
+}
+
+export function useArquivarRotina() {
+  const { rotinas } = useServicos();
+  return useEscrita((id: string) => rotinas.excluir(id), CHAVES_AGENDA);
+}
+
+export function useRecuperarRotina() {
+  const { rotinas } = useServicos();
+  return useEscrita((id: string) => rotinas.recuperar(id), CHAVES_AGENDA);
+}
+
+/** Renova os blocos das rotinas ao abrir o app e na virada do dia (research.md, item 3). */
+export function useRenovarBlocos(hoje: string) {
+  const { rotinas } = useServicos();
+  const clienteConsultas = useQueryClient();
+  useEffect(() => {
+    rotinas
+      .renovarBlocos(hoje)
+      .then(({ criados }) => {
+        if (criados > 0) void clienteConsultas.invalidateQueries({ queryKey: ["agenda"] });
+      })
+      .catch(() => undefined);
+  }, [rotinas, hoje, clienteConsultas]);
 }

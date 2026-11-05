@@ -224,6 +224,56 @@ export interface ServicoProjetos extends ServicoColecao<T.Projeto, T.NovoProjeto
   semProximaAcao(id: string): Promise<boolean>;
 }
 
+// ---------------------------------------------------------------------------
+// Agenda e rotinas (specs/008-agenda/contracts/servicos.md)
+// ---------------------------------------------------------------------------
+
+export interface Ocupante {
+  tipo: "bloco" | "compromisso";
+  id: string;
+  titulo: string;
+  inicio: string;
+  fim: string;
+}
+
+export interface ItemAgenda {
+  tipo: "bloco" | "compromisso";
+  id: string;
+  titulo: string;
+  areaId: string | null;
+  inicio: string;
+  fim: string;
+  status?: T.StatusBlocoTempo;
+  rotinaId?: string | null;
+  tarefaId?: string | null;
+  local?: string | null;
+}
+
+export interface OpcoesConflito {
+  confirmarConflito?: boolean;
+}
+
+export interface ServicoAgenda {
+  listarNoIntervalo(inicio: string, fim: string): Promise<ItemAgenda[]>;
+  criarBloco(dados: T.NovoBlocoTempo, opcoes?: OpcoesConflito): Promise<T.BlocoTempo>;
+  alterarBloco(id: string, dados: T.AlteracaoBlocoTempo, opcoes?: OpcoesConflito): Promise<T.BlocoTempo>;
+  marcarRealizado(id: string): Promise<T.BlocoTempo>;
+  excluirBloco(id: string): Promise<void>;
+  criarCompromisso(dados: T.NovoCompromisso, opcoes?: OpcoesConflito): Promise<T.Compromisso>;
+  alterarCompromisso(id: string, dados: T.AlteracaoCompromisso, opcoes?: OpcoesConflito): Promise<T.Compromisso>;
+  arquivarCompromisso(id: string): Promise<void>;
+  recuperarCompromisso(id: string): Promise<T.Compromisso>;
+}
+
+export interface ServicoRotinas extends ServicoColecao<T.Rotina, T.NovaRotina, T.AlteracaoRotina> {
+  /** Ativas: com horário (por hora de início) e com meta (por nome). */
+  listarOrdenadas(): Promise<T.Rotina[]>;
+  /** Gera os blocos dos próximos 14 dias, sem duplicar. */
+  renovarBlocos(hoje: string): Promise<{ criados: number }>;
+  /** Minutos planejados e realizados da rotina no dia (RN28). */
+  totalDoDia(rotinaId: string, data: string): Promise<number>;
+}
+
 export interface CopiaDados {
   formato: "onpath-copia";
   versao: number;
@@ -250,12 +300,13 @@ export interface Servicos {
   tarefas: ServicoTarefas;
   itensCaixa: ServicoItensCaixa;
   itensDia: ServicoItensDia;
-  rotinas: ServicoColecao<T.Rotina, T.NovaRotina, T.AlteracaoRotina>;
+  rotinas: ServicoRotinas;
   compromissos: ServicoColecao<T.Compromisso, T.NovoCompromisso, T.AlteracaoCompromisso>;
   blocosTempo: ServicoColecao<T.BlocoTempo, T.NovoBlocoTempo, T.AlteracaoBlocoTempo>;
   materias: ServicoColecao<T.Materia, T.NovaMateria, T.AlteracaoMateria>;
   topicos: ServicoColecao<T.Topico, T.NovoTopico, T.AlteracaoTopico>;
   materiais: ServicoColecao<T.Material, T.NovoMaterial, T.AlteracaoMaterial>;
   sessoesEstudo: ServicoColecao<T.SessaoEstudo, T.NovaSessaoEstudo, T.AlteracaoSessaoEstudo>;
+  agenda: ServicoAgenda;
   dados: ServicoDados;
 }

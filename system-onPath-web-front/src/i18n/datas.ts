@@ -98,3 +98,50 @@ export function duracao(totalMin: number): string {
   if (minutos === 0) return t("tarefas.horas", { horas });
   return t("tarefas.horasMinutos", { horas, minutos });
 }
+
+// ---------------------------------------------------------------------------
+// Horário local ↔ UTC (specs/008-agenda/research.md, item 1)
+// ---------------------------------------------------------------------------
+
+const deslocamentoFmt = new Intl.DateTimeFormat("en-US", { timeZone: FUSO, timeZoneName: "longOffset" });
+const horaFmt = new Intl.DateTimeFormat("en-GB", { timeZone: FUSO, hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+
+/** Deslocamento do fuso do usuário naquele instante, como "-03:00". */
+function deslocamento(instante: Date): string {
+  const nome = deslocamentoFmt.formatToParts(instante).find((parte) => parte.type === "timeZoneName")?.value ?? "GMT";
+  const partes = /GMT([+-]\d{2}):?(\d{2})?/.exec(nome);
+  return partes ? `${partes[1]}:${partes[2] ?? "00"}` : "+00:00";
+}
+
+/** Instante em UTC (ISO) de uma data AAAA-MM-DD e hora HH:mm no fuso do usuário. */
+export function instanteLocal(data: string, hora: string): string {
+  const aproximado = new Date(`${data}T${hora}:00Z`);
+  return new Date(`${data}T${hora}:00${deslocamento(aproximado)}`).toISOString();
+}
+
+/** Data AAAA-MM-DD de um instante, no fuso do usuário. */
+export function dataLocal(iso: string): string {
+  return hoje(new Date(iso));
+}
+
+/** Hora HH:mm de um instante, no fuso do usuário. */
+export function horaLocal(iso: string): string {
+  return horaFmt.format(new Date(iso));
+}
+
+/** Minutos desde a meia-noite local. */
+export function minutosNoDia(iso: string): number {
+  const [h, m] = horaLocal(iso).split(":").map(Number);
+  return h! * 60 + m!;
+}
+
+/** Dia da semana de uma data AAAA-MM-DD (0 = domingo). */
+export function diaDaSemana(data: string): number {
+  return new Date(`${data}T00:00:00Z`).getUTCDay();
+}
+
+/** Segunda-feira da semana de uma data AAAA-MM-DD. */
+export function inicioDaSemana(data: string): string {
+  const dia = diaDaSemana(data);
+  return somarDias(data, dia === 0 ? -6 : 1 - dia);
+}

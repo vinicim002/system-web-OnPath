@@ -4,6 +4,8 @@ import { Outlet } from "react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { CapturaRapida } from "@/features/caixa/CapturaRapida";
 import { useAtalhoCaptura } from "@/features/caixa/useAtalhoCaptura";
+import { useRenovarBlocos } from "@/dados/consultas";
+import { useHoje } from "@/features/hoje/useHoje";
 import { useModo } from "@/theme/modo";
 
 import { MenuLateral } from "./MenuLateral";
@@ -15,6 +17,7 @@ export function Moldura() {
   // O atalho só abre: com o campo já aberto, nada muda (não abre um segundo campo).
   useAtalhoCaptura(() => setCapturaAberta(true));
   const { modo, escuro, alternar } = useModo();
+  useRenovarBlocos(useHoje());
 
   return (
     <div className="flex h-full gap-3 bg-linear-to-br from-cinza-100 via-cinza-50 to-cinza-200 p-3">

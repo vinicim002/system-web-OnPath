@@ -18,7 +18,8 @@ export type CodigoErro =
   | "grupo_com_projetos"
   | "grupo_cheio"
   | "sem_proxima_acao"
-  | "transicao_invalida";
+  | "transicao_invalida"
+  | "horario_ocupado";
 
 export class ErroOnPath extends Error {
   readonly codigo: CodigoErro;
