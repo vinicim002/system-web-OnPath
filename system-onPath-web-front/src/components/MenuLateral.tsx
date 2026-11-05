@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router";
 
+import { useItensNovos } from "@/dados/consultas";
 import { t, type ChaveTexto } from "@/i18n";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +29,20 @@ const ITENS: { rota: string; rotulo: ChaveTexto; Icone: LucideIcon }[] = [
   { rota: "/estudos", rotulo: "menu.estudos", Icone: BookOpen },
   { rota: "/ajustes", rotulo: "menu.ajustes", Icone: Settings },
 ];
+
+/** Quantidade de itens novos na caixa, escondida quando é zero (FR-008). */
+function ContadorCaixa() {
+  const { data: itens = [] } = useItensNovos();
+  if (itens.length === 0) return null;
+  return (
+    <span
+      aria-label={t("menu.itensNovos", { quantidade: itens.length })}
+      className="ml-auto rounded-full bg-cinza-200 px-2 text-pequeno font-medium text-cinza-700"
+    >
+      {itens.length}
+    </span>
+  );
+}
 
 export function MenuLateral() {
   return (
@@ -49,6 +64,7 @@ export function MenuLateral() {
         >
           <Icone aria-hidden className="size-4 shrink-0" />
           {t(rotulo)}
+          {rota === "/caixa" && <ContadorCaixa />}
         </NavLink>
       ))}
     </nav>

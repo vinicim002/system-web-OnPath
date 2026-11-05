@@ -54,11 +54,11 @@ marcada na fase final.
 **Teste independente**: abrir `/caixa`, anotar com Enter, conferir que o item está no topo e
 continua depois de recarregar (`quickstart.md`, cenário 1).
 
-- [ ] T009 [P] [US1] Criar `src/features/caixa/CampoAnotacao.tsx`: `Textarea` que cresce com o conteúdo e recebe `aoSalvar(conteudo): Promise<boolean>` e `focarAoMontar`. Enter salva e Shift+Enter quebra a linha. Enter durante `isComposing` não salva. Texto vazio ou só espaços não chama `aoSalvar`. Se `aoSalvar` devolver `true`, limpa o campo e mantém o foco. Se devolver `false`, mantém o texto. Mostra a dica `caixa.dicaCampo` abaixo do campo.
-- [ ] T010 [P] [US1] Criar `src/features/caixa/ItemCaixa.tsx`: mostra o texto inteiro, com as quebras de linha (`whitespace-pre-wrap`, `break-words`), e o tempo relativo de `criadoEm` com `tempoRelativo`. Reservar o espaço das ações, que entram nas histórias 2 e 3.
-- [ ] T011 [US1] Criar `src/features/caixa/ListaCaixa.tsx` com `useItensNovos()`: lista os itens com `ItemCaixa`, do mais novo para o mais antigo. Com a lista vazia, mostra `caixa.vazia`.
-- [ ] T012 [US1] Em `src/telas/Caixa.tsx`, montar `CampoAnotacao` (com foco ao abrir) e `ListaCaixa` dentro de `TelaBase`. O `aoSalvar` chama `useCapturarItem()`. Em erro, mostra aviso com a mensagem do `ErroOnPath` e, para `armazenamento_indisponivel`, a ação `erros.acao.liberarArmazenamento`, e devolve `false` para manter o texto.
-- [ ] T013 [US1] Em `src/components/MenuLateral.tsx`, mostrar ao lado de "Caixa de entrada" o número de itens de `useItensNovos()`, escondido quando for zero (FR-008).
+- [X] T009 [P] [US1] Criar `src/features/caixa/CampoAnotacao.tsx`: `Textarea` que cresce com o conteúdo e recebe `aoSalvar(conteudo): Promise<boolean>` e `focarAoMontar`. Enter salva e Shift+Enter quebra a linha. Enter durante `isComposing` não salva. Texto vazio ou só espaços não chama `aoSalvar`. Se `aoSalvar` devolver `true`, limpa o campo e mantém o foco. Se devolver `false`, mantém o texto. Mostra a dica `caixa.dicaCampo` abaixo do campo.
+- [X] T010 [P] [US1] Criar `src/features/caixa/ItemCaixa.tsx`: mostra o texto inteiro, com as quebras de linha (`whitespace-pre-wrap`, `break-words`), e o tempo relativo de `criadoEm` com `tempoRelativo`. Reservar o espaço das ações, que entram nas histórias 2 e 3.
+- [X] T011 [US1] Criar `src/features/caixa/ListaCaixa.tsx` com `useItensNovos()`: lista os itens com `ItemCaixa`, do mais novo para o mais antigo. Com a lista vazia, mostra `caixa.vazia`.
+- [X] T012 [US1] Em `src/telas/Caixa.tsx`, montar `CampoAnotacao` (com foco ao abrir) e `ListaCaixa` dentro de `TelaBase`. O `aoSalvar` chama `useCapturarItem()`. Em erro, mostra aviso com a mensagem do `ErroOnPath` e, para `armazenamento_indisponivel`, a ação `erros.acao.liberarArmazenamento`, e devolve `false` para manter o texto.
+- [X] T013 [US1] Em `src/components/MenuLateral.tsx`, mostrar ao lado de "Caixa de entrada" o número de itens de `useItensNovos()`, escondido quando for zero (FR-008).
 
 **Ponto de controle**: o cenário 1 do `quickstart.md` passa. A T006 do `docs/tasks.md` já
 cumpre o "Pronto quando".
