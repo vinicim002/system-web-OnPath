@@ -3,6 +3,8 @@ import {
   CalendarDays,
   FolderKanban,
   Inbox,
+  LayoutDashboard,
+  LogOut,
   Plus,
   ListChecks,
   Repeat,
@@ -11,7 +13,7 @@ import {
   Target,
   type LucideIcon,
 } from "lucide-react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 import { Button } from "@/components/ui/button";
 import { useItensNovos } from "@/dados/consultas";
@@ -51,6 +53,12 @@ interface Props {
   abrirCaptura: () => void;
 }
 
+const classeItem = ({ isActive }: { isActive: boolean }) =>
+  cn(
+    "flex items-center gap-3 rounded-md px-3 py-2 text-cinza-700 outline-none hover:bg-cinza-100 hover:text-preto focus-visible:ring-2 focus-visible:ring-ring",
+    isActive && "bg-cinza-200 font-medium text-preto hover:bg-cinza-200",
+  );
+
 export function MenuLateral({ abrirCaptura }: Props) {
   return (
     <nav className="flex h-full w-60 shrink-0 flex-col gap-1 border-r bg-cinza-50 px-3 py-6">
@@ -67,18 +75,26 @@ export function MenuLateral({ abrirCaptura }: Props) {
           key={rota}
           to={rota}
           end
-          className={({ isActive }) =>
-            cn(
-              "flex items-center gap-3 rounded-md px-3 py-2 text-cinza-700 outline-none hover:bg-cinza-100 hover:text-preto focus-visible:ring-2 focus-visible:ring-ring",
-              isActive && "bg-cinza-200 font-medium text-preto hover:bg-cinza-200",
-            )
-          }
+          className={classeItem}
         >
           <Icone aria-hidden className="size-4 shrink-0" />
           {t(rotulo)}
           {rota === "/caixa" && <ContadorCaixa />}
         </NavLink>
       ))}
+
+      <div className="mt-auto flex flex-col gap-1 border-t pt-3">
+        {import.meta.env.DEV && (
+          <NavLink to="/painel" className={classeItem}>
+            <LayoutDashboard aria-hidden className="size-4 shrink-0" />
+            {t("menu.painel")}
+          </NavLink>
+        )}
+        <Link to="/login" className={classeItem({ isActive: false })}>
+          <LogOut aria-hidden className="size-4 shrink-0" />
+          {t("menu.sair")}
+        </Link>
+      </div>
     </nav>
   );
 }

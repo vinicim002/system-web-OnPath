@@ -16,6 +16,8 @@ export const ptBR = {
     estudos: "Estudos",
     ajustes: "Ajustes",
     anotar: "Anotar",
+    painel: "Painel do projeto",
+    sair: "Sair",
     itensNovos: "{quantidade} itens novos",
   },
   caixa: {
@@ -41,6 +43,62 @@ export const ptBR = {
     rapida: {
       titulo: "Anotar na caixa",
       dica: "Enter para salvar · Esc para fechar",
+    },
+  },
+  login: {
+    titulo: "Entrar no OnPath",
+    subtitulo: "Organize o que fazer agora.",
+    email: "E-mail",
+    senha: "Senha",
+    entrar: "Entrar",
+    ou: "ou",
+    acessoRapido: "Acesso rápido",
+    aviso: "Tela de demonstração: o login de verdade chega na Parte 2. Qualquer e-mail válido entra.",
+    erros: {
+      email: "Digite um e-mail válido, como nome@exemplo.com.",
+      senha: "Digite a senha.",
+    },
+  },
+  painel: {
+    titulo: "Painel do projeto",
+    descricao: "Visível só no modo de desenvolvimento. Os dados vêm de docs/, specs/ e do histórico do git.",
+    abas: {
+      visao: "Visão geral",
+      board: "Board",
+      historico: "Histórico",
+      documentos: "Documentos",
+    },
+    visao: {
+      objetivo: "O que é o projeto",
+      andamento: "Andamento",
+      tarefasFeitas: "{feitas} de {total} tarefas feitas",
+      etapaAtual: "Etapa atual",
+      proximaEtapa: "Próxima etapa",
+      etapas: "Etapas",
+      semEtapa: "Todas as etapas foram concluídas.",
+    },
+    board: {
+      aFazer: "A fazer",
+      etapaAtual: "Etapa atual",
+      feito: "Feito",
+      prontoQuando: "Pronto quando",
+    },
+    historico: {
+      todos: "Todos",
+      vazio: "Nenhum commit encontrado.",
+      erro: "Não foi possível ler o histórico do git. Confira se o servidor está rodando com npm run dev.",
+      categorias: {
+        adicionado: "Adicionado",
+        alterado: "Alterado",
+        corrigido: "Corrigido",
+        retirado: "Retirado",
+        documentacao: "Documentação",
+        manutencao: "Manutenção",
+      },
+      quebra: "Mudança incompatível",
+    },
+    documentos: {
+      escolha: "Escolha um documento.",
     },
   },
   telas: {
