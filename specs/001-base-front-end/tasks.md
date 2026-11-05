@@ -156,6 +156,22 @@ item 13), mantendo a camada de dados, os textos, o tema e os testes.
 
 ---
 
+## Fase 8: Tailwind CSS e shadcn/ui
+
+**Objetivo**: trocar os CSS Modules por Tailwind CSS e usar os componentes do shadcn/ui
+(constituição 1.2.0, `research.md`, item 14), sem mudar o comportamento.
+
+- [ ] T046 Instalar `tailwindcss` e `@tailwindcss/vite`, ligar o plugin em `vite.config.ts` e criar `src/theme/tema.css` com o `@theme` do OnPath: paleta padrão desligada, cores, fonte Inter, tamanhos de texto e espaçamento de 4 px, além dos nomes do shadcn/ui apontando para essas cores.
+- [ ] T047 Configurar o shadcn/ui (`components.json`, `src/lib/utils.ts` com `cn()`) e adicionar os componentes `button` e `alert-dialog`. Instalar `lucide-react`.
+- [ ] T048 Em `src/theme/index.ts`, deixar só as cores e remover `variaveisCss()` e `aplicarTema()`. Criar `__tests__/tema.test.ts`, que confere que as cores de `index.ts` e de `tema.css` são as mesmas.
+- [ ] T049 Passar `Moldura`, `MenuLateral` (com ícones), `TelaBase`, `Logo`, `PreparoPrimeiroUso`, `NaoEncontrada` e `CopiaDados` para classes do Tailwind. Trocar `Botao` pelo `Button` do shadcn/ui e a confirmação da importação pelo `AlertDialog`. Apagar os arquivos `.module.css` e o `global.css`.
+- [ ] T050 Rodar `npm test`, `npm run typecheck`, `npm run build` e os cenários do `quickstart.md` no navegador.
+
+**Ponto de controle**: todos os cenários do `quickstart.md` passam, e não sobra nenhum CSS
+Module.
+
+---
+
 ## Dependências e ordem
 
 - **Fase 1** não depende de nada.
@@ -167,6 +183,7 @@ item 13), mantendo a camada de dados, os textos, o tema e os testes.
   usa a carga da T024. Por isso, a US3 vem depois da US1 e da US2.
 - **Fase 6** vem depois de todas as histórias.
 - **Fase 7** vem depois da Fase 6 e substitui a interface das fases 1, 3, 4 e 5.
+- **Fase 8** vem depois da Fase 7 e troca só o estilo e os componentes.
 
 Dentro de cada fase, as tarefas sem [P] seguem a ordem dos IDs.
 

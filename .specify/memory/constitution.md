@@ -51,12 +51,16 @@ Motivo: evitar que as regras sejam reescritas ao criar a API (risco listado em
 - O visual DEVE seguir a seção 7 de `docs/spec.md`: preto, branco e tons de cinza, com
   cor só em gráficos e ícones. Logo e pequenos detalhes podem puxar para o roxo.
 - Cores, fontes e espaçamentos DEVEM vir do tema, não de valores soltos nos componentes.
+- O tema é definido em `src/theme/` e publicado para o Tailwind CSS. A paleta padrão do
+  Tailwind fica desligada, e classes com valores soltos de cor (como `bg-[#123456]`) NÃO são
+  permitidas.
 
 Motivo: manter a interface minimalista e consistente em todas as telas.
 
 ## Restrições do projeto
 
-- Stack decidida: React com Vite, como app web para computador; API em Python e
+- Stack decidida: React com Vite, como app web para computador, com estilo em Tailwind CSS e
+  componentes do shadcn/ui; API em Python e
   FastAPI; banco PostgreSQL; servidor futuro na VPS Hostinger KVM 1. Itens marcados como
   **Proposta** em `docs/plan.md` ainda podem mudar.
 - A V0.1.0 roda localmente, sem custo de servidor. A VPS só é contratada depois da
@@ -83,7 +87,7 @@ Motivo: manter a interface minimalista e consistente em todas as telas.
 - Todo plano e toda revisão de código DEVEM verificar a conformidade com estes
   princípios.
 
-**Versão**: 1.1.0 | **Ratificada**: 2026-11-05 | **Última emenda**: 2026-11-05
+**Versão**: 1.2.0 | **Ratificada**: 2026-11-05 | **Última emenda**: 2026-11-05
 
 ### Emendas
 
@@ -91,3 +95,7 @@ Motivo: manter a interface minimalista e consistente em todas as telas.
   produto principal é o app no computador, e as telas de computador não seriam
   reaproveitadas no celular. O código reaproveitável (tipos, serviços, textos e tema) é
   TypeScript puro e pode servir a um app de celular futuro.
+- **1.2.0 (2026-11-05):** o estilo passa de CSS Modules para Tailwind CSS, e os componentes de
+  interface vêm do shadcn/ui. Motivo: as próximas telas precisam de diálogos, menus, painéis
+  laterais e formulários acessíveis, que o shadcn/ui já entrega sobre o Radix. A regra do
+  princípio V foi ampliada para valer também nas classes do Tailwind.

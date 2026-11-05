@@ -124,3 +124,20 @@ foram resolvidos aqui.
 - **Alternativas**: manter Expo, que reaproveitaria as telas no celular, mas limita o app no
   computador. Next.js foi descartado porque o app não precisa de renderização no servidor nem
   de SEO, e a API da Parte 2 é em FastAPI.
+
+## 14. Tailwind CSS e shadcn/ui
+
+- **Decisão**: o estilo usa Tailwind CSS 4, e os componentes de interface vêm do shadcn/ui, que
+  copia o código de cada componente para `src/components/ui/`. O tema fica em
+  `src/theme/tema.css`, no bloco `@theme` do Tailwind: a paleta padrão é desligada e só existem
+  as cores do OnPath (`preto`, `branco`, `cinza-50` a `cinza-900` e `roxo`). Os nomes que o
+  shadcn/ui usa (`background`, `primary`, `muted`, `border` e outros) apontam para essas cores.
+  O `src/theme/index.ts` guarda as mesmas cores para o código que precisa do valor, como as
+  cores das áreas, e um teste confere que os dois arquivos não divergem.
+- **Motivo**: as próximas telas precisam de diálogos, menus, painéis laterais e formulários
+  acessíveis. O shadcn/ui entrega isso sobre o Radix, e o código fica no projeto, livre para
+  ajustar. Desligar a paleta padrão faz o próprio Tailwind recusar cores fora do tema.
+- **Alternativas**: manter CSS Modules e escrever cada componente acessível à mão, o que é
+  lento e fácil de errar. Bibliotecas fechadas, como MUI ou Mantine, trazem um visual próprio
+  difícil de deixar em preto e branco.
+- **Outras bibliotecas**: entram na tarefa em que forem usadas (`docs/plan.md`, seção 1).

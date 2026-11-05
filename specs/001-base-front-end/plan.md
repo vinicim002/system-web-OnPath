@@ -27,7 +27,8 @@ dados.
 
 > 2026-11-05: a primeira versão usou Expo. A interface foi refeita em React com Vite
 > (constituição 1.1.0, `research.md`, item 13). A camada de dados, os textos, o tema e os testes
-> foram mantidos.
+> foram mantidos. Depois, o estilo passou para Tailwind CSS com shadcn/ui (constituição 1.2.0,
+> `research.md`, item 14).
 
 **Dependências principais**:
 
@@ -38,6 +39,8 @@ dados.
 | TanStack Query | Cache e atualização das telas a partir dos serviços |
 | Zod | Esquemas das entidades e validação da cópia de dados |
 | `@fontsource/inter` | Fonte Inter, servida pelo próprio app |
+| Tailwind CSS | Estilo, com a paleta do tema e sem a paleta padrão |
+| shadcn/ui e lucide-react | Componentes acessíveis (botão, diálogo e outros) e ícones |
 
 As versões são as estáveis no momento da instalação (`docs/plan.md`, seção 1).
 
@@ -76,7 +79,7 @@ registros, abaixo do limite de cerca de 5 MB do armazenamento do navegador.
 | II. `docs/` como fonte oficial | As propostas confirmadas aqui e a pasta `src/dados/` são registradas no `docs/plan.md` antes do código (ver "Mudanças em `docs/`") | ✅ |
 | III. Front-end primeiro | Não há API, banco nem login. A pasta `src/api/` não é criada nesta etapa | ✅ |
 | IV. Serviços tipados | As telas usam só `useServicos()` e os hooks de consulta. Os contratos ficam em `src/dados/contratos.ts`, e a implementação local é injetada por um provedor | ✅ |
-| V. Visual da seção 7 | As cores vêm de `src/theme/`: preto, branco e cinza, com o roxo reservado ao logo. A fonte é a Inter | ✅ |
+| V. Visual da seção 7 | As cores vêm de `src/theme/`: preto, branco e cinza, com o roxo reservado ao logo. A paleta padrão do Tailwind fica desligada. A fonte é a Inter | ✅ |
 
 **Depois da Fase 1**: o design mantém todos os itens. Não há violação, por isso a seção de
 complexidade foi removida.
@@ -118,7 +121,9 @@ system-onPath-web-front/      # React com Vite
 │   ├── main.tsx              # Fonte, tema, provedores e rotas
 │   ├── rotas.tsx             # Endereços das telas (React Router)
 │   ├── telas/                # Hoje, Caixa, Tarefas, ..., Ajustes e NaoEncontrada
-│   ├── components/           # Moldura, MenuLateral, TelaBase, Botao, Logo e PreparoPrimeiroUso
+│   ├── components/           # Moldura, MenuLateral, TelaBase, Logo e PreparoPrimeiroUso
+│   │   └── ui/               # Componentes do shadcn/ui (button, alert-dialog)
+│   ├── lib/utils.ts          # cn(), que junta classes do Tailwind
 │   ├── features/
 │   │   └── ajustes/          # Exportar e importar (T005)
 │   ├── dados/
@@ -138,7 +143,8 @@ system-onPath-web-front/      # React com Vite
 │   ├── i18n/
 │   │   └── pt-BR.ts
 │   └── theme/
-│       └── index.ts          # Cores, fontes e espaçamentos, publicados como variáveis CSS
+│       ├── index.ts          # Cores usadas no código (logo e cores das áreas)
+│       └── tema.css          # Tema do Tailwind: cores, fonte, tamanhos e espaçamento
 ├── __tests__/                # Testes Vitest dos serviços locais
 ├── vite.config.ts            # Vite e Vitest
 ├── package.json

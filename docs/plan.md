@@ -14,6 +14,8 @@ Itens marcados com **Proposta** ainda não foram debatidos e podem mudar. Os dem
 | Interface | React com Vite, como app web de página única para computador | Decidido |
 | Linguagem da interface | TypeScript | Decidido |
 | Rotas da interface | React Router | Decidido |
+| Estilo da interface | Tailwind CSS, com a paleta do tema | Decidido |
+| Componentes da interface | shadcn/ui (sobre Radix) e ícones lucide | Decidido |
 | Dados na interface | TanStack Query | Decidido |
 | Validação na interface | Zod | Decidido |
 | Testes da interface | Vitest | Decidido |
@@ -28,7 +30,9 @@ Itens marcados com **Proposta** ainda não foram debatidos e podem mudar. Os dem
 
 Use versões estáveis atuais no momento de instalar.
 
-Versões instaladas na Etapa 0 (interface): React 19, Vite 8, TypeScript 7, React Router 8, TanStack Query 5, Zod 4 e Vitest 5.
+Versões instaladas na Etapa 0 (interface): React 19, Vite 8, TypeScript 7, React Router 8, TanStack Query 5, Zod 4, Vitest 5 e Tailwind CSS 4.
+
+Outras bibliotecas entram na tarefa em que forem usadas: sonner (avisos com desfazer) e cmdk (captura rápida) na T006, react-hook-form na T009, date-fns com `@date-fns/tz` nas T011 e T012, e dnd-kit nas T011 e T019.
 
 ## 2. Ordem de construção
 
@@ -71,13 +75,13 @@ onPath/                           # Repositório
     ├── system-onPath-web-front/  # React com Vite
     │   └── src/
     │       ├── api/              # Implementação dos serviços pela API (Parte 2)
-    │       ├── components/
+    │       ├── components/       # Componentes do app; ui/ guarda os do shadcn/ui
     │       ├── dados/            # Tipos, contratos dos serviços e implementação local
     │       ├── features/         # Um módulo por área do produto
     │       ├── i18n/             # Textos em português
     │       ├── telas/            # Uma tela por rota
     │       ├── plataforma/       # APIs do navegador: arquivos, travas e notificações
-    │       └── theme/            # Cores, fontes e espaçamentos
+    │       └── theme/            # Cores, fontes e espaçamentos (tema do Tailwind)
     ├── system-onPath-web-back/   # FastAPI
     │   ├── app/
     │   │   ├── core/             # Configuração, banco e segurança
