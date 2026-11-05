@@ -26,7 +26,7 @@ item 13). As telas são validadas pelo `quickstart.md`.
 
 **Objetivo**: instalar o que a etapa usa.
 
-- [ ] T001 Instalar `react-hook-form` e `@hookform/resolvers`, e adicionar os componentes `select` e `checkbox` com `npx shadcn@latest add select checkbox`. Depois, como nas etapas anteriores: em `src/components/ui/`, trocar `import { cn } from "cn"` por `@/lib/utils`, remover o pacote `cn` (e `next-themes`, se aparecer) do `package.json`, trocar cores fora do tema (`black`, `white`) por `preto` e `branco`, e trocar textos em inglês por chaves de `src/i18n/pt-BR.ts`.
+- [X] T001 Instalar `react-hook-form` e `@hookform/resolvers`, e adicionar os componentes `select` e `checkbox` com `npx shadcn@latest add select checkbox`. Depois, como nas etapas anteriores: em `src/components/ui/`, trocar `import { cn } from "cn"` por `@/lib/utils`, remover o pacote `cn` (e `next-themes`, se aparecer) do `package.json`, trocar cores fora do tema (`black`, `white`) por `preto` e `branco`, e trocar textos em inglês por chaves de `src/i18n/pt-BR.ts`.
 
 ---
 
