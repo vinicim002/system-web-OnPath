@@ -7,7 +7,7 @@ import {
 } from "lucide-react"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 
-// O OnPath só tem o tema claro, então o tema fica fixo (sem next-themes).
+// O tema vem da moldura (src/theme/modo.ts), sem next-themes; claro é o padrão.
 const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner

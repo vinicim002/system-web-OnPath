@@ -21,6 +21,20 @@ export const ptBR = {
     painel: "Painel do projeto",
     sair: "Sair",
     itensNovos: "{quantidade} itens novos",
+    titulo: "Menu principal",
+    recolher: "Recolher menu",
+    modo: "Tema: {modo}",
+    modos: {
+      claro: "claro",
+      escuro: "escuro",
+      sistema: "do sistema",
+    },
+    expandir: "Expandir menu",
+    secoes: {
+      foco: "Foco",
+      trabalho: "Trabalho",
+      planejamento: "Planejamento",
+    },
   },
   caixa: {
     campo: "Anote uma ideia…",

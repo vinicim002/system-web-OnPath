@@ -6,7 +6,10 @@ import { describe, expect, it } from "vitest";
 import { cores } from "@/theme";
 
 function coresDoCss(): Record<string, string> {
-  const css = readFileSync(resolve(process.cwd(), "src/theme/tema.css"), "utf8");
+  const completo = readFileSync(resolve(process.cwd(), "src/theme/tema.css"), "utf8");
+  // Só o bloco @theme static, com a paleta clara; o modo escuro redefine as mesmas variáveis em .dark.
+  const inicio = completo.indexOf("@theme static");
+  const css = completo.slice(inicio, completo.indexOf("}", inicio));
   const encontradas: Record<string, string> = {};
   for (const [, nome, valor] of css.matchAll(/--color-([a-z0-9-]+):\s*(#[0-9a-fA-F]{6});/g)) {
     encontradas[nome!] = valor!.toUpperCase();
@@ -15,7 +18,12 @@ function coresDoCss(): Record<string, string> {
 }
 
 function coresDoTs(): Record<string, string> {
-  const esperadas: Record<string, string> = { preto: cores.preto, branco: cores.branco, roxo: cores.roxo };
+  const esperadas: Record<string, string> = {
+    preto: cores.preto,
+    branco: cores.branco,
+    roxo: cores.roxo,
+    veu: cores.veu,
+  };
   for (const [tom, valor] of Object.entries(cores.cinza)) esperadas[`cinza-${tom}`] = valor;
   return esperadas;
 }

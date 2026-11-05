@@ -20,6 +20,8 @@ export const cores = {
   },
   /** Reservado ao logo e a pequenos detalhes. */
   roxo: "#7357F0",
+  /** Fundo escurecido atrás dos diálogos. */
+  veu: "#000000",
 } as const;
 
 /** Tons que uma área pode ter: os cinzas 400 a 900 (seção 7 de docs/spec.md). */
