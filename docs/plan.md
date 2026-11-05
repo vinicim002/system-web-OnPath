@@ -223,7 +223,7 @@ Na V0.1.0, os lembretes usam as notificações do navegador e dependem de o app 
 
 ### Kanban e fila
 
-Na web, o arrastar pode usar uma biblioteca própria para navegador. Isole esse código em um componente, porque o celular precisará de outra implementação. **Proposta:** escolher a biblioteca na tarefa do Kanban.
+Na web, o arrastar usa o `dnd-kit` (com suporte a teclado), isolado em `src/features/kanban/`, porque o celular precisará de outra implementação. Os cartões seguem a ordem da lista de tarefas; não há ordem manual dentro da coluna.
 
 ## 8. API
 
