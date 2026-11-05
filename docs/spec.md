@@ -186,7 +186,7 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 - [x] Lista as tarefas do dia na ordem escolhida, com a próxima em destaque (RN20).
 - [x] O usuário adiciona, remove e reordena tarefas.
 - [ ] Mostra rotinas, compromissos e blocos do dia em ordem de horário.
-- [ ] Avisa quando o tempo planejado passa do tempo livre, sem bloquear (RN10).
+- [X] Avisa quando o tempo planejado passa do tempo livre, sem bloquear (RN10).
 - [x] Ao abrir no dia seguinte, pergunta o destino de cada tarefa pendente: remarcar, devolver à lista ou cancelar (RN25).
 - [ ] Sem conexão, exibe a última versão salva do dia em modo leitura e informa isso.
 
@@ -228,8 +228,8 @@ Ao lado esquerdo, um menu fixo leva a todas as telas principais. O detalhe da ta
 - [ ] O usuário cria blocos para tarefas, rotinas e sessões de estudo.
 - [X] Criar um bloco em horário ocupado exige confirmação (RN09).
 - [X] O usuário cria, edita e arquiva compromissos.
-- [ ] Um bloco de rotina não realizado no horário gera uma proposta de novo horário (RN18).
-- [ ] Lembretes são exibidos antes de compromissos, rotinas e blocos.
+- [X] Um bloco de rotina não realizado no horário gera uma proposta de novo horário (RN18).
+- [X] Lembretes são exibidos antes de compromissos, rotinas e blocos.
 
 ### 6.10 Estudos
 

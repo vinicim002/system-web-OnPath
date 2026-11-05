@@ -85,11 +85,11 @@
   - Pronto quando: os critérios de aceite forem cumpridos.
 - [X] **T023: Construir a tela Agenda.** Crie a visão semanal, os compromissos e os blocos.
   - Pronto quando: os critérios da seção 6.9 forem cumpridos.
-- [ ] **T024: Remarcar rotina perdida.** Proponha um novo horário (RN18).
+- [X] **T024: Remarcar rotina perdida.** Proponha um novo horário (RN18).
   - Pronto quando: o usuário puder aceitar ou recusar a proposta.
-- [ ] **T025: Calcular o tempo livre.** Mostre o aviso de dia cheio na tela Hoje (RN10).
+- [X] **T025: Calcular o tempo livre.** Mostre o aviso de dia cheio na tela Hoje (RN10).
   - Pronto quando: o aviso aparecer sem bloquear.
-- [ ] **T026: Criar os lembretes.** Use as notificações do navegador.
+- [X] **T026: Criar os lembretes.** Use as notificações do navegador.
   - Pronto quando: um lembrete aparecer com o app aberto.
 
 ### Etapa 8 — Estudos

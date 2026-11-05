@@ -26,5 +26,5 @@ description: "Lista de tarefas da Etapa 7, parte 2 (rotina perdida, tempo livre 
 
 ## Fase 4: Acabamento
 
-- [ ] T009 `npm test`, `typecheck`, `lint`, `build`, greps; cenários no build de produção (porta 4173).
-- [ ] T010 Marcar T024 a T026 em `docs/tasks.md` e os critérios atendidos das seções 6.4 e 6.9.
+- [X] T009 `npm test`, `typecheck`, `lint`, `build`, greps; cenários no build de produção (porta 4173).
+- [X] T010 Marcar T024 a T026 em `docs/tasks.md` e os critérios atendidos das seções 6.4 e 6.9.
