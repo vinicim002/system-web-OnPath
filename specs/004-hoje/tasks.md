@@ -24,7 +24,7 @@ description: "Lista de tarefas da Etapa 3 (Hoje)"
 
 ## Fase 1: Preparação
 
-- [ ] T001 Instalar `@dnd-kit/core`, `@dnd-kit/sortable` e `@dnd-kit/utilities` em `package.json`.
+- [X] T001 Instalar `@dnd-kit/core`, `@dnd-kit/sortable` e `@dnd-kit/utilities` em `package.json`.
 
 ---
 
