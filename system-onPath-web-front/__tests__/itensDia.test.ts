@@ -191,3 +191,83 @@ describe("itens do dia: fazer as tarefas", () => {
     expect((await c.s.itensDia.planoDoDia(HOJE)).proximaId).toBeNull();
   });
 });
+
+describe("itens do dia: pendências (T012, RN11 e RN25)", () => {
+  async function comPendencias() {
+    const c = await preparar();
+    const a = await c.tarefa("A");
+    const b = await c.tarefa("B");
+    const feita = await c.tarefa("Feita");
+    const cancelada = await c.tarefa("Cancelada");
+    await c.s.itensDia.adicionar("2026-11-03", [a.id]);
+    await c.s.itensDia.adicionar(ONTEM, [b.id, a.id, feita.id, cancelada.id]);
+    await c.s.tarefas.concluir(feita.id);
+    await c.s.tarefas.cancelar(cancelada.id);
+    return { c, a, b };
+  }
+
+  it("lista só as abertas de dias anteriores, uma vez, com a data mais recente", async () => {
+    const { c, a, b } = await comPendencias();
+    const hojeTarefa = await c.tarefa("De hoje");
+    await c.s.itensDia.adicionar(HOJE, [hojeTarefa.id]);
+
+    const pendencias = await c.s.itensDia.listarPendencias(HOJE);
+    expect(pendencias.map((p) => [p.tarefa.titulo, p.data])).toEqual([
+      ["B", ONTEM],
+      ["A", ONTEM],
+    ]);
+    expect(pendencias.map((p) => p.tarefa.id)).toEqual([b.id, a.id]);
+  });
+
+  it("remarcar para hoje marca os antigos e entra no fim de hoje, sem repetir", async () => {
+    const { c, a } = await comPendencias();
+    const jaHoje = await c.tarefa("Já hoje");
+    await c.s.itensDia.adicionar(HOJE, [jaHoje.id]);
+
+    await c.s.itensDia.decidirPendencia(a.id, { tipo: "remarcar", data: HOJE }, HOJE);
+    expect(titulos(await c.s.itensDia.planoDoDia(HOJE))).toEqual(["Já hoje", "A"]);
+    const antigos = (await c.s.itensDia.listar()).filter((i) => i.tarefaId === a.id && i.data < HOJE);
+    expect(antigos.map((i) => i.resultado)).toEqual(["remarcada", "remarcada"]);
+    expect((await c.s.itensDia.listarPendencias(HOJE)).map((p) => p.tarefa.titulo)).toEqual(["B"]);
+  });
+
+  it("remarcar para data futura cria lá; data passada é recusada sem gravar", async () => {
+    const { c, a, b } = await comPendencias();
+    await c.s.itensDia.decidirPendencia(a.id, { tipo: "remarcar", data: AMANHA }, HOJE);
+    expect(titulos(await c.s.itensDia.planoDoDia(AMANHA))).toEqual(["A"]);
+
+    const antes = await c.s.itensDia.listar();
+    const erro = await capturarErro(c.s.itensDia.decidirPendencia(b.id, { tipo: "remarcar", data: ONTEM }, HOJE));
+    expect(erro.codigo).toBe("data_passada");
+    expect(await c.s.itensDia.listar()).toEqual(antes);
+  });
+
+  it("devolver marca devolvida e não muda a tarefa", async () => {
+    const { c, b } = await comPendencias();
+    await c.s.itensDia.decidirPendencia(b.id, { tipo: "devolver" }, HOJE);
+    expect((await c.s.tarefas.obter(b.id)).status).toBe("aberta");
+    expect((await c.s.itensDia.listar()).find((i) => i.tarefaId === b.id)?.resultado).toBe("devolvida");
+    expect((await c.s.itensDia.planoDoDia(HOJE)).itens).toEqual([]);
+  });
+
+  it("cancelar marca cancelada e cancela a tarefa", async () => {
+    const { c, b } = await comPendencias();
+    await c.s.itensDia.decidirPendencia(b.id, { tipo: "cancelar" }, HOJE);
+    expect((await c.s.tarefas.obter(b.id)).status).toBe("cancelada");
+    expect((await c.s.itensDia.listar()).find((i) => i.tarefaId === b.id)?.resultado).toBe("cancelada");
+  });
+
+  it("tarefa sem pendência dá nao_e_pendencia", async () => {
+    const { c, b } = await comPendencias();
+    await c.s.itensDia.decidirPendencia(b.id, { tipo: "devolver" }, HOJE);
+    const erro = await capturarErro(c.s.itensDia.decidirPendencia(b.id, { tipo: "devolver" }, HOJE));
+    expect(erro.codigo).toBe("nao_e_pendencia");
+  });
+
+  it("remarcar todas para hoje, na ordem em que estavam", async () => {
+    const { c } = await comPendencias();
+    await c.s.itensDia.remarcarTodasPara(HOJE);
+    expect(titulos(await c.s.itensDia.planoDoDia(HOJE))).toEqual(["B", "A"]);
+    expect(await c.s.itensDia.listarPendencias(HOJE)).toEqual([]);
+  });
+});

@@ -13,8 +13,9 @@ Decisões da Fase 0. A base técnica vem das features 001 a 003.
 
 - **Decisão**: o item do dia não guarda que a tarefa foi feita enquanto o dia está em andamento. A
   tela mostra a situação da própria tarefa (aberta, concluída ou cancelada). O resultado do item
-  só muda quando a pendência recebe um destino (`remarcada`, `devolvida`, `cancelada`) ou, nessa
-  hora, para `feita`, se a tarefa já tiver sido concluída.
+  só muda quando a pendência recebe um destino (`remarcada`, `devolvida`, `cancelada`). O item de
+  uma tarefa concluída fica com `pendente`, mas não é pendência, porque a tarefa não está aberta.
+  O valor `feita` fica reservado para quando a API (Parte 2) fechar os dias passados.
 - **Motivo**: cumpre a RN04 sem sincronizar dois campos: concluir em qualquer tela já aparece no
   dia. O resultado do item vira o histórico do dia.
 - **Alternativas**: gravar `feita` no item ao concluir. Exigiria atualizar os itens a cada

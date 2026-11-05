@@ -16,7 +16,8 @@ import {
 import { Link, NavLink } from "react-router";
 
 import { Button } from "@/components/ui/button";
-import { useItensNovos } from "@/dados/consultas";
+import { useItensNovos, usePendencias } from "@/dados/consultas";
+import { useHoje } from "@/features/hoje/useHoje";
 import { textoAtalho } from "@/features/caixa/useAtalhoCaptura";
 import { t, type ChaveTexto } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -59,6 +60,21 @@ const classeItem = ({ isActive }: { isActive: boolean }) =>
     isActive && "bg-cinza-200 font-medium text-preto hover:bg-cinza-200",
   );
 
+/** Pendências de dias anteriores sem destino, ao lado de Hoje (FR-018 de specs/004-hoje). */
+function ContadorPendencias() {
+  const hoje = useHoje();
+  const { data: pendencias = [] } = usePendencias(hoje);
+  if (pendencias.length === 0) return null;
+  return (
+    <span
+      aria-label={t("menu.pendencias", { quantidade: pendencias.length })}
+      className="ml-auto rounded-full bg-preto px-2 text-pequeno font-medium text-branco"
+    >
+      {pendencias.length}
+    </span>
+  );
+}
+
 export function MenuLateral({ abrirCaptura }: Props) {
   return (
     <nav className="flex h-full w-60 shrink-0 flex-col gap-1 border-r bg-cinza-50 px-3 py-6">
@@ -80,6 +96,7 @@ export function MenuLateral({ abrirCaptura }: Props) {
           <Icone aria-hidden className="size-4 shrink-0" />
           {t(rotulo)}
           {rota === "/caixa" && <ContadorCaixa />}
+          {rota === "/" && <ContadorPendencias />}
         </NavLink>
       ))}
 
