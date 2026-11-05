@@ -31,6 +31,44 @@ export interface ServicoItensCaixa
   recuperar(id: string): Promise<T.ItemCaixa>;
 }
 
+export interface FiltrosTarefas {
+  areaId?: string;
+  /** Um projeto, ou "avulsa" para tarefas sem projeto e sem matéria. */
+  projetoId?: string;
+  materiaId?: string;
+  prioridade?: T.Prioridade;
+  /** Padrão: "aberta". */
+  status?: T.StatusTarefa | "todas";
+}
+
+/** Serviço de tarefas (specs/003-tarefas/contracts/servico-tarefas.md). */
+export interface ServicoTarefas extends ServicoColecao<T.Tarefa, T.NovaTarefa, T.AlteracaoTarefa> {
+  /** Tarefas ativas que atendem aos filtros, na ordem da lista, com as subtarefas. */
+  listarFiltradas(filtros?: FiltrosTarefas): Promise<T.Tarefa[]>;
+  /** Cria uma tarefa principal (RN02, RN21, RN24). A área vem do projeto ou da matéria. */
+  criar(dados: T.NovaTarefa): Promise<T.Tarefa>;
+  /** Cria uma subtarefa só com o título; herda área, prioridade e vínculo (RN33). */
+  criarSubtarefa(tarefaPaiId: string, titulo: string): Promise<T.Tarefa>;
+  /** Na tarefa do topo, propaga a herança; nas subtarefas, ignora os campos herdados. */
+  alterar(id: string, dados: T.AlteracaoTarefa): Promise<T.Tarefa>;
+  /** Move para outra tarefa principal, ou para o topo com `null`. Bloqueia ciclos. */
+  mover(
+    id: string,
+    tarefaPaiId: string | null,
+    dadosTopo?: { tempoEstimadoMin?: number | null },
+  ): Promise<T.Tarefa>;
+  /** Conclui. Com subtarefas abertas, exige `incluirSubtarefas: true`. */
+  concluir(id: string, opcoes?: { incluirSubtarefas?: boolean }): Promise<T.Tarefa>;
+  reabrir(id: string): Promise<T.Tarefa>;
+  cancelar(id: string): Promise<T.Tarefa>;
+  /** Arquiva a tarefa e todas as subtarefas (RN31). */
+  excluir(id: string): Promise<void>;
+  /** Recupera a tarefa e todas as subtarefas. */
+  recuperar(id: string): Promise<T.Tarefa>;
+  /** Cria a tarefa e marca o item da caixa como processado, na mesma escrita. */
+  criarDeItemCaixa(itemId: string, dados: T.NovaTarefa): Promise<T.Tarefa>;
+}
+
 export interface CopiaDados {
   formato: "onpath-copia";
   versao: number;
@@ -54,7 +92,7 @@ export interface Servicos {
   /** O `areaId` vem do grupo (RN01). */
   projetos: ServicoColecao<T.Projeto, T.NovoProjeto, T.AlteracaoProjeto>;
   colunas: ServicoColecao<T.Coluna, T.NovaColuna, T.AlteracaoColuna>;
-  tarefas: ServicoColecao<T.Tarefa, T.NovaTarefa, T.AlteracaoTarefa>;
+  tarefas: ServicoTarefas;
   itensCaixa: ServicoItensCaixa;
   itensDia: ServicoColecao<T.ItemDia, T.NovoItemDia, T.AlteracaoItemDia>;
   rotinas: ServicoColecao<T.Rotina, T.NovaRotina, T.AlteracaoRotina>;

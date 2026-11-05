@@ -40,6 +40,13 @@ export interface ColecaoLocal<Registro, Novo, Alteracao>
    * da camada local, para serviços com regras próprias (como a caixa).
    */
   gravarCampos(id: string, campos: Objeto): Promise<Registro>;
+  /**
+   * Altera vários registros em uma única escrita. Valida todos antes: se algum falhar, nada é
+   * gravado. Devolve os registros alterados, na ordem pedida.
+   */
+  gravarVarios(mudancas: { id: string; campos: Objeto }[]): Promise<Registro[]>;
+  /** Calcula os registros alterados sem gravar, para uma escrita com outras coleções. */
+  prepararVarios(mudancas: { id: string; campos: Objeto }[]): { registros: Registro[]; alterados: Registro[] };
 }
 
 export function criarServicoColecao<N extends NomeColecao, Novo extends object, Alteracao extends object>(
@@ -65,6 +72,23 @@ export function criarServicoColecao<N extends NomeColecao, Novo extends object, 
     atualizados[indice] = novo;
     gravar({ colecoes: { [nome]: atualizados } });
     return novo;
+  }
+
+  function prepararVarios(mudancas: { id: string; campos: Objeto }[]) {
+    const registros = [...lerColecao(nome)];
+    const agora = new Date().toISOString();
+    const alterados: Registro[] = [];
+    for (const { id, campos } of mudancas) {
+      const indice = buscar(registros, id);
+      const atual = registros[indice]!;
+      const novo = validar<Registro>(
+        esquema,
+        completar({ ...atual, ...campos, id: atual.id, criadoEm: atual.criadoEm, atualizadoEm: agora }),
+      );
+      registros[indice] = novo;
+      alterados.push(novo);
+    }
+    return { registros, alterados };
   }
 
   return {
@@ -108,6 +132,16 @@ export function criarServicoColecao<N extends NomeColecao, Novo extends object, 
 
     async recuperar(id) {
       return substituir(id, (atual, agora) => ({ ...atual, arquivadoEm: null, atualizadoEm: agora }));
+    },
+
+    prepararVarios(mudancas) {
+      return prepararVarios(mudancas);
+    },
+
+    async gravarVarios(mudancas) {
+      const { registros, alterados } = prepararVarios(mudancas);
+      if (alterados.length > 0) gravar({ colecoes: { [nome]: registros } });
+      return alterados;
     },
 
     async gravarCampos(id, campos) {

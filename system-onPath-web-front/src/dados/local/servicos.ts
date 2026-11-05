@@ -6,6 +6,7 @@ import { criarServicoItensCaixa } from "./caixa";
 import { prepararPrimeiroUso } from "./carga";
 import { exportarCopia, importarCopia } from "./copia";
 import { criarServicoColecao, type OpcoesColecao } from "./colecao";
+import { criarServicoTarefas } from "./tarefas";
 
 /** RN01: o projeto fica sempre na área do seu grupo. */
 function areaDoGrupo(registro: Record<string, unknown>): Record<string, unknown> {
@@ -28,7 +29,7 @@ export function criarServicosLocais(): Servicos {
     grupos: colecao("grupos"),
     projetos: colecao("projetos", { completar: areaDoGrupo }),
     colunas: colecao("colunas"),
-    tarefas: colecao("tarefas"),
+    tarefas: criarServicoTarefas(),
     itensCaixa: criarServicoItensCaixa(),
     itensDia: colecao("itensDia"),
     rotinas: colecao("rotinas"),

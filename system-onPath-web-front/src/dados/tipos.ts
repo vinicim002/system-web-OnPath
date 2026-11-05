@@ -100,6 +100,7 @@ export const esquemas = {
     prazo: opcional(dataSimples),
     status: statusTarefa,
     concluidaEm: opcional(dataHoraIso),
+    anotacoes: opcional(z.string()),
   }),
   itensCaixa: entidade({
     conteudo: texto,
@@ -165,6 +166,9 @@ export const esquemas = {
 };
 
 export type NomeColecao = keyof typeof esquemas;
+
+export type Prioridade = z.infer<typeof prioridade>;
+export type StatusTarefa = z.infer<typeof statusTarefa>;
 
 export const NOMES_COLECOES = [
   "areas",

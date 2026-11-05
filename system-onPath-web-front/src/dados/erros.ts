@@ -6,7 +6,10 @@ export type CodigoErro =
   | "copia_invalida"
   | "copia_versao_desconhecida"
   | "copia_referencia_quebrada"
-  | "armazenamento_indisponivel";
+  | "armazenamento_indisponivel"
+  | "ciclo_subtarefa"
+  | "subtarefas_abertas"
+  | "item_indisponivel";
 
 export class ErroOnPath extends Error {
   readonly codigo: CodigoErro;
