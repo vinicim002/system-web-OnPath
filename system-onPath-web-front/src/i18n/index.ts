@@ -20,3 +20,20 @@ export function t(chave: ChaveTexto, valores?: Record<string, string | number>):
     nome in valores ? String(valores[nome]) : trecho,
   );
 }
+
+/** Chaves com forma no singular e no plural: `{ um, outros }`. */
+type ChavesPlural<T, Prefixo extends string = ""> = {
+  [K in keyof T & string]: T[K] extends { um: string; outros: string }
+    ? `${Prefixo}${K}`
+    : T[K] extends string
+      ? never
+      : ChavesPlural<T[K], `${Prefixo}${K}.`>;
+}[keyof T & string];
+
+export type ChavePlural = ChavesPlural<Textos>;
+
+/** Texto no singular quando `quantidade` é 1, e no plural nos demais casos. */
+export function tPlural(chave: ChavePlural, quantidade: number, valores: Record<string, string | number> = {}): string {
+  const forma = quantidade === 1 ? "um" : "outros";
+  return t(`${chave}.${forma}` as ChaveTexto, { quantidade, ...valores });
+}

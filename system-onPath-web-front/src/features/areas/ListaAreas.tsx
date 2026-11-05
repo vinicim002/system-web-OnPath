@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useAreasArquivadas, useAreasComResumo, useRecuperarArea, useReordenarAreas } from "@/dados/consultas";
 import type { AreaComResumo } from "@/dados/contratos";
 import { avisarErro } from "@/features/caixa/avisos";
-import { t } from "@/i18n";
+import { t, tPlural } from "@/i18n";
 import { cn } from "@/lib/utils";
 
 function LinhaArea({ area, selecionada, aoAbrir }: { area: AreaComResumo; selecionada: boolean; aoAbrir: (id: string) => void }) {
@@ -46,7 +46,10 @@ function LinhaArea({ area, selecionada, aoAbrir }: { area: AreaComResumo; seleci
         <span className="flex min-w-0 flex-col">
           <span className={cn("truncate", selecionada && "font-medium")}>{area.nome}</span>
           <span className="truncate text-pequeno text-cinza-500">
-            {t("areas.resumo", { metas: area.contagem.metasAtivas, tarefas: area.contagem.tarefasAbertas })}
+            {t("areas.resumo", {
+              metas: tPlural("areas.metas", area.contagem.metasAtivas),
+              tarefas: tPlural("areas.tarefas", area.contagem.tarefasAbertas),
+            })}
           </span>
         </span>
       </button>

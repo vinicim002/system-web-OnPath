@@ -49,9 +49,9 @@ A tela é validada pelo `quickstart.md`.
 
 **Teste independente**: `quickstart.md`, cenário 2.
 
-- [ ] T010 [US2] Acrescentar em `__tests__/areas.test.ts`: meta sem título ou com área arquivada dá `dados_invalidos`; título sem espaços; `listarDaArea` traz ativas primeiro, por prazo (sem prazo por último) e criação; `atrasada` só para ativa com prazo anterior a `hoje`; metas arquivadas não aparecem. Criar `src/dados/local/metas.ts` até passar e usar em `src/dados/local/servicos.ts`.
-- [ ] T011 [P] [US2] Em `src/dados/consultas.ts`, criar `useMetasDaArea(areaId, hoje)`, `useCriarMeta`, `useAlterarMeta`, `useExcluirMeta` e `useRecuperarMeta`, invalidando `["metas"]` e `["areas"]`.
-- [ ] T012 [US2] Criar `src/features/areas/FormularioMeta.tsx` (título, descrição e prazo) e `src/features/areas/MetasDaArea.tsx` (lista com "Atrasada", status, menu Concluir/Cancelar/Reativar, editar no lugar e Excluir com Desfazer), e mostrar em `PainelArea.tsx`.
+- [X] T010 [US2] Acrescentar em `__tests__/areas.test.ts`: meta sem título ou com área arquivada dá `dados_invalidos`; título sem espaços; `listarDaArea` traz ativas primeiro, por prazo (sem prazo por último) e criação; `atrasada` só para ativa com prazo anterior a `hoje`; metas arquivadas não aparecem. Criar `src/dados/local/metas.ts` até passar e usar em `src/dados/local/servicos.ts`.
+- [X] T011 [P] [US2] Em `src/dados/consultas.ts`, criar `useMetasDaArea(areaId, hoje)`, `useCriarMeta`, `useAlterarMeta`, `useExcluirMeta` e `useRecuperarMeta`, invalidando `["metas"]` e `["areas"]`.
+- [X] T012 [US2] Criar `src/features/areas/FormularioMeta.tsx` (título, descrição e prazo) e `src/features/areas/MetasDaArea.tsx` (lista com "Atrasada", status, menu Concluir/Cancelar/Reativar, editar no lugar e Excluir com Desfazer), e mostrar em `PainelArea.tsx`.
 
 **Ponto de controle**: cenários 1 e 2 passam. A T013 do `docs/tasks.md` cumpre o "Pronto quando".
 

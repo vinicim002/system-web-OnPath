@@ -9,6 +9,7 @@ import { useAreasComResumo, useCriarArea } from "@/dados/consultas";
 import { ehErroOnPath, type ErroOnPath } from "@/dados/erros";
 import { FormularioArea, type ValoresArea } from "@/features/areas/FormularioArea";
 import { ListaAreas } from "@/features/areas/ListaAreas";
+import { MetasDaArea } from "@/features/areas/MetasDaArea";
 import { PainelArea } from "@/features/areas/PainelArea";
 import { avisarErro } from "@/features/caixa/avisos";
 import { t } from "@/i18n";
@@ -75,7 +76,9 @@ export function Areas() {
               />
             </section>
           ) : area ? (
-            <PainelArea key={area.id} area={area} aoArquivar={() => abrir(null)} />
+            <PainelArea key={area.id} area={area} aoArquivar={() => abrir(null)}>
+              <MetasDaArea areaId={area.id} />
+            </PainelArea>
           ) : (
             <p className="text-cinza-600">{t("areas.vazia")}</p>
           )}

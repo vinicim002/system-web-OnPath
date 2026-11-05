@@ -132,4 +132,44 @@ describe("áreas (T013)", () => {
   });
 });
 
-export { HOJE };
+
+describe("metas (T013)", () => {
+  it("recusa título vazio e área arquivada; grava título sem espaços", async () => {
+    const s = criarServicosLocais();
+    const area = await s.areas.criar({ nome: "Faculdade", cor: TOM });
+    const outra = await s.areas.criar({ nome: "Outra", cor: TOM });
+    expect((await capturarErro(s.metas.criar({ areaId: area.id, titulo: "  ", status: "ativa" }))).detalhes.campos).toEqual([
+      "titulo",
+    ]);
+    const meta = await s.metas.criar({ areaId: area.id, titulo: " Entregar o TCC ", descricao: " ", status: "ativa" });
+    expect(meta).toMatchObject({ titulo: "Entregar o TCC", descricao: null, prazo: null });
+
+    await s.areas.excluir(outra.id);
+    expect((await capturarErro(s.metas.criar({ areaId: outra.id, titulo: "X", status: "ativa" }))).detalhes.campos).toEqual([
+      "areaId",
+    ]);
+  });
+
+  it("lista ativas primeiro, por prazo e criação, com atraso", async () => {
+    const s = criarServicosLocais();
+    const area = await s.areas.criar({ nome: "Faculdade", cor: TOM });
+    const criar = async (titulo: string, status: "ativa" | "concluida" | "cancelada", prazo: string | null) => {
+      passarUmMinuto();
+      return s.metas.criar({ areaId: area.id, titulo, status, prazo });
+    };
+    await criar("sem prazo", "ativa", null);
+    await criar("concluída", "concluida", "2026-11-01");
+    await criar("prazo longe", "ativa", "2026-12-20");
+    await criar("atrasada", "ativa", "2026-11-04");
+    const excluida = await criar("excluída", "ativa", null);
+    await s.metas.excluir(excluida.id);
+
+    const metas = await s.metas.listarDaArea(area.id, HOJE);
+    expect(metas.map((m) => [m.titulo, m.atrasada])).toEqual([
+      ["atrasada", true],
+      ["prazo longe", false],
+      ["sem prazo", false],
+      ["concluída", false],
+    ]);
+  });
+});

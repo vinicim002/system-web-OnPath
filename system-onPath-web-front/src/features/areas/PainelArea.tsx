@@ -16,7 +16,7 @@ import { useAlterarArea, useArquivarArea, useRecuperarArea } from "@/dados/consu
 import type { AreaComResumo, ContagemArea } from "@/dados/contratos";
 import { ehErroOnPath, type ErroOnPath } from "@/dados/erros";
 import { avisarErro } from "@/features/caixa/avisos";
-import { t } from "@/i18n";
+import { t, tPlural } from "@/i18n";
 
 import { FormularioArea, type ValoresArea } from "./FormularioArea";
 
@@ -103,7 +103,7 @@ export function PainelArea({ area, aoArquivar, children }: Props) {
           <ul className="flex flex-col gap-1 text-sm">
             {confirmacao &&
               ITENS_CONTAGEM.filter((item) => confirmacao[item] > 0).map((item) => (
-                <li key={item}>{t(`areas.confirmar.${item}`, { quantidade: confirmacao[item] })}</li>
+                <li key={item}>{tPlural(`areas.confirmar.${item}`, confirmacao[item])}</li>
               ))}
           </ul>
           <AlertDialogFooter>
