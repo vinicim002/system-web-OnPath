@@ -121,6 +121,7 @@ export const ptBR = {
     confirmarSubtarefas: {
       titulo: "Concluir também as subtarefas?",
       descricao: "Esta tarefa tem {quantidade} subtarefas abertas. Elas serão concluídas junto.",
+      descricaoUma: "Esta tarefa tem 1 subtarefa aberta. Ela será concluída junto.",
       confirmar: "Concluir todas",
       cancelar: "Voltar",
     },

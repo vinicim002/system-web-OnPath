@@ -20,7 +20,9 @@ export function ConfirmarSubtarefas({ pedido }: { pedido: PedidoConfirmacao | nu
         <AlertDialogHeader>
           <AlertDialogTitle>{t("tarefas.confirmarSubtarefas.titulo")}</AlertDialogTitle>
           <AlertDialogDescription>
-            {t("tarefas.confirmarSubtarefas.descricao", { quantidade: pedido?.quantidade ?? 0 })}
+            {pedido?.quantidade === 1
+              ? t("tarefas.confirmarSubtarefas.descricaoUma")
+              : t("tarefas.confirmarSubtarefas.descricao", { quantidade: pedido?.quantidade ?? 0 })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

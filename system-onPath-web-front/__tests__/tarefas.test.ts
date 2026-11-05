@@ -244,3 +244,136 @@ describe("tarefas: edição, situação e filtros", () => {
     ]);
   });
 });
+
+describe("tarefas: subtarefas (RN30 e RN33)", () => {
+  async function arvore() {
+    const c = await preparar();
+    const principal = await c.s.tarefas.criar(nova(c, { projetoId: c.projeto, prioridade: "alta" }));
+    const filha = await c.s.tarefas.criarSubtarefa(principal.id, "  Filha  ");
+    const neta = await c.s.tarefas.criarSubtarefa(filha.id, "Neta");
+    return { c, principal, filha, neta };
+  }
+
+  it("cria subtarefa só com título, herdando área, prioridade e vínculo em todos os níveis", async () => {
+    const { c, principal, filha, neta } = await arvore();
+    for (const sub of [filha, neta]) {
+      expect(sub).toMatchObject({
+        areaId: c.trabalho,
+        prioridade: "alta",
+        projetoId: c.projeto,
+        materiaId: null,
+        tempoEstimadoMin: null,
+        status: "aberta",
+      });
+    }
+    expect(filha.titulo).toBe("Filha");
+    expect(filha.tarefaPaiId).toBe(principal.id);
+    expect(neta.tarefaPaiId).toBe(filha.id);
+  });
+
+  it("subtarefa recusa título vazio e pai inexistente", async () => {
+    const { c, principal } = await arvore();
+    expect((await capturarErro(c.s.tarefas.criarSubtarefa(principal.id, " "))).detalhes.campos).toEqual(["titulo"]);
+    const inexistente = "00000000-0000-4000-8000-000000000000";
+    expect((await capturarErro(c.s.tarefas.criarSubtarefa(inexistente, "x"))).detalhes.campos).toEqual([
+      "tarefaPaiId",
+    ]);
+  });
+
+  it("mudar a principal propaga para todos os níveis", async () => {
+    const { c, principal, filha, neta } = await arvore();
+    await c.s.tarefas.alterar(principal.id, { projetoId: null, materiaId: c.materia, prioridade: "baixa" });
+    for (const id of [filha.id, neta.id]) {
+      expect(await c.s.tarefas.obter(id)).toMatchObject({
+        areaId: c.pessoal,
+        prioridade: "baixa",
+        projetoId: null,
+        materiaId: c.materia,
+      });
+    }
+  });
+
+  it("na subtarefa, os campos herdados não mudam", async () => {
+    const { c, filha } = await arvore();
+    const alterada = await c.s.tarefas.alterar(filha.id, {
+      titulo: "Filha nova",
+      prioridade: "baixa",
+      areaId: c.pessoal,
+      projetoId: null,
+      tempoEstimadoMin: 10,
+    });
+    expect(alterada).toMatchObject({
+      titulo: "Filha nova",
+      prioridade: "alta",
+      areaId: c.trabalho,
+      projetoId: c.projeto,
+      tempoEstimadoMin: 10,
+    });
+  });
+
+  it("bloqueia ciclos sem gravar nada", async () => {
+    const { c, principal, filha, neta } = await arvore();
+    const antes = await c.s.tarefas.listar();
+    expect((await capturarErro(c.s.tarefas.mover(principal.id, neta.id))).codigo).toBe("ciclo_subtarefa");
+    expect((await capturarErro(c.s.tarefas.mover(principal.id, principal.id))).codigo).toBe("ciclo_subtarefa");
+    expect((await capturarErro(c.s.tarefas.mover(filha.id, neta.id))).codigo).toBe("ciclo_subtarefa");
+    expect(await c.s.tarefas.listar()).toEqual(antes);
+  });
+
+  it("mover para outra principal herda os campos dela", async () => {
+    const { c, filha, neta } = await arvore();
+    const outra = await c.s.tarefas.criar(nova(c, { prioridade: "baixa" }));
+    await c.s.tarefas.mover(filha.id, outra.id);
+    expect(await c.s.tarefas.obter(filha.id)).toMatchObject({
+      tarefaPaiId: outra.id,
+      prioridade: "baixa",
+      areaId: c.pessoal,
+      projetoId: null,
+    });
+    expect((await c.s.tarefas.obter(neta.id)).prioridade).toBe("baixa");
+  });
+
+  it("mover para o topo exige tempo estimado", async () => {
+    const { c, filha } = await arvore();
+    const erro = await capturarErro(c.s.tarefas.mover(filha.id, null));
+    expect(erro.detalhes.campos).toEqual(["tempoEstimadoMin"]);
+    const topo = await c.s.tarefas.mover(filha.id, null, { tempoEstimadoMin: 20 });
+    expect(topo).toMatchObject({ tarefaPaiId: null, tempoEstimadoMin: 20 });
+  });
+
+  it("concluir com subtarefas abertas pede confirmação e conclui todas", async () => {
+    const { c, principal, filha, neta } = await arvore();
+    const erro = await capturarErro(c.s.tarefas.concluir(principal.id));
+    expect(erro.codigo).toBe("subtarefas_abertas");
+    expect(erro.detalhes.quantidade).toBe(2);
+    expect((await c.s.tarefas.obter(principal.id)).status).toBe("aberta");
+
+    await c.s.tarefas.concluir(principal.id, { incluirSubtarefas: true });
+    for (const id of [principal.id, filha.id, neta.id]) {
+      expect((await c.s.tarefas.obter(id)).status).toBe("concluida");
+    }
+  });
+
+  it("concluir a subtarefa não mexe na principal", async () => {
+    const { c, principal, neta } = await arvore();
+    await c.s.tarefas.concluir(neta.id);
+    expect((await c.s.tarefas.obter(principal.id)).status).toBe("aberta");
+  });
+
+  it("excluir arquiva a árvore e recuperar devolve a árvore", async () => {
+    const { c, principal, filha, neta } = await arvore();
+    await c.s.tarefas.excluir(principal.id);
+    expect(await c.s.tarefas.listar()).toEqual([]);
+    await c.s.tarefas.recuperar(principal.id);
+    expect((await c.s.tarefas.listar()).map((t) => t.id).sort()).toEqual(
+      [principal.id, filha.id, neta.id].sort(),
+    );
+  });
+
+  it("filtro que pega só a subtarefa traz a principal e a árvore", async () => {
+    const { c, principal, filha, neta } = await arvore();
+    await c.s.tarefas.concluir(neta.id);
+    const ids = (await c.s.tarefas.listarFiltradas({ status: "concluida" })).map((t) => t.id).sort();
+    expect(ids).toEqual([principal.id, filha.id, neta.id].sort());
+  });
+});
