@@ -32,7 +32,7 @@ Use versões estáveis atuais no momento de instalar.
 
 Versões instaladas na Etapa 0 (interface): React 19, Vite 8, TypeScript 7, React Router 8, TanStack Query 5, Zod 4, Vitest 5 e Tailwind CSS 4.
 
-Outras bibliotecas entram na tarefa em que forem usadas: sonner (avisos com desfazer) e cmdk (captura rápida) na T006, react-hook-form na T009, date-fns com `@date-fns/tz` nas T011 e T012, e dnd-kit nas T011 e T019.
+Outras bibliotecas entram na tarefa em que forem usadas: sonner (avisos com desfazer) na T006, react-hook-form na T009, date-fns com `@date-fns/tz` nas T011 e T012, e dnd-kit nas T011 e T019.
 
 ## 2. Ordem de construção
 
