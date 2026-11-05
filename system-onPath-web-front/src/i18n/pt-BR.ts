@@ -362,7 +362,7 @@ export const ptBR = {
     },
     tipoCurto: { compromisso: "Compromisso", tarefa: "Tarefa", rotina: "Rotina" },
     vazia: "Nada nesta semana com este filtro.",
-    moverPara: "Mover para {dia}",
+    dicaMover: "Alt + ← ou → muda o dia",
     movido: "Movido para {dia}",
     painel: {
       titulo: "Planejar",

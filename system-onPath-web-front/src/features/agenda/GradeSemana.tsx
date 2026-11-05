@@ -1,5 +1,4 @@
 import { Check } from "lucide-react";
-import { useEffect, useState } from "react";
 
 import type { ItemAgenda } from "@/dados/contratos";
 import { t } from "@/i18n";
@@ -9,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { nomeDoDia } from "@/features/rotinas/dias";
 
 import { HORA_FIM, HORA_INICIO, PX_POR_HORA, horaDoClique, posicionar } from "./grade";
+import { useAgora } from "./useAgora";
 
 interface Props {
   inicioSemana: string;
@@ -20,16 +20,6 @@ interface Props {
 }
 
 const HORAS = Array.from({ length: HORA_FIM - HORA_INICIO }, (_, i) => HORA_INICIO + i);
-
-/** Minuto atual, atualizado a cada minuto, para a linha da hora. */
-function useAgora(): string {
-  const [agora, setAgora] = useState(() => new Date().toISOString());
-  useEffect(() => {
-    const intervalo = window.setInterval(() => setAgora(new Date().toISOString()), 60_000);
-    return () => window.clearInterval(intervalo);
-  }, []);
-  return agora;
-}
 
 /** Grade da semana: sete dias, das 6h às 24h, com blocos e compromissos (FR-010). */
 export function GradeSemana({ inicioSemana, hoje, itens, corDaArea, aoClicarHorario, aoClicarItem }: Props) {

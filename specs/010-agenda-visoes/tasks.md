@@ -14,9 +14,9 @@ description: "Lista de tarefas das visões e do painel de tarefas da Agenda"
 
 ## Fase 2: Visões e filtro (T026a)
 
-- [ ] T003 Criar `BarraAgenda.tsx` e `FiltroAgenda.tsx`; ligar o filtro e a visão em `src/telas/Agenda.tsx`.
-- [ ] T004 Criar `VisaoLista.tsx` e `VisaoTabela.tsx`.
-- [ ] T005 Criar `VisaoTimeline.tsx` e `VisaoBoard.tsx` (mover para outro dia com RN09).
+- [X] T003 Criar `BarraAgenda.tsx` e `FiltroAgenda.tsx`; ligar o filtro e a visão em `src/telas/Agenda.tsx`.
+- [X] T004 Criar `VisaoLista.tsx` e `VisaoTabela.tsx`.
+- [X] T005 Criar `VisaoTimeline.tsx` e `VisaoBoard.tsx` (mover para outro dia com RN09).
 
 ## Fase 3: Painel de tarefas (T026b)
 
