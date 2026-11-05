@@ -6,12 +6,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useCriarTarefaDeItem } from "@/dados/consultas";
 import { ehErroOnPath, type ErroOnPath } from "@/dados/erros";
 import type { ItemCaixa } from "@/dados/tipos";
-import {
-  FormularioTarefa,
-  paraNovaTarefa,
-  VALORES_VAZIOS,
-  type ValoresFormulario,
-} from "@/features/tarefas/FormularioTarefa";
+import { FormularioTarefa } from "@/features/tarefas/FormularioTarefa";
+import { paraNovaTarefa, VALORES_VAZIOS, type ValoresFormulario } from "@/features/tarefas/valoresTarefa";
 import { t } from "@/i18n";
 
 import { avisarErro } from "./avisos";

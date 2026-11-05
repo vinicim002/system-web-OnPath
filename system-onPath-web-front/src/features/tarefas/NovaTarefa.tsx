@@ -5,7 +5,8 @@ import { ehErroOnPath, type ErroOnPath } from "@/dados/erros";
 import { avisarErro } from "@/features/caixa/avisos";
 import { t } from "@/i18n";
 
-import { FormularioTarefa, paraNovaTarefa, type ValoresFormulario } from "./FormularioTarefa";
+import { FormularioTarefa } from "./FormularioTarefa";
+import { paraNovaTarefa, type ValoresFormulario } from "./valoresTarefa";
 
 interface Props {
   aoCriar: (id: string) => void;

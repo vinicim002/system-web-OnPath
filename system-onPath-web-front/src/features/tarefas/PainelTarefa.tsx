@@ -12,8 +12,9 @@ import { t } from "@/i18n";
 
 import type { AcoesTarefas } from "./acoes";
 import { ArvoreSubtarefas } from "./ArvoreSubtarefas";
-import { FormularioTarefa, paraNovaTarefa, valoresDaTarefa, type ValoresFormulario } from "./FormularioTarefa";
+import { FormularioTarefa } from "./FormularioTarefa";
 import { MoverTarefa } from "./MoverTarefa";
+import { paraNovaTarefa, valoresDaTarefa, type ValoresFormulario } from "./valoresTarefa";
 
 interface Props {
   tarefa: Tarefa;
