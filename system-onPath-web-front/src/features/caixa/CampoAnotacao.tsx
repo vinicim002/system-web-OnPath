@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -34,6 +34,14 @@ export function CampoAnotacao({
   const [salvando, setSalvando] = useState(false);
   const campo = useRef<HTMLTextAreaElement>(null);
 
+  // Foco ao abrir, com o cursor no fim do texto (útil na edição).
+  useEffect(() => {
+    const elemento = campo.current;
+    if (!focarAoMontar || !elemento) return;
+    elemento.focus();
+    elemento.setSelectionRange(elemento.value.length, elemento.value.length);
+  }, [focarAoMontar]);
+
   async function salvar() {
     const conteudo = texto.trim();
     if (conteudo === "") {
@@ -66,7 +74,6 @@ export function CampoAnotacao({
         value={texto}
         onChange={(evento) => setTexto(evento.target.value)}
         onKeyDown={aoTeclar}
-        autoFocus={focarAoMontar}
         aria-label={rotulo}
         placeholder={placeholder}
         rows={1}

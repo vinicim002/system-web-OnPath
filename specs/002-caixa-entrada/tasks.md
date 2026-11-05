@@ -103,7 +103,7 @@ cumpre o "Pronto quando".
 **Teste independente**: editar, salvar, cancelar e tentar salvar vazio (`quickstart.md`,
 cenário 3).
 
-- [ ] T021 [US3] Em `src/features/caixa/ItemCaixa.tsx`, acrescentar o botão de editar (ícone `Pencil`, `aria-label` `caixa.editar`), ao lado do de descartar. Ao clicar, troca o texto por um `Textarea` com o texto atual e o foco. Enter salva com `useEditarItem()`, Shift+Enter quebra a linha, Esc cancela e volta o texto anterior. Texto vazio ou só espaços cancela sem salvar. Em erro, mantém a edição aberta e mostra o aviso de erro.
+- [X] T021 [US3] Em `src/features/caixa/ItemCaixa.tsx`, acrescentar o botão de editar (ícone `Pencil`, `aria-label` `caixa.editar`), ao lado do de descartar. Ao clicar, troca o texto por um `Textarea` com o texto atual e o foco. Enter salva com `useEditarItem()`, Shift+Enter quebra a linha, Esc cancela e volta o texto anterior. Texto vazio ou só espaços cancela sem salvar. Em erro, mantém a edição aberta e mostra o aviso de erro.
 
 **Ponto de controle**: os cenários 1 a 4 do `quickstart.md` passam.
 
