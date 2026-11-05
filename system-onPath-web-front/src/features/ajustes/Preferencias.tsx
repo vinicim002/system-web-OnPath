@@ -66,7 +66,8 @@ function Lembretes({ ativos }: { ativos: boolean }) {
   const [permissao, setPermissao] = useState<Permissao>(lerPermissao);
 
   async function mudar(ligar: boolean) {
-    if (ligar) setPermissao(await pedirPermissao());
+    // O pedido nasce no clique (o navegador exige), mas a gravação não espera a resposta.
+    if (ligar) void pedirPermissao().then(setPermissao);
     try {
       await alterar.mutateAsync({ lembretesAtivos: ligar });
     } catch (erro) {
