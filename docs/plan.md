@@ -209,6 +209,12 @@ planejado   = soma do tempo estimado dos itens do dia
 
 Se `planejado` passar de `tempo livre`, a API devolve um aviso, sem bloquear (RN10).
 
+A janela do dia começa às 07:00 e termina às 23:00 até o usuário mudar em Ajustes. Blocos e compromissos sobrepostos são descontados uma vez só, e só a parte dentro da janela conta. No front-end, a janela fica nas preferências do navegador.
+
+### Rotina perdida
+
+Um bloco de rotina de hoje, ainda planejado, cujo fim já passou, gera uma proposta: o primeiro horário livre com a mesma duração, de meia em meia hora a partir de agora, dentro da janela do dia; se hoje não couber, amanhã. Aceitar marca o bloco como `remarcado` e cria o novo; recusar marca como `perdido` (RN18). Blocos de dias anteriores não geram proposta.
+
 ### Pendências do dia
 
 Ao abrir o app, a API busca itens pendentes de datas passadas. A interface pede um destino para cada um antes de liberar o planejamento do dia (RN25).
@@ -224,6 +230,8 @@ A interface guarda a última resposta da tela Hoje no armazenamento local do nav
 ### Lembretes
 
 Na V0.1.0, os lembretes usam as notificações do navegador e dependem de o app estar aberto. Notificações com o app fechado ficam para o celular ou para uma etapa própria.
+
+O aviso vem 10 minutos antes de compromissos e blocos planejados, uma vez por item. Sem permissão de notificação, aparece só dentro do app.
 
 ### Kanban e fila
 
