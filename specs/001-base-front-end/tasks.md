@@ -27,11 +27,11 @@ T001 a T005 do `docs/tasks.md`, que só são marcadas na fase final.
 
 **Objetivo**: criar o projeto Expo em `system-onPath-web-front/`, já configurado.
 
-- [ ] T001 Criar o projeto Expo em `system-onPath-web-front/` com o template TypeScript e Expo Router (`npx create-expo-app@latest system-onPath-web-front`, na versão estável atual). Em seguida, apagar as telas, os componentes, as imagens e as constantes de exemplo do template, mantendo só `app.json`, `package.json`, `tsconfig.json`, `assets/` e a pasta `system-onPath-web-front/app/`.
-- [ ] T002 Instalar as dependências em `system-onPath-web-front/package.json` com `npx expo install`: `@tanstack/react-query`, `zod`, `@expo-google-fonts/inter`, `expo-font` e `expo-splash-screen`. Instalar também as dependências de desenvolvimento `jest`, `jest-expo`, `@types/jest` e `jest-environment-jsdom`.
-- [ ] T003 [P] Ativar `"strict": true` em `system-onPath-web-front/tsconfig.json`, alterar o atalho `@/*` para apontar para `system-onPath-web-front/src/*` e acrescentar os scripts `"web": "expo start --web"`, `"test": "jest"` e `"typecheck": "tsc --noEmit"` em `system-onPath-web-front/package.json`.
-- [ ] T004 [P] Configurar o Jest em `system-onPath-web-front/jest.config.js` com `preset: "jest-expo/web"`, `testEnvironment: "jsdom"`, o mapeamento `^@/(.*)$` para `<rootDir>/src/$1` os testes em `system-onPath-web-front/__tests__/` e `setupFiles: ["<rootDir>/jest.setup.js"]`. O `jest.setup.js` define `globalThis.crypto` com o `webcrypto` do Node, se o ambiente não tiver `crypto.randomUUID`.
-- [ ] T005 [P] Definir em `system-onPath-web-front/app.json` o nome "OnPath", o slug `onpath`, a plataforma `web` com `"output": "single"` e o esquema `onpath`.
+- [X] T001 Criar o projeto Expo em `system-onPath-web-front/` com o template TypeScript e Expo Router (`npx create-expo-app@latest system-onPath-web-front`, na versão estável atual). Em seguida, apagar as telas, os componentes, as imagens e as constantes de exemplo do template, mantendo só `app.json`, `package.json`, `tsconfig.json`, `assets/` e a pasta `system-onPath-web-front/app/`.
+- [X] T002 Instalar as dependências em `system-onPath-web-front/package.json` com `npx expo install`: `@tanstack/react-query`, `zod`, `@expo-google-fonts/inter`, `expo-font` e `expo-splash-screen`. Instalar também as dependências de desenvolvimento `jest`, `jest-expo`, `@types/jest` e `jest-environment-jsdom`.
+- [X] T003 [P] Ativar `"strict": true` em `system-onPath-web-front/tsconfig.json`, alterar o atalho `@/*` para apontar para `system-onPath-web-front/src/*` e acrescentar os scripts `"web": "expo start --web"`, `"test": "jest"` e `"typecheck": "tsc --noEmit"` em `system-onPath-web-front/package.json`.
+- [X] T004 [P] Configurar o Jest em `system-onPath-web-front/jest.config.js` com `preset: "jest-expo/web"`, `testEnvironment: "jsdom"`, o mapeamento `^@/(.*)$` para `<rootDir>/src/$1` os testes em `system-onPath-web-front/__tests__/` e `setupFiles: ["<rootDir>/jest.setup.js"]`. O `jest.setup.js` define `globalThis.crypto` com o `webcrypto` do Node, se o ambiente não tiver `crypto.randomUUID`.
+- [X] T005 [P] Definir em `system-onPath-web-front/app.json` o nome "OnPath", o slug `onpath`, a plataforma `web` com `"output": "single"` e o esquema `onpath`.
 
 ---
 
