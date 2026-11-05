@@ -37,9 +37,9 @@ description: "Lista de tarefas da Etapa 5 (Projetos)"
 
 ## Fase 2: História 1, ver os projetos por grupo (P1) 🎯 MVP
 
-- [ ] T007 [P] [US1] Criar `src/features/projetos/FormularioProjeto.tsx` (nome, grupo, prioridade, prazo, meta da área do grupo e descrição; `react-hook-form` + Zod; erros do serviço por campo) e `src/features/projetos/FiltrosProjetos.tsx` (área e status no endereço).
-- [ ] T008 [P] [US1] Criar `src/features/projetos/LinhaProjeto.tsx`: nome (link para `/projetos/{id}`), prioridade, prazo e "Sem próxima ação"; e `src/features/projetos/CartaoGrupo.tsx`: nome, vagas, "Acima do limite", "Editar grupo" (`FormularioGrupo` da Etapa 4), ativos, fila ordenável com `dnd-kit` e teclado (`useReordenarFila`), pausados e encerrados recolhidos.
-- [ ] T009 [US1] Em `src/telas/Projetos.tsx`, mostrar `useVisaoProjetos(filtros)` por área com os `CartaoGrupo`, os filtros e "Novo projeto" num `Dialog` com o `FormularioProjeto`.
+- [X] T007 [P] [US1] Criar `src/features/projetos/FormularioProjeto.tsx` (nome, grupo, prioridade, prazo, meta da área do grupo e descrição; `react-hook-form` + Zod; erros do serviço por campo) e `src/features/projetos/FiltrosProjetos.tsx` (área e status no endereço).
+- [X] T008 [P] [US1] Criar `src/features/projetos/LinhaProjeto.tsx`: nome (link para `/projetos/{id}`), prioridade, prazo e "Sem próxima ação"; e `src/features/projetos/CartaoGrupo.tsx`: nome, vagas, "Acima do limite", "Editar grupo" (`FormularioGrupo` da Etapa 4), ativos, fila ordenável com `dnd-kit` e teclado (`useReordenarFila`), pausados e encerrados recolhidos.
+- [X] T009 [US1] Em `src/telas/Projetos.tsx`, mostrar `useVisaoProjetos(filtros)` por área com os `CartaoGrupo`, os filtros e "Novo projeto" num `Dialog` com o `FormularioProjeto`.
 
 **Ponto de controle**: cenário 1 do `quickstart.md` passa.
 
@@ -47,9 +47,9 @@ description: "Lista de tarefas da Etapa 5 (Projetos)"
 
 ## Fase 3: História 2, ativar com as regras (P1)
 
-- [ ] T010 [P] [US2] Criar `src/features/projetos/GrupoCheio.tsx` (diálogo com os ocupantes e os botões Pausar e Concluir; ao escolher, muda o status do ocupante e tenta ativar de novo) e `src/features/projetos/ProximaAcao.tsx` (diálogo com título, prioridade e tempo; "Criar e ativar" cria a tarefa com `projetoId` e tenta ativar de novo).
-- [ ] T011 [US2] Criar `src/features/projetos/AcoesStatus.tsx`: os botões das transições permitidas pelo status atual (`TRANSICOES`), com os erros `grupo_cheio` e `sem_proxima_acao` abrindo os diálogos. Usar em `LinhaProjeto.tsx`.
-- [ ] T012 [US2] Em `src/features/tarefas/acoes.ts`, depois de concluir uma tarefa com `projetoId`, consultar `projetos.semProximaAcao` e, se verdadeiro, avisar "{projeto} ficou sem próxima ação" com a ação "Abrir projeto".
+- [X] T010 [P] [US2] Criar `src/features/projetos/GrupoCheio.tsx` (diálogo com os ocupantes e os botões Pausar e Concluir; ao escolher, muda o status do ocupante e tenta ativar de novo) e `src/features/projetos/ProximaAcao.tsx` (diálogo com título, prioridade e tempo; "Criar e ativar" cria a tarefa com `projetoId` e tenta ativar de novo).
+- [X] T011 [US2] Criar `src/features/projetos/AcoesStatus.tsx`: os botões das transições permitidas pelo status atual (`TRANSICOES`), com os erros `grupo_cheio` e `sem_proxima_acao` abrindo os diálogos. Usar em `LinhaProjeto.tsx`.
+- [X] T012 [US2] Em `src/features/tarefas/acoes.ts`, depois de concluir uma tarefa com `projetoId`, consultar `projetos.semProximaAcao` e, se verdadeiro, avisar "{projeto} ficou sem próxima ação" com a ação "Abrir projeto".
 
 **Ponto de controle**: cenários 1 e 2 passam. A T016 cumpre o "Pronto quando".
 

@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 import {
@@ -8,6 +9,7 @@ import {
   useReabrirTarefa,
   useRecuperarTarefa,
 } from "@/dados/consultas";
+import { useServicos } from "@/dados/ServicosProvider";
 import { ehErroOnPath } from "@/dados/erros";
 import type { Tarefa } from "@/dados/tipos";
 import { avisarErro } from "@/features/caixa/avisos";
@@ -15,7 +17,7 @@ import { t } from "@/i18n";
 
 export interface AcoesTarefas {
   /** Conclui a tarefa aberta ou reabre a concluída/cancelada. */
-  alternarConclusao: (tarefa: Pick<Tarefa, "id" | "status">) => Promise<void>;
+  alternarConclusao: (tarefa: Pick<Tarefa, "id" | "status" | "projetoId">) => Promise<void>;
   cancelar: (id: string) => Promise<void>;
   excluir: (id: string) => Promise<void>;
 }
@@ -37,6 +39,26 @@ export function useAcoesTarefas(): { acoes: AcoesTarefas; pedido: PedidoConfirma
   const { mutateAsync: excluir } = useExcluirTarefa();
   const { mutateAsync: recuperar } = useRecuperarTarefa();
   const [pedido, setPedido] = useState<PedidoConfirmacao | null>(null);
+  const { projetos } = useServicos();
+  const navegar = useNavigate();
+
+  /** Depois de concluir, avisa se o projeto ativo ficou sem tarefa aberta (RN08, FR-016 de specs/006). */
+  const avisarSemProximaAcao = useCallback(
+    async (projetoId: string | null) => {
+      if (!projetoId) return;
+      try {
+        if (!(await projetos.semProximaAcao(projetoId))) return;
+        const projeto = await projetos.obter(projetoId);
+        toast(t("projetos.avisos.semProximaAcao", { projeto: projeto.nome }), {
+          duration: 8000,
+          action: { label: t("projetos.avisos.abrirProjeto"), onClick: () => navegar(`/projetos/${projetoId}`) },
+        });
+      } catch {
+        // O aviso é só uma ajuda; se a consulta falhar, a conclusão já foi feita.
+      }
+    },
+    [projetos, navegar],
+  );
 
   const fechar = useCallback(() => setPedido(null), []);
 
@@ -49,13 +71,16 @@ export function useAcoesTarefas(): { acoes: AcoesTarefas; pedido: PedidoConfirma
             return;
           }
           await concluir({ id: tarefa.id });
+          await avisarSemProximaAcao(tarefa.projetoId);
         } catch (erro) {
           if (ehErroOnPath(erro) && erro.codigo === "subtarefas_abertas") {
             setPedido({
               quantidade: Number(erro.detalhes.quantidade ?? 0),
               confirmar: () => {
                 setPedido(null);
-                concluir({ id: tarefa.id, incluirSubtarefas: true }).catch(avisarErro);
+                concluir({ id: tarefa.id, incluirSubtarefas: true })
+                  .then(() => avisarSemProximaAcao(tarefa.projetoId))
+                  .catch(avisarErro);
               },
               cancelar: fechar,
             });
@@ -87,7 +112,7 @@ export function useAcoesTarefas(): { acoes: AcoesTarefas; pedido: PedidoConfirma
         }
       },
     }),
-    [concluir, reabrir, cancelar, excluir, recuperar, fechar],
+    [concluir, reabrir, cancelar, excluir, recuperar, fechar, avisarSemProximaAcao],
   );
 
   return { acoes, pedido };

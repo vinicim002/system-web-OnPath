@@ -454,3 +454,26 @@ export function useRecuperarProjeto() {
   const { projetos } = useServicos();
   return useEscrita((id: string) => projetos.recuperar(id), CHAVES_PROJETOS);
 }
+
+/** Grupos e metas ativos, para o formulário de projeto. */
+export function useOpcoesProjeto() {
+  const servicos = useServicos();
+  return useQuery({
+    queryKey: ["projetos", "opcoes"],
+    queryFn: async () => {
+      const [areas, grupos, metas] = await Promise.all([
+        servicos.areas.listar(),
+        servicos.grupos.listar(),
+        servicos.metas.listar(),
+      ]);
+      const ordemArea = new Map(areas.map((area) => [area.id, area.ordem]));
+      return {
+        areas: [...areas].sort((a, b) => a.ordem - b.ordem),
+        grupos: grupos
+          .filter((grupo) => ordemArea.has(grupo.areaId))
+          .sort((a, b) => (ordemArea.get(a.areaId)! - ordemArea.get(b.areaId)!) || a.nome.localeCompare(b.nome, "pt-BR")),
+        metas: metas.filter((meta) => meta.status === "ativa"),
+      };
+    },
+  });
+}
